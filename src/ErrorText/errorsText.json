@@ -1,0 +1,17 @@
+{
+  "101": "Oops! Something went wrong with your request format.",
+  "102": "It looks like you're missing a required parameter. Please check and try again.",
+  "103": "Hmm, that parameter value doesn't seem right. Please verify and try again.",
+  "201": "Oops! You need to be logged in to do that.",
+  "202": "Sorry, you don't have permission to access this resource.",
+  "203": "Your session has expired. Please log in again.",
+  "301": "We couldn't find the resource you're looking for.",
+  "302": "This resource already exists. Maybe check for duplicates?",
+  "303": "There's a conflict with this resource. Please review and try again.",
+  "401": "We couldn't connect to the database. Please try again later.",
+  "402": "There was an error with the database query. Please try again.",
+  "403": "Data integrity violation. Please check the data and try again.",
+  "501": "Oops! Something went wrong on our end.",
+  "502": "The service is currently unavailable. Please try again later.",
+  "503": "The gateway timed out. Please try again in a bit."
+}
