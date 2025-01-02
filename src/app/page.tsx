@@ -1,5 +1,4 @@
 import Image from "next/image";
-import ErrorWrapper from './wrappers/errorWrapper'
 
 function Home() {
   return (
@@ -102,4 +101,4 @@ function Home() {
 }
 
 
-export default ErrorWrapper(Home)
+export default Home
