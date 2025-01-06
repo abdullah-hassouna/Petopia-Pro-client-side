@@ -5,12 +5,31 @@ import { Button } from "@/components/ui/button"
 // import { Bell, Bookmark, Home, Mail, Search, User, Sun, Moon, SunMoon } from 'lucide-react'
 import { Bookmark, Home2, Message, NotificationBing, Profile, SearchNormal1, } from "iconsax-react"
 import ThemeToggle from "../ThemeToggle"
-// import {} from 'react-icons/'
+import clsx from "clsx"
+import { useSelector } from "react-redux"
+import { RootState } from "@/lib/store"
+
 
 
 export default function UserInfoSidebar() {
+    const isOpen = useSelector((state: RootState) => state.userSidebar.isOpen);
+
+    // console.log(isOpen)
+
     return (
-        <aside className="w-[240px] w-max-[340px] bg-foreground h-screen flex flex-col border-r border-border">
+        <aside
+            //  className="w-[240px] w-max-[340px] bg-foreground h-screen flex flex-col border-r border-border">
+            // className={clsx("bg-foreground h-screen flex flex-col border-r border-border", { "animate-slideinFromLeft": isOpen, "animate-slideOutToLeft": !isOpen })}
+
+            className={clsx(
+                "bg-foreground h-screen flex flex-col border-r border-border transition-transform duration-500 ease-in-out", // Smooth transitions
+                {
+                    "-translate-x-full": !isOpen, // Start hidden off-screen
+                    "translate-x-0": isOpen,     // Slide into view
+                }
+            )}
+        >
+
             <div className="p-4 ">
                 <div>
                     <img src="/logo.svg" height={45} width={45} />

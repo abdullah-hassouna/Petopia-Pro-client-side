@@ -4,9 +4,10 @@ import type { Metadata } from "next";
 import { Readex_Pro } from "next/font/google";
 import "./globals.css";
 import "./themes.css";
-import ThemeToggle from './components/ThemeToggle';
+import UIToggle from "./components/sidebars/UserInfoSidebarToggle"
+// import ThemeToggle from './components/ThemeToggle';
 import ProviderContainer from "@/lib/providerContainer/container";
-import UserInfoSidebar from "./components/sidebars/UserInfoSB";
+import UserInfoSidebar from "./components/sidebars/UserInfoSidebar";
 
 const readexPro = Readex_Pro({
   variable: "--font-readex-pro",
@@ -36,9 +37,11 @@ export default function RootLayout({
     <ProviderContainer>
       <html lang="en">
         <body
-          className={`${readexPro.className} antialiased`}
+          className={`${readexPro.className} antialiased flex`}
         >
           <UserInfoSidebar />
+          <UIToggle />
+
           {children}
         </body>
       </html>
