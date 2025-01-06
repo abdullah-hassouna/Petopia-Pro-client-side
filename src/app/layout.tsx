@@ -6,6 +6,7 @@ import "./globals.css";
 import "./themes.css";
 import ThemeToggle from './components/ThemeToggle';
 import ProviderContainer from "@/lib/providerContainer/container";
+import UserInfoSidebar from "./components/sidebars/UserInfoSB";
 
 const readexPro = Readex_Pro({
   variable: "--font-readex-pro",
@@ -37,12 +38,7 @@ export default function RootLayout({
         <body
           className={`${readexPro.className} antialiased`}
         >
-          <header className="p-4 bg-background">
-            <div className="container mx-auto flex justify-end">
-              <ThemeToggle />
-              {/* <button onClick={() => startLoading()} /> */}
-            </div>
-          </header>
+          <UserInfoSidebar />
           {children}
         </body>
       </html>
