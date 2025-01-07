@@ -21,38 +21,38 @@ export default {
         },
         adoption: {
           DEFAULT: 'var(--adoption-tag)',
-          90: 'rgba(var(--adoption-tag-rgb), 0.9)',
+          70: 'rgba(var(--adoption-tag-rgb), 0.7)',
         },
         product: {
           DEFAULT: 'var(--product-tag)',
-          90: 'rgba(var(--product-tag-rgb), 0.9)',
+          70: 'rgba(var(--product-tag-rgb), 0.7)',
         },
         discuss: {
           DEFAULT: 'var(--discuss-tag)',
-          90: 'rgba(var(--discuss-tag-rgb), 0.9)',
+          70: 'rgba(var(--discuss-tag-rgb), 0.7)',
         },
         sale: {
           DEFAULT: 'var(--sale-tag)',
-          90: 'rgba(var(--sale-tag-rgb), 0.9)',
+          70: 'rgba(var(--sale-tag-rgb), 0.75)',
         },
         help: {
           DEFAULT: 'var(--help-tag)',
-          90: 'rgba(var(--help-tag-rgb), 0.9)',
+          70: 'rgba(var(--help-tag-rgb), 0.75)',
         },
+        gray: {
+          DEFAULT: 'var(--border-color)'
+        },
+        whity: {
+          DEFAULT: 'var(--whity)'
+        }
       },
       borderRadius: {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
-        sm: 'calc(var(--radius) - 4px)'
+        sm: 'calc(var(--radius) - 4px)',
       }
     }
   },
-  safelist: [
-    'hover:bg-adoption/90',
-    'hover:bg-product/90',
-    'hover:bg-discuss/90',
-    'hover:bg-sale/90',
-    'hover:bg-help/90',
-  ],
+
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;

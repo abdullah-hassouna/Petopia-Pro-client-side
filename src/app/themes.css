@@ -2,7 +2,6 @@
   --header-font-color: #0d161d;
   --sub-header-font-color: #61696d;
   --body-font-color: #9ea2a5;
-
   --adoption-tag: #efedff;
   --adoption-tag-rgb: 239, 237, 255;
   --product-tag: #f8f0fe;
@@ -13,12 +12,13 @@
   --sale-tag-rgb: 251, 220, 231;
   --help-tag: #f3fbdc;
   --help-tag-rgb: 243, 251, 220;
-  --border-color: #f3f7fb;
+  --border-color: #9ea2a5;
   --foreground: #fdfdff;
-  --background: #f3f7fb;
+  --background: #f0f0f5;
   --prime-color: #f37f29;
   --prime-color-rgb: 243, 127, 41;
   --logo-color: #ff903b;
+  --whity: #0a0a0a;
 }
 
 [data-theme='dark'] {
@@ -35,9 +35,10 @@
   --sale-tag-rgb: 77, 44, 61;
   --help-tag: #3d4d2c;
   --help-tag-rgb: 61, 77, 44;
-  --border-color: #d9dde1;
-  --foreground: #ededed;
+  --border-color: #9ea2a5;
+  --foreground: #242222;
   --background: #0a0a0a;
+  --whity: #ffffff;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -55,9 +56,10 @@
     --sale-tag-rgb: 77, 44, 61;
     --help-tag: #3d4d2c;
     --help-tag-rgb: 61, 77, 44;
-    --border-color: #d9dde1;
-    --foreground: #ededed;
+    --border-color: #9ea2a5;
+    --foreground: #242222;
     --background: #0a0a0a;
+    --whity: #ffffff;
   }
 }
 

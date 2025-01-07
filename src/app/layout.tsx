@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${readexPro.className} antialiased`}
+        className={`${readexPro.className} antialiased bg-background`}
       >
         <header className="p-4 bg-background">
           <div className="container mx-auto flex justify-end">
