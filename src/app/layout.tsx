@@ -1,5 +1,3 @@
-// "use client"
-
 import type { Metadata } from "next";
 import { Readex_Pro } from "next/font/google";
 import "./globals.css";
@@ -17,7 +15,7 @@ export const metadata: Metadata = {
   description: "Prtopia Platform for animal Lovers",
   authors: [
     { name: "Abdullah Hassouna", url: "https://www.github.com/abdullah-hassouna" },
-    { name: "Haitham Abu-Lumdi", url: "https://www.github.com/haitham-akram" }
+    { name: "Haitham Abu-Lamdi", url: "https://www.github.com/haitham-akram" }
   ],
 };
 

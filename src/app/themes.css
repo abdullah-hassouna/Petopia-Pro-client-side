@@ -1,64 +1,69 @@
-
 :root {
-    --header-font-color: #0D161D
-    --sub-header-font-color:#61696D
-    --body-font-color:#9EA2A5
-  
-    --adoption-tag: #efedffff;
-    --product-tag: #f8f0feff;
-    --discuss-tag: #fbf2dcff;
-    --sale-tag: #fbdce7ff;
-    --help-tag: #f3fbdc;
-  
-    --border-color: #F3F7FB;
-  
-    --foreground: #fdfdffff;
-    --background: #f3f7fbff;
-  
-    --prime-color: #f37f29ff;
-    --logo-color: #ff903bff;
-  }
-  
-  [data-theme="dark"] {
-    --header-font-color: #ffffff;
-    --sub-header-font-color: #cccccc;
-    --body-font-color: #999999;
-  
-    --adoption-tag: #2d2c3d;
-    --product-tag: #3d2c4d;
-    --discuss-tag: #4d3d2c;
-    --sale-tag: #4d2c3d;
-    --help-tag: #3d4d2c;
-  
-    --border-color: #D9DDE1
-  
-    --foreground: #ededed;
-    --background: #0a0a0a;
-  }
-  
-  @media (prefers-color-scheme: dark) {
-    :root:not([data-theme="light"]) {
-      
-    --header-font-color: #ffffff;
-    --sub-header-font-color: #cccccc;
-    --body-font-color: #999999;
-  
-    --adoption-tag: #2d2c3d;
-    --product-tag: #3d2c4d;
-    --discuss-tag: #4d3d2c;
-    --sale-tag: #4d2c3d;
-    --help-tag: #3d4d2c;
-  
-    --border-color: #D9DDE1
-    
-    --foreground: #ededed;
-    --background: #0a0a0a;
-    }
-  }
+  --header-font-color: #0d161d;
+  --sub-header-font-color: #61696d;
+  --body-font-color: #9ea2a5;
+  --adoption-tag: #efedff;
+  --adoption-tag-rgb: 239, 237, 255;
+  --product-tag: #f8f0fe;
+  --product-tag-rgb: 248, 240, 254;
+  --discuss-tag: #fbf2dc;
+  --discuss-tag-rgb: 251, 242, 220;
+  --sale-tag: #fbdce7;
+  --sale-tag-rgb: 251, 220, 231;
+  --help-tag: #f3fbdc;
+  --help-tag-rgb: 243, 251, 220;
+  --border-color: #9ea2a5;
+  --foreground: #fdfdff;
+  --background: #f0f0f5;
+  --prime-color: #f37f29;
+  --prime-color-rgb: 243, 127, 41;
+  --logo-color: #ff903b;
+  --whity: #0a0a0a;
+}
 
-  
-body {
-    color: var(--header-font-color);
-    background: var(--background);
+[data-theme='dark'] {
+  --header-font-color: #ffffff;
+  --sub-header-font-color: #cccccc;
+  --body-font-color: #999999;
+  --adoption-tag: #2d2c3d;
+  --adoption-tag-rgb: 45, 44, 61;
+  --product-tag: #3d2c4d;
+  --product-tag-rgb: 61, 44, 77;
+  --discuss-tag: #4d3d2c;
+  --discuss-tag-rgb: 77, 61, 44;
+  --sale-tag: #4d2c3d;
+  --sale-tag-rgb: 77, 44, 61;
+  --help-tag: #3d4d2c;
+  --help-tag-rgb: 61, 77, 44;
+  --border-color: #9ea2a5;
+  --foreground: #242222;
+  --background: #0a0a0a;
+  --whity: #ffffff;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --header-font-color: #ffffff;
+    --sub-header-font-color: #cccccc;
+    --body-font-color: #999999;
+    --adoption-tag: #2d2c3d;
+    --adoption-tag-rgb: 45, 44, 61;
+    --product-tag: #3d2c4d;
+    --product-tag-rgb: 61, 44, 77;
+    --discuss-tag: #4d3d2c;
+    --discuss-tag-rgb: 77, 61, 44;
+    --sale-tag: #4d2c3d;
+    --sale-tag-rgb: 77, 44, 61;
+    --help-tag: #3d4d2c;
+    --help-tag-rgb: 61, 77, 44;
+    --border-color: #9ea2a5;
+    --foreground: #242222;
+    --background: #0a0a0a;
+    --whity: #ffffff;
   }
-  
+}
+
+body {
+  color: var(--header-font-color);
+  background: var(--background);
+}
