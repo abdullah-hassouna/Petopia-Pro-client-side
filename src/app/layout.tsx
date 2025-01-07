@@ -4,10 +4,10 @@ import type { Metadata } from "next";
 import { Readex_Pro } from "next/font/google";
 import "./globals.css";
 import "./themes.css";
-import UIToggle from "./components/sidebars/UserInfoSidebarToggle"
 // import ThemeToggle from './components/ThemeToggle';
-import ProviderContainer from "@/lib/providerContainer/container";
+import ProviderContainer from "@/lib/reduxStore/providerContainer/container";
 import UserInfoSidebar from "./components/sidebars/UserInfoSidebar";
+import UIToggle from "./components/sidebars/UserInfoSidebarToggle"
 
 const readexPro = Readex_Pro({
   variable: "--font-readex-pro",
@@ -37,12 +37,14 @@ export default function RootLayout({
     <ProviderContainer>
       <html lang="en">
         <body
-          className={`${readexPro.className} antialiased flex`}
+          className={`${readexPro.className} antialiased flex gap-10 justify-between`}
         >
           <UserInfoSidebar />
-          <UIToggle />
-
-          {children}
+          <div className="flex-grow my-3">
+            <UIToggle />
+            {children}
+          </div>
+          {/* <UserInfoSidebar /> */}
         </body>
       </html>
     </ProviderContainer>

@@ -15,6 +15,8 @@
     --foreground: #fdfdffff;
     --background: #f3f7fbff;
   
+    --icon-color: #f37f29ff;
+
     --prime-color: #f37f29ff;
     --logo-color: #ff903bff;
   }
@@ -29,11 +31,14 @@
     --discuss-tag: #4d3d2c;
     --sale-tag: #4d2c3d;
     --help-tag: #3d4d2c;
-  
-    --border-color: #D9DDE1
-  
-    --foreground: #ededed;
+    
+    --border-color: #474747;
+
+    --foreground: #0a1155;
     --background: #0a0a0a;
+
+    --icon-color: #c4c4c4;
+
   }
   
   @media (prefers-color-scheme: dark) {
@@ -48,11 +53,13 @@
     --discuss-tag: #4d3d2c;
     --sale-tag: #4d2c3d;
     --help-tag: #3d4d2c;
-  
-    --border-color: #D9DDE1
+
+    --border-color: #474747;
     
-    --foreground: #ededed;
+    --foreground: #0a1155;
     --background: #0a0a0a;
+
+    --icon-color: #c4c4c4;
     }
   }
 

@@ -19,14 +19,14 @@ export default function ThemeToggle() {
   }, []);
 
   interface iIconsProps {
-    size: number,
+    // size: number,
     color: string,
     variant: "Bulk" | "Linear" | "Outline" | "Broken" | "Bold" | "TwoTone"
   }
 
   const iconsProps: iIconsProps = {
-    size: 50,
-    color: "#FF8A65",
+    // size: 50,
+    color: "var(--icon-color)",
     variant: "Bulk"
   }
 
@@ -80,9 +80,9 @@ export default function ThemeToggle() {
         variant="ghost"
         className="w-full justify-start gap-3 font-normal"
       >{
-          theme === "light" ? <Sun {...iconsProps} /> :
-            theme === "dark" ? <Moon  {...iconsProps} /> :
-              <CloudSunny  {...iconsProps} />
+          theme === "light" ? <Sun {...iconsProps} style={{ height: 24, width: 24 }} /> :
+            theme === "dark" ? <Moon  {...iconsProps} style={{ height: 24, width: 24 }} /> :
+              <CloudSunny  {...iconsProps} style={{ height: 24, width: 24 }} />
         }
         Change Theme
       </Button>

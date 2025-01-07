@@ -1,6 +1,6 @@
 "use client"
 
-import { AppDispatch, startLoading, stopLoading } from "@/lib/store";
+import { AppDispatch, startLoading, stopLoading } from "@/lib/reduxStore/store";
 import { useDispatch, } from "react-redux";
 
 function ChangeLoading() {

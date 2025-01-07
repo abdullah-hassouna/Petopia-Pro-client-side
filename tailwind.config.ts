@@ -6,7 +6,6 @@ export default {
 		"./src/pages/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/components/**/*.{js,ts,jsx,tsx,mdx}",
 		"./src/app/**/*.{js,ts,jsx,tsx,mdx}",
-		// "./public*.{css,sass,scss}",
 	],
 	theme: {
 		extend: {
@@ -18,33 +17,10 @@ export default {
 				discuss: 'var(--discuss-tag)',
 				sale: 'var(--sale-tag)',
 				help: 'var(--help-tag)',
-				border: 'hsl(var(--border))',
+				borderColor: 'var(--border-color)',
+				iconColor: 'var(--icon-color)',
 				primary: 'var(--prime-color)',
 				logo: 'var(--logo-color)',
-				card: {
-					DEFAULT: 'hsl(var(--card))',
-					foreground: 'hsl(var(--card-foreground))'
-				},
-				popover: {
-					DEFAULT: 'hsl(var(--popover))',
-					foreground: 'hsl(var(--popover-foreground))'
-				},
-				secondary: {
-					DEFAULT: 'hsl(var(--secondary))',
-					foreground: 'hsl(var(--secondary-foreground))'
-				},
-				muted: {
-					DEFAULT: 'hsl(var(--muted))',
-					foreground: 'hsl(var(--muted-foreground))'
-				},
-				accent: {
-					DEFAULT: 'hsl(var(--accent))',
-					foreground: 'hsl(var(--accent-foreground))'
-				},
-				destructive: {
-					DEFAULT: 'hsl(var(--destructive))',
-					foreground: 'hsl(var(--destructive-foreground))'
-				},
 				input: 'hsl(var(--input))',
 				ring: 'hsl(var(--ring))',
 				chart: {
@@ -62,17 +38,30 @@ export default {
 			},
 			keyframes: {
 				slideOutToLeft: {
-					"0%": { transform: "translateX(0)", opacity: "1" },
-					"100%": { transform: "translateX(-100%)", opacity: "0" },
+					"0%": { transform: "translateX(-1%)", },
+					"100%": { transform: "translateX(-100%)", },
 				}, slideinFromLeft: {
-					"0%": { transform: "translateX(-100%)", opacity: "0" },
-					"100%": { transform: "translateX(0)", opacity: "1" },
+					"0%": { transform: "translateX(-100%)", },
+					"100%": { transform: "translateX(-1%)", },
+				},
+
+				flipedArrowToLeft: {
+					"0%": { transform: "rotateZ(0deg)", },
+					"100%": { transform: "rotateZ(180deg)" },
+				}, flipedArrowToRight: {
+					"0%": { transform: "rotateZ(180deg)", },
+					"100%": { transform: "rotateZ(0deg)" },
 				}
 			},
 			animation: {
 				slideOutToLeft: 'slideOutToLeft 0.5s ease-in-out forwards',
 				slideinFromLeft: 'slideInFromLeft 0.5s ease-in-out forwards',
+				flipedArrowToLeft: 'flipedArrowToLeft 0.5s ease-in-out forwards',
+				flipedArrowToRight: 'flipedArrowToRight 0.5s ease-in-out forwards',
 			},
+			// borderColor: {
+			// 	DEFAULT: "var(--border-color)"
+			// }
 		}
 	},
 	plugins: [require("tailwindcss-animate")],

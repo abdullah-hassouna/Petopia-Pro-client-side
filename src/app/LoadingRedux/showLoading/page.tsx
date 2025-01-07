@@ -1,6 +1,6 @@
 "use client"
 
-import { RootState, } from "@/lib/store";
+import { RootState, } from "@/lib/reduxStore/store";
 import { useSelector } from "react-redux";
 
 function ShowLoading() {
