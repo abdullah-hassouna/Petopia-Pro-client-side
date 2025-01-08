@@ -7,6 +7,7 @@ import { useSelector } from "react-redux"
 import { RootState } from "@/lib/reduxStore/store"
 import NavbarLink from "../NavbarLink"
 import ProfileAvatar from "../ProfileAvatar"
+import CreatePostButton from "../CreatePostButton"
 
 
 export default function UserInfoSidebar() {
@@ -38,7 +39,7 @@ export default function UserInfoSidebar() {
                 </div>
             </div>
 
-            <nav className="flex-1 p-2">
+            <nav className="flex-1 p-2 align-middle">
                 <ul className="space-y-1">
                     {[
                         { Icon: Home2, label: "Home", link: "" },
@@ -54,6 +55,7 @@ export default function UserInfoSidebar() {
                         <ThemeToggle />
                     </li>
                 </ul>
+                <CreatePostButton className={"mt-10"} title={"Create Post"} options={[{ title: "Adopte", value: "3" }]} />
             </nav>
         </div>
     )
