@@ -37,7 +37,7 @@ export default function RootLayout({
     <ProviderContainer>
       <html lang="en">
         <body
-          className={`${readexPro.className} antialiased flex gap-10 justify-between`}
+          className={`${readexPro.className} transition-all antialiased flex gap-10 justify-between`}
         >
           <UserInfoSidebar />
           <div className="flex-grow my-3">

@@ -38,11 +38,11 @@ export default {
 			},
 			keyframes: {
 				slideOutToLeft: {
-					"0%": { transform: "translateX(-1%)", },
-					"100%": { transform: "translateX(-100%)", },
+					"0%": { transform: "w-[200px]", },
+					"100%": { transform: "w-[0px]", },
 				}, slideinFromLeft: {
-					"0%": { transform: "translateX(-100%)", },
-					"100%": { transform: "translateX(-1%)", },
+					"0%": { transform: "w-[0px]", },
+					"100%": { transform: "w-[200px]", },
 				},
 
 				flipedArrowToLeft: {

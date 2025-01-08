@@ -14,8 +14,8 @@ function UserInfoSidebarToggle({ className }: { className?: string }) {
 
 
     return (
-        <Button className={clsx("bg-foreground opacity-70 hover:opacity-100 border border-borderColorborder shadow-none flex justify-end", className)} onClick={toggleSidebar}>
-            <Menu className={clsx("fill-primary", { "animate-flipedArrowToLeft": isOpen, "animate-flipedArrowToRight": !isOpen, })} size={40} />
+        <Button className={clsx("bg-primary opacity-70 hover:opacity-100 border border-borderColorborder shadow-none", className)} onClick={toggleSidebar}>
+            <Menu className={clsx("fill-background", { "animate-flipedArrowToLeft": isOpen, "animate-flipedArrowToRight": !isOpen, })} />
         </Button>
     );
 }

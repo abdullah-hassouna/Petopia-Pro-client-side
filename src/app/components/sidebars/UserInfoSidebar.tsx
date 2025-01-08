@@ -1,6 +1,5 @@
 "use client"
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Bookmark, Home2, Message, NotificationBing, Profile, SearchNormal1, } from "iconsax-react"
 import ThemeToggle from "../ThemeToggle"
 import clsx from "clsx"
@@ -11,13 +10,12 @@ import ProfileAvatar from "../ProfileAvatar"
 
 
 export default function UserInfoSidebar() {
-
-
     const isOpen = useSelector((state: RootState) => state.userSidebar.isOpen);
+
 
     return (
         <div
-            className={clsx("bg-foreground overflow-hidden h-screen flex flex-col border-r border-borderColor", { "animate-slideinFromLeft w-auto": isOpen, "animate-slideOutToLeft w-0": !isOpen })}>
+            className={clsx(" bg-foreground overflow-hidden h-screen flex flex-col border-r border-borderColor duration-500", { "translate-x-0 w-[15%]": isOpen, " -translate-x-full w-0": !isOpen })}>
 
             <div className="p-4">
                 <div>
