@@ -2,8 +2,10 @@ import type { Metadata } from "next";
 import { Readex_Pro } from "next/font/google";
 import "./globals.css";
 import "./themes.css";
-import ThemeToggle from './components/ThemeToggle';
-import ProviderContainer from "@/lib/providerContainer/container";
+// import ThemeToggle from './components/ThemeToggle';
+import ProviderContainer from "@/lib/reduxStore/providerContainer/container";
+import UserInfoSidebar from "./components/sidebars/UserInfoSidebar";
+import UIToggle from "./components/sidebars/UserInfoSidebarToggle"
 
 const readexPro = Readex_Pro({
   variable: "--font-readex-pro",
@@ -33,15 +35,14 @@ export default function RootLayout({
     <ProviderContainer>
       <html lang="en">
         <body
-          className={`${readexPro.className} antialiased`}
+          className={`${readexPro.className} transition-all antialiased flex gap-10 justify-between`}
         >
-          <header className="p-4 bg-background">
-            <div className="container mx-auto flex justify-end">
-              <ThemeToggle />
-              {/* <button onClick={() => startLoading()} /> */}
-            </div>
-          </header>
-          {children}
+          <UserInfoSidebar />
+          <div className="flex-grow my-3">
+            <UIToggle />
+            {children}
+          </div>
+          {/* <UserInfoSidebar /> */}
         </body>
       </html>
     </ProviderContainer>
