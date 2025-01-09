@@ -1,13 +1,13 @@
 "use client"
 
 import { Bookmark, Home2, Message, NotificationBing, Profile, SearchNormal1, } from "iconsax-react"
-import ThemeToggle from "../ThemeToggle"
+import ThemeToggle from "../../ThemeToggle"
 import clsx from "clsx"
 import { useSelector } from "react-redux"
 import { RootState } from "@/lib/reduxStore/store"
-import NavbarLink from "../NavbarLink"
-import ProfileAvatar from "../ProfileAvatar"
-import CreatePostButton from "../CreatePostButton"
+import NavbarLink from "../../NavbarLink"
+import ProfileAvatar from "../../ProfileAvatar"
+import CreatePostButton from "../../CreatePostButton"
 
 
 export default function UserInfoSidebar() {

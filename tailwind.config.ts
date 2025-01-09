@@ -13,6 +13,7 @@ export default {
 			colors: {
 				background: 'var(--background)',
 				foreground: 'var(--foreground)',
+				'icon-color': 'var(--icon-color)',
 				primary: {
 					DEFAULT: 'var(--prime-color)',
 					50: 'rgba(var(--prime-color-rgb), 0.5)',

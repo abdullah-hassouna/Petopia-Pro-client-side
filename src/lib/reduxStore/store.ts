@@ -31,6 +31,8 @@ const saveState = (state: RootState) => {
     }
 };
 
+console.log(initialUserState)
+
 const userSlice = createSlice({
     name: 'user',
     initialState: initialUserState,
