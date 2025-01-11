@@ -16,10 +16,10 @@ function NavbarLink({ label, Icon, link }: { label: string, Icon: IconType, link
                 className="w-full justify-start gap-3 font-normal"
             >
                 <Icon
-                    style={{ width: 24, height: 24 }}
+                    style={{ width: 28, height: 28 }}
                     color="var(--icon-color)"
                     variant="Bulk" />
-                {label}
+               <p className='sm:text-base text-lg'>{label}</p>
             </Button>
         </li>
     )
