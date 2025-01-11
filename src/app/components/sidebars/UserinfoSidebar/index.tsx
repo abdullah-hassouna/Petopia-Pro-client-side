@@ -16,7 +16,7 @@ export default function UserInfoSidebar() {
 
     return (
         <div
-            className={clsx(" bg-foreground overflow-hidden h-screen flex flex-col border-r border-borderColor duration-500", { "translate-x-0 w-[15%]": isOpen, " -translate-x-full w-0": !isOpen })}>
+            className={clsx("max-w-[320px] bg-foreground overflow-hidden h-screen hidden sm:flex flex-col border-r border-borderColor duration-500", { "translate-x-0 w-[15rem] sm:w-[20rem]": isOpen, " -translate-x-full w-0": !isOpen })}>
 
             <div className="p-4">
                 <div>
