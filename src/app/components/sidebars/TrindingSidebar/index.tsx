@@ -106,22 +106,22 @@ export default function TrindingSidebar() {
     ]
 
     return (
-        <div className="px-4 py-6 w-fit max-w-md bg-white min-h-screen">
+        <div className="hidden lg:block px-4 py-6 max-w-[320px] lg:w-[20rem] bg-white min-h-screen">
             <IconsBar className="flex justify-between" items={ICONS_BAR_DATA} />
             <div className="mt-4">
                 {/* <h2 className="text-xl font-semibold mb-4">Trending Products</h2> */}
-                <div className="grid grid-cols-2 ">
+                <div className="grid grid-cols-1 lg:grid-cols-2 ">
                     {[
                         "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
                         "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
                         "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
                         "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg"
                     ].map((src, index) => (
-                        <div key={index} className="aspect-square w-fit h-fit p-2 overflow-hidden">
+                        <div key={index} className="aspect-square md:w-full w-fit h-fit p-2 overflow-hidden">
                             <img
                                 src={src}
                                 alt={`Trending product ${index + 1}`}
-                                className=" object-cover h-32 w-32 rounded-2xl m-auto"
+                                className=" object-cover h-32 w-full md:w-32 rounded-2xl m-auto"
                             />
                         </div>
                     ))}
