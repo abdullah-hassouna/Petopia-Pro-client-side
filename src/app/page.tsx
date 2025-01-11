@@ -1,5 +1,5 @@
 "use client"
-
+import TrindingSidebar from "./components/sidebars/TrendingSidebar";
 import { AppDispatch, RootState, startLoading, stopLoading } from "@/lib/reduxStore/store";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -15,6 +15,7 @@ function Home() {
       <button onClick={() => dispatch(startLoading())}>Start Loading</button>
       <button onClick={() => dispatch(stopLoading())}>Stop Loading</button>
       {isLoading ? <h2>loading...</h2> : <h2>Done Loading!</h2>}
+      <TrindingSidebar />
     </>
   );
 }

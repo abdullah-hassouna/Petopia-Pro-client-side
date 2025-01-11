@@ -11,8 +11,8 @@ export default function BottomNavbar() {
                     [
                         { icon: SearchNormal1, link: "SearchNormal1" },
                         { icon: NotificationBing, link: "NotificationBing" },
-                        { icon: Home2, link: "Home2" },
-                        { icon: Message, link: "Message" },
+                        { icon: Home2, link: "/" },
+                        { icon: Message, link: "/messages" },
                     ].map(item => <NavItem key={item.link} {...item} />)}
                 <ProfileNavItem  />
             </ul>

@@ -6,7 +6,6 @@ import "./themes.css";
 import ProviderContainer from "@/lib/reduxStore/providerContainer/container";
 import UserInfoSidebar from "./components/sidebars/UserinfoSidebar";
 import UIToggle from "./components/sidebars/UserinfoSidebar/UserInfoSidebarToggle"
-import TrindingSidebar from "./components/sidebars/TrendingSidebar";
 import BottomNavbar from "./components/sidebars/BottomNavbar";
 
 const readexPro = Readex_Pro({
@@ -45,7 +44,6 @@ export default function RootLayout({
             {children}
           </div>
           <BottomNavbar />
-          <TrindingSidebar />
         </body>
       </html>
     </ProviderContainer>
