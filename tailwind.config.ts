@@ -63,7 +63,31 @@ export default {
         lg: 'var(--radius)',
         md: 'calc(var(--radius) - 2px)',
         sm: 'calc(var(--radius) - 4px)',
-      }
+      },
+      keyframes: {
+        slideOutToLeft: {
+          "0%": { transform: "w-[200px]", },
+          "100%": { transform: "w-[0px]", },
+        }, slideinFromLeft: {
+          "0%": { transform: "w-[0px]", },
+          "100%": { transform: "w-[200px]", },
+        },
+
+        flipedArrowToLeft: {
+          "0%": { transform: "rotateZ(0deg)", },
+          "100%": { transform: "rotateZ(180deg)" },
+        }, flipedArrowToRight: {
+          "0%": { transform: "rotateZ(180deg)", },
+          "100%": { transform: "rotateZ(0deg)" },
+        }
+      },
+      animation: {
+        slideOutToLeft: 'slideOutToLeft 0.5s ease-in-out forwards',
+        slideinFromLeft: 'slideInFromLeft 0.5s ease-in-out forwards',
+        flipedArrowToLeft: 'flipedArrowToLeft 0.5s ease-in-out forwards',
+        flipedArrowToRight: 'flipedArrowToRight 0.5s ease-in-out forwards',
+      },
+
     }
   },
   safelist: [
