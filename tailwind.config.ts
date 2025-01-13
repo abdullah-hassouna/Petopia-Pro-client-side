@@ -13,6 +13,8 @@ export default {
       colors: {
         background: 'var(--background)',
         foreground: 'var(--foreground)',
+        "header-color": 'var(--header-font-color)',
+        "sub-header-color": 'var(--sub-header-font-color)',
         primary: {
           DEFAULT: 'var(--prime-color)',
           50: 'rgba(var(--prime-color-rgb), 0.5)',
@@ -22,28 +24,39 @@ export default {
         adoption: {
           DEFAULT: 'var(--adoption-tag)',
           70: 'rgba(var(--adoption-tag-rgb), 0.7)',
+          100: 'var(--adoption-tag-100)',
         },
         product: {
           DEFAULT: 'var(--product-tag)',
           70: 'rgba(var(--product-tag-rgb), 0.7)',
+          100: 'var(--product-tag-100)',
         },
         discuss: {
           DEFAULT: 'var(--discuss-tag)',
           70: 'rgba(var(--discuss-tag-rgb), 0.7)',
+          100: 'var(--discuss-tag-100)',
         },
         sale: {
           DEFAULT: 'var(--sale-tag)',
           70: 'rgba(var(--sale-tag-rgb), 0.75)',
+          100: 'var(--sale-tag-100)',
         },
         help: {
           DEFAULT: 'var(--help-tag)',
           70: 'rgba(var(--help-tag-rgb), 0.75)',
+          100: 'var(--help-tag-100)',
         },
         gray: {
           DEFAULT: 'var(--border-color)'
         },
         whity: {
           DEFAULT: 'var(--whity)'
+        },
+        "header-text-color": {
+          DEFAULT: 'var(--header-font-colo)'
+        },
+        "sub-header-text-color": {
+          DEFAULT: 'var(--sub-header-font-color)'
         }
       },
       borderRadius: {
@@ -53,6 +66,23 @@ export default {
       }
     }
   },
+  safelist: [
+    'bg-adoption-100',
+    'bg-adoption',
+    'via-adoption',
+    'bg-product',
+    'via-product',
+    'bg-product-100',
+    'bg-discuss',
+    'via-discuss',
+    'bg-discuss-100',
+    'bg-sale-100',
+    'bg-sale',
+    'via-sale',
+    'bg-help-100',
+    'via-help',
+    'bg-help'
+  ],
 
   plugins: [require("tailwindcss-animate")],
 } satisfies Config;
