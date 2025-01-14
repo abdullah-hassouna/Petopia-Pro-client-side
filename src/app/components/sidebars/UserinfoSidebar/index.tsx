@@ -16,7 +16,7 @@ export default function UserInfoSidebar() {
 
     return (
         <div
-            className={clsx("max-w-[320px] bg-foreground overflow-hidden h-screen hidden sm:flex flex-col border-r border-borderColor duration-500", { "translate-x-0 w-[15rem] sm:w-[20rem]": isOpen, " -translate-x-full w-0": !isOpen })}>
+            className={clsx("max-w-[320px] bg-foreground overflow-hidden h-screen hidden md:flex flex-col border-r border-borderColor duration-500", { "translate-x-0 w-[15rem] sm:w-[20rem]": isOpen, " -translate-x-full w-0": !isOpen })}>
 
             <div className="p-4">
                 <div>
@@ -42,12 +42,12 @@ export default function UserInfoSidebar() {
             <nav className="flex-1 p-2 align-middle">
                 <ul className="space-y-1">
                     {[
-                        { Icon: Home2, label: "Home", link: "" },
-                        { Icon: SearchNormal1, label: "Explore", link: "" },
-                        { Icon: NotificationBing, label: "Notifications", link: "" },
-                        { Icon: Message, label: "Messages", link: "" },
-                        { Icon: Bookmark, label: "Bookmarks", link: "" },
-                        { Icon: Profile, label: "Profile", link: "" },
+                        { Icon: Home2, label: "Home", link: "/" },
+                        { Icon: SearchNormal1, label: "Explore", link: "/search" },
+                        { Icon: NotificationBing, label: "Notifications", link: "/notifcations" },
+                        { Icon: Message, label: "Messages", link: "/messages" },
+                        { Icon: Bookmark, label: "Bookmarks", link: "/bookmark" },
+                        { Icon: Profile, label: "Profile", link: "/profile" },
                     ].map((item) => (
                         <NavbarLink key={item.label} {...item} />
                     ))}

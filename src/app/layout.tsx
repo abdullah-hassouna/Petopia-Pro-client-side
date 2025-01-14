@@ -6,7 +6,6 @@ import "./themes.css";
 import ProviderContainer from "@/lib/reduxStore/providerContainer/container";
 import UserInfoSidebar from "./components/sidebars/UserinfoSidebar";
 import UIToggle from "./components/sidebars/UserinfoSidebar/UserInfoSidebarToggle"
-import TrindingSidebar from "./components/sidebars/TrendingSidebar";
 import BottomNavbar from "./components/sidebars/BottomNavbar";
 
 const readexPro = Readex_Pro({
@@ -40,12 +39,11 @@ export default function RootLayout({
           className={`${readexPro.className} transition-all antialiased flex`}
         >
           <UserInfoSidebar />
-          <div className="flex-grow m-3">
-            <UIToggle />
+          {/* <UIToggle className="block m-5" /> */}
+          <div className="flex-grow">
             {children}
           </div>
           <BottomNavbar />
-          <TrindingSidebar />
         </body>
       </html>
     </ProviderContainer>
