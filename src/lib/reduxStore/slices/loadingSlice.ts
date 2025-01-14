@@ -2,7 +2,10 @@ interface LoadingState {
     isLoading: boolean
 }
 
-const LSData = Object(localStorage.getItem('reduxState'));
+let LSData;
+if (typeof window!.localStorage !== 'undefined') {
+    LSData = Object(localStorage.getItem('reduxState'));
+}
 
 const initialLoadingState: LoadingState = LSData.loading || {
     isLoading: false

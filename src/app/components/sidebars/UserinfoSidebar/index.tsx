@@ -1,12 +1,13 @@
 "use client"
 
 import { Bookmark, Home2, Message, NotificationBing, Profile, SearchNormal1, } from "iconsax-react"
-import ThemeToggle from "../ThemeToggle"
+import ThemeToggle from "../../ThemeToggle"
 import clsx from "clsx"
 import { useSelector } from "react-redux"
 import { RootState } from "@/lib/reduxStore/store"
-import NavbarLink from "../NavbarLink"
-import ProfileAvatar from "../ProfileAvatar"
+import NavbarLink from "../../NavbarLink"
+import ProfileAvatar from "../../ProfileAvatar"
+import CreatePostButton from "../../CreatePostButton"
 
 
 export default function UserInfoSidebar() {
@@ -15,7 +16,7 @@ export default function UserInfoSidebar() {
 
     return (
         <div
-            className={clsx(" bg-foreground overflow-hidden h-screen flex flex-col border-r border-borderColor duration-500", { "translate-x-0 w-[15%]": isOpen, " -translate-x-full w-0": !isOpen })}>
+            className={clsx("max-w-[320px] bg-foreground overflow-hidden h-screen hidden sm:flex flex-col border-r border-borderColor duration-500", { "translate-x-0 w-[15rem] sm:w-[20rem]": isOpen, " -translate-x-full w-0": !isOpen })}>
 
             <div className="p-4">
                 <div>
@@ -38,7 +39,7 @@ export default function UserInfoSidebar() {
                 </div>
             </div>
 
-            <nav className="flex-1 p-2">
+            <nav className="flex-1 p-2 align-middle">
                 <ul className="space-y-1">
                     {[
                         { Icon: Home2, label: "Home", link: "" },
@@ -54,6 +55,7 @@ export default function UserInfoSidebar() {
                         <ThemeToggle />
                     </li>
                 </ul>
+                <CreatePostButton className={"mt-10"} title={"Create Post"} options={[{ title: "Adopte", value: "3" }]} />
             </nav>
         </div>
     )

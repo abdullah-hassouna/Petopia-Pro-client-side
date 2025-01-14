@@ -5,17 +5,25 @@ interface UserState {
     userToken: string
 }
 
-const LSData = Object(localStorage.getItem('reduxState'));
-
-const initialUserState: UserState =
-    LSData.user
-    ||
-    {
-        userName: "Guest",
+let LSData: { user: UserState } = {
+    user: {
+        userName: "",
         userEmail: "",
         userProfile: "",
         userToken: ""
     }
+};
+if (typeof window !== 'undefined') {
+    LSData = Object(localStorage.getItem('reduxState')) 
+}
+
+const initialUserState: UserState = LSData?.user|| {
+    userName: "",
+    userEmail: "",
+    userProfile: "",
+    userToken: ""
+};
+
 
 export default initialUserState
 export { type UserState }
