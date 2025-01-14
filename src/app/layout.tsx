@@ -39,8 +39,8 @@ export default function RootLayout({
           className={`${readexPro.className} transition-all antialiased flex`}
         >
           <UserInfoSidebar />
-          <div className="flex-grow m-3">
-            <UIToggle />
+          {/* <UIToggle className="block m-5" /> */}
+          <div className="flex-grow">
             {children}
           </div>
           <BottomNavbar />
