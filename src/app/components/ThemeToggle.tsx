@@ -84,7 +84,9 @@ export default function ThemeToggle() {
             theme === "dark" ? <Moon  {...iconsProps} style={{ height: 24, width: 24 }} /> :
               <CloudSunny  {...iconsProps} style={{ height: 24, width: 24 }} />
         }
+        <p className='sm:text-base text-lg'>
         Change Theme
+        </p>
       </Button>
 
     </div>
