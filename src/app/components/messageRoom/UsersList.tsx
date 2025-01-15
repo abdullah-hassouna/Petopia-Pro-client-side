@@ -11,10 +11,10 @@ import NewChatButton from './NewChatBtn'
 function UsersList({ showContactsSidebar, selectMessageRoom, selectedContact }: { showContactsSidebar: boolean, selectMessageRoom: Function, selectedContact: string }) {
     return (
         <Card className={cn(
-            "absolute bg-foreground w-[98%] lg:relative lg:bg-transparent lg:w-80 z-40 h-[98%] top-2 border-none mx-2 shadow-none ",
+            " absolute bg-foreground w-[98%] lg:relative lg:bg-transparent h-[calc(100%-10px)] lg:w-80 z-50 top-2 border-none mx-2 shadow-none ",
             showContactsSidebar ? "block" : "hidden"
         )}>
-            <div className="p-4">
+            <div className="p-4 ">
                 <div className="relative">
                     <UserSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 "
                         color="gray" />
@@ -28,7 +28,7 @@ function UsersList({ showContactsSidebar, selectMessageRoom, selectedContact }: 
                     <TabsTrigger value="archived" className="data-[state=active]:text-icon-color">Archived</TabsTrigger>
                 </TabsList>
                 <TabsContent value="all" className="m-0">
-                    <ScrollArea className="h-[calc(100vh-140px)] max-h-[90vh] overflow-x-auto">
+                    <ScrollArea className="h-[calc(100vh-150px)] max-h-[90vh] overflow-x-auto">
                         {CONTACTS.map((contact) => (
                             <button
                                 key={contact.name}
@@ -104,5 +104,73 @@ const CONTACTS = [
         avatar: "/placeholder.svg?height=32&width=32",
         lastMessage: "The presentation looks great!",
         unread: false,
+    },
+
+    {
+        name: "Jessica Lee",
+        roomId: "JessicaLeeRoomId",
+        avatar: "/placeholder.svg?height=32&width=32",
+        lastMessage: "The presentation looks great!",
+        unread: false,
+    },
+    {
+        name: "Jessica Lee",
+        roomId: "JessicaLeeRoomId",
+        avatar: "/placeholder.svg?height=32&width=32",
+        lastMessage: "The presentation looks great!",
+        unread: false,
+    },
+    {
+        name: "Jessica Lee",
+        roomId: "JessicaLeeRoomId",
+        avatar: "/placeholder.svg?height=32&width=32",
+        lastMessage: "The presentation looks great!",
+        unread: false,
+    },
+
+    {
+        name: "Jessica Lee",
+        roomId: "JessicaLeeRoomId",
+        avatar: "/placeholder.svg?height=32&width=32",
+        lastMessage: "The presentation looks great!",
+        unread: false,
+    },
+
+    {
+        name: "Jessica Lee",
+        roomId: "JessicaLeeRoomId",
+        avatar: "/placeholder.svg?height=32&width=32",
+        lastMessage: "The presentation looks great!",
+        unread: false,
+    },
+
+    {
+        name: "Jessica Lee",
+        roomId: "JessicaLeeRoomId",
+        avatar: "/placeholder.svg?height=32&width=32",
+        lastMessage: "The presentation looks great!",
+        unread: false,
+    },
+
+    {
+        name: "Jessica Lee",
+        roomId: "JessicaLeeRoomId",
+        avatar: "/placeholder.svg?height=32&width=32",
+        lastMessage: "The presentation looks great!",
+        unread: false,
+    },
+    {
+        name: "Jessica Lee",
+        roomId: "JessicaLeeRoomId",
+        avatar: "/placeholder.svg?height=32&width=32",
+        lastMessage: "The presentation looks great!",
+        unread: false,
+    },
+    {
+        name: "Sarah Wilson",
+        roomId: "SarahWilsonRoomId",
+        avatar: "/placeholder.svg?height=32&width=32",
+        lastMessage: "Sure, let's meet at 3 PM tomorrow",
+        unread: true,
     },
 ]

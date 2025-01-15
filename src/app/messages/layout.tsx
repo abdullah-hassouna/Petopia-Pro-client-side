@@ -7,7 +7,7 @@ export default function MessageLayout({
     children: React.ReactNode;
 }>) {
     return (<ContactsContextProvider>
-        <div className="flex h-[50%] sm:h-[100vh] gap-2 relative">
+        <div className="flex h-fit sm:h-[100vh] gap-2 relative">
             {children}
         </div>
     </ContactsContextProvider>)

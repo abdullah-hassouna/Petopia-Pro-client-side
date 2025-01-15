@@ -33,7 +33,7 @@ export default function ChatPage({ params }) {
       {/* Sidebar */}
       <UsersList showContactsSidebar={showContactsSidebar} selectMessageRoom={selectMessageRoom} selectedContact={selectedContact} />
       {/* Main Chat Area */}
-      <div className={clsx("flex-1 overflow-hidden min-h-[60vh] h-100% rounded-md bg-foreground m-2 flex flex-col", {})}>
+      <div className={clsx("flex-1 overflow-hidden min-h-[60vh] h-[90vh] md:h-auto rounded-md bg-foreground m-2  flex-col", { "hidden md:flex": showContactsSidebar, "flex": !showContactsSidebar })}>
         {/* Chat Header */}
         <div className="h-16 border-b bg-discuss-70 px-4 flex items-center justify-between">
           <div className="flex items-center space-x-4">
