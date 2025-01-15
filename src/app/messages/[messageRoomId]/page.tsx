@@ -3,18 +3,15 @@
 import * as React from "react"
 import { Avatar, AvatarFallback, AvatarImage, } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { ScrollArea } from "@/components/ui/scroll-area"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
-import { Add, ArrowLeft, Paperclip, Send2, Smileys, UserSearch } from "iconsax-react"
+import { Paperclip, Send2, Smileys } from "iconsax-react"
 import clsx from "clsx"
-import SelectUser from "../../components/SelectUser"
 import { useRouter } from "next/navigation"
-import NewChatButton from "@/app/components/messageRoom/NewChatBtn"
 import UsersList from "@/app/components/messageRoom/UsersList"
 import ShowContacts from "@/app/components/messageRoom/ShowContacts"
+import { ContactsContext } from "../CustomerContext/ContactsProvider"
 
 
 export default function ChatPage({ params }) {
@@ -22,9 +19,7 @@ export default function ChatPage({ params }) {
   const router = useRouter();
   const { messageRoomId } = React.use<{ messageRoomId: string }>(params); // Update this line
 
-
-  const [selectedContact, setSelectedContact] = React.useState<string | undefined>("")
-  const [showContactsSidebar, setShowContactsSidebar] = React.useState(false)
+  const { selectedContact, setSelectedContact, setShowContactsSidebar, showContactsSidebar } = React.useContext(ContactsContext)
 
   React.useEffect(() => { setSelectedContact(messageRoomId), setShowContactsSidebar(false) }, [])
 
