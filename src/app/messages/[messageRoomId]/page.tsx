@@ -10,21 +10,22 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { cn } from "@/lib/utils"
 import { Add, ArrowLeft, Paperclip, Send2, Smileys, UserSearch } from "iconsax-react"
 import clsx from "clsx"
-import SelectUser from "../components/SelectUser"
+import SelectUser from "../../components/SelectUser"
+import { useRouter } from "next/navigation"
 
 const NewChatButton = ({ text }: { text?: string | undefined }) => {
   return (
     <SelectUser onSelectUser={console.log}>
-      <Button>
-        <span className={clsx("ml-2", { "hidden": !text })}>{text}</span><Add color="white" style={{ width: 24, height: 24 }} />
-      </Button>
+      <div className="flex items-center justify-between w-full px-4 gap-2 h-12 bg-primary text-white rounded-md">
+        <span className={clsx("ml-2 hidden lg:inline", { "hidden": !text })}>{text}</span><Add color="white" style={{ width: 24, height: 24 }} />
+      </div>
     </SelectUser>
   )
 }
 
 export const ShowContacts = ({ onClick }: { onClick: React.MouseEventHandler<HTMLButtonElement> }) => {
   return (
-    <Button variant="ghost" size="icon" className="bg-transparent" onClick={onClick}>
+    <Button size="icon" className="bg-transparent" onClick={onClick}>
       <ArrowLeft color="gray" className="h-5 w-5" />
     </Button>
   )
@@ -32,18 +33,30 @@ export const ShowContacts = ({ onClick }: { onClick: React.MouseEventHandler<HTM
 
 
 
-export default function ModernChat() {
+export default function ChatPage({ params }) {
+
+  const router = useRouter();
+  const { messageRoomId } = React.use<{ messageRoomId: string }>(params); // Update this line
+
+
   const [selectedContact, setSelectedContact] = React.useState<string | undefined>("")
-  const [showMobileSidebar, setShowMobileSidebar] = React.useState(false)
+  const [showContactsSidebar, setShowContactsSidebar] = React.useState(false)
+
+  React.useEffect(() => { setSelectedContact(messageRoomId), setShowContactsSidebar(false) }, [])
+
+  function selectMessageRoom(roomId: string, contactName: string) {
+
+    router.push(`/messages/${roomId}`)
+  }
 
   return (
-    <div className="flex h-[50%] sm:h-[100vh] gap-2">
+    <div className="flex h-[50%] sm:h-[100vh] gap-2 relative">
       {/* Sidebar */}
       <Card className={cn(
-        "w-80 border-none mx-2 shadow-none bg-transparent",
-        showMobileSidebar ? "block" : "hidden md:block"
+        "absolute bg-foreground w-[98%] lg:relative lg:bg-transparent lg:w-80 z-40 h-[98%] top-2 border-none mx-2 shadow-none ",
+        showContactsSidebar ? "block" : "hidden"
       )}>
-        <div className="p-4 border-b">
+        <div className="p-4">
           <div className="relative">
             <UserSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 "
               color="gray" />
@@ -61,31 +74,28 @@ export default function ModernChat() {
               {CONTACTS.map((contact) => (
                 <button
                   key={contact.name}
-                  onClick={() => {
-                    setSelectedContact(contact.name)
-                    setShowMobileSidebar(false)
-                  }}
+                  onClick={() => selectMessageRoom(contact.name, contact.roomId)}
                   className={cn(
-                    "flex items-center space-x-4 p-0 md:p-4 w-full text-icon-color rounded-md my-2 hover:bg-foreground transition-colors",
+                    "flex items-center space-x-4 p-4 w-full text-icon-color rounded-md my-1 hover:bg-foreground transition-colors",
                     {
-                      "bg-foreground": selectedContact === contact.name,
+                      "bg-foreground": selectedContact === contact.roomId,
                     }
                   )}
                 >
-                  <Avatar>
+                  <Avatar className="h-8 w-8 lg:h-12 lg:w-12">
                     <AvatarImage src={contact.avatar} alt={contact.name} />
                     <AvatarFallback className="bg-icon-color text-white">{contact.name[0]}</AvatarFallback>
                   </Avatar>
                   <div className="flex-1 text-left">
-                    <div className="font-medium">{contact.name}</div>
-                    <div className="text-sm line-clamp-1 text-gray-400">{contact.lastMessage}</div>
+                    <div className="font-medium text-lg lg:text-sm">{contact.name}</div>
+                    <div className="text-base lg:text-xs line-clamp-1 text-gray-400">{contact.lastMessage}</div>
                   </div>
                   {contact.unread && (
                     <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
                   )}
                 </button>
               ))}
-              <div className="absolute bottom-0 right-0 translate-x-[0] translate-y-[-50%]">
+              <div className="absolute bottom-5 right-5 translate-x-[0] translate-y-[-50%]">
                 <NewChatButton text="Start new Chat" />
               </div>
             </ScrollArea>
@@ -96,11 +106,11 @@ export default function ModernChat() {
       {selectedContact.length ?
 
         /* Main Chat Area */
-        <div className="flex-1 overflow-hidden min-h-[60vh] h-100% rounded-md bg-foreground m-2 flex flex-col">
+        <div className={clsx("flex-1 overflow-hidden min-h-[60vh] h-100% rounded-md bg-foreground m-2 flex flex-col", {})}>
           {/* Chat Header */}
           <div className="h-16 border-b bg-discuss-70 px-4 flex items-center justify-between">
             <div className="flex items-center space-x-4">
-              <ShowContacts onClick={() => setShowMobileSidebar(true)} />
+              <ShowContacts onClick={() => setShowContactsSidebar(prev => !prev)} />
               <Avatar className="w-12 h-12">
                 <AvatarImage src="https://lh3.googleusercontent.com/a/ACg8ocIDQnhN8UQv7HN49c04_oqWoUYVea9An7FZZffSlFItZeugkn-A=s288-c-no" alt={selectedContact} />
                 <AvatarFallback className="text-4xl text-whity ">{selectedContact[0]}</AvatarFallback>
@@ -178,7 +188,7 @@ export default function ModernChat() {
           </div>
         </div> :
         <div className="flex-1 overflow-hidden min-h-[90vh] rounded-md bg-foreground m-2 flex flex-col">
-          <ShowContacts onClick={() => setShowMobileSidebar(true)} />
+          <ShowContacts onClick={() => setShowContactsSidebar(prev => !prev)} />
           <div className="flex items-center gap-2 m-auto w-fit">
             <h2 className="drop-shadow-lg text-xl">Start texting you Friends</h2>
             <NewChatButton />
@@ -195,30 +205,35 @@ export default function ModernChat() {
 const CONTACTS = [
   {
     name: "Sarah Wilson",
+    roomId: "SarahWilsonRoomId",
     avatar: "/placeholder.svg?height=32&width=32",
     lastMessage: "Sure, let's meet at 3 PM tomorrow",
     unread: true,
   },
   {
     name: "Michael Chen",
+    roomId: "MichaelChenRoomId",
     avatar: "/placeholder.svg?height=32&width=32",
     lastMessage: "The project files have been updated",
     unread: false,
   },
   {
     name: "Emily Davis",
+    roomId: "EmilyDavisRoomId",
     avatar: "/placeholder.svg?height=32&width=32",
     lastMessage: "Thanks for your help!",
     unread: true,
   },
   {
     name: "Alex Turner",
+    roomId: "AlexTurnerRoomId",
     avatar: "/placeholder.svg?height=32&width=32",
     lastMessage: "When can we schedule the meeting?",
     unread: false,
   },
   {
     name: "Jessica Lee",
+    roomId: "JessicaLeeRoomId",
     avatar: "/placeholder.svg?height=32&width=32",
     lastMessage: "The presentation looks great!",
     unread: false,
