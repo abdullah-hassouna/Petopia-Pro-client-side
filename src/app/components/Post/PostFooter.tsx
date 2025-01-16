@@ -3,7 +3,7 @@ import PostComment from './PostComment'
 import { Button } from '@/components/ui/button'
 import { HoverCard, HoverCardTrigger } from '@/components/ui/hover-card'
 import InteractionsHover from './InteractionsHover'
-import { useState } from 'react'
+import { useRef, useState } from 'react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import Comments from './Comments'
 import { redirect } from 'next/navigation'
@@ -60,6 +60,7 @@ const commentsContent = [
     commentId: '1',
     commentContent:
       ' Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, illum! Ut eius quia libero doloribus cumque iure, rerum asperiores odio vitae blanditiis sit corrupti atque, neque tempora dolorem aperiam? Inventore.',
+    createdAt: new Date().toLocaleString(),
   },
   {
     fullName: 'Haitham Akram',
@@ -68,6 +69,7 @@ const commentsContent = [
       'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
     commentId: '1',
     commentContent: 'this is a comment nigga',
+    createdAt: new Date().toLocaleString(),
   },
   {
     fullName: 'Haitham Akram',
@@ -76,6 +78,7 @@ const commentsContent = [
       'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
     commentId: '1',
     commentContent: 'this is a comment nigga',
+    createdAt: new Date().toLocaleString(),
   },
 ]
 
@@ -86,6 +89,8 @@ const PostFooter = (props: PostFooterProps) => {
   const [likedCounter, setLikedCounter] = useState(likes)
   const [savedCounter, setSavedCounter] = useState(bookmarks)
   const [showComments, setShowComments] = useState(false)
+  const [isLikeHoverCardActive, setIsLikeHoverCardActive] = useState(false)
+  const [isSaveHoverCardActive, setIsSaveHoverCardActive] = useState(false)
 
   const handleSaveClick = () => {
     setSaved(!saved)
@@ -98,10 +103,19 @@ const PostFooter = (props: PostFooterProps) => {
   const handleShowComments = () => {
     setShowComments((prev) => !prev)
   }
+
+  const handleLikeHoverCardToggle = () => {
+    setIsLikeHoverCardActive(!isLikeHoverCardActive)
+  }
+
+  const handleSaveHoverCardToggle = () => {
+    setIsSaveHoverCardActive(!isSaveHoverCardActive)
+  }
+
   return (
     <div>
       <div className="flex flex-col gap-2 w-full">
-        <div className="flex gap-6 px-5 py-5 justify-between font-light text-whity w-full items-center">
+        <div className="flex gap-2 lg:gap-3 md:gap-4 sm:gap-6 px-5 py-5 justify-between font-light text-whity w-full items-center">
           <div className="flex gap-1 cursor-pointer">
             <Heart
               size="20"
@@ -109,14 +123,14 @@ const PostFooter = (props: PostFooterProps) => {
               onClick={handleLikedClick}
               variant={liked ? 'Bold' : 'Outline'}
             />
-            <HoverCard>
-              <HoverCardTrigger>
+            <HoverCard open={isLikeHoverCardActive} onOpenChange={setIsLikeHoverCardActive}>
+              <HoverCardTrigger onClick={handleLikeHoverCardToggle}>
                 <span>
                   {likedCounter}
                   <span className="hidden sm:inline ml-2">Like</span>
                 </span>
               </HoverCardTrigger>
-              <InteractionsHover tag={tag} users={users} />
+              {isLikeHoverCardActive && <InteractionsHover tag={tag} users={users} />}
             </HoverCard>
           </div>
           <div className="flex gap-1 cursor-pointer" onClick={handleShowComments}>
@@ -140,34 +154,35 @@ const PostFooter = (props: PostFooterProps) => {
               onClick={handleSaveClick}
               variant={saved ? 'Bold' : 'Outline'}
             />
-            <HoverCard>
-              <HoverCardTrigger>
+            <HoverCard open={isSaveHoverCardActive} onOpenChange={setIsSaveHoverCardActive}>
+              <HoverCardTrigger onClick={handleSaveHoverCardToggle}>
                 <span>
                   {savedCounter}
                   <span className="hidden sm:inline ml-2">Saved</span>
                 </span>
               </HoverCardTrigger>
-              <InteractionsHover tag={tag} users={users} />
+              {isSaveHoverCardActive && <InteractionsHover tag={tag} users={users} />}
             </HoverCard>
           </div>
           {['adoption', 'product'].includes(tag.toLowerCase()) ? (
             <>
               <TooltipProvider>
                 <Tooltip>
-                  <TooltipTrigger className="hidden sm:flex bg-discuss justify-center items-center rounded-md hover:bg-discuss-70 shadow-none font-normal h-9 w-9 p-0">
-                    {/* <Button variant="discuss" className=""> */}
+                  <TooltipTrigger
+                    className="hidden sm:flex bg-discuss justify-center items-center rounded-md hover:bg-discuss-70 shadow-none font-normal h-9 min-w-9 p-0"
+                    onClick={() => redirect('/message/userid')}
+                  >
                     <MessageText1 color="#FF8A65" style={{ width: '1.25rem', height: '1.25rem' }} />
-                    {/* </Button> */}
                   </TooltipTrigger>
                   <TooltipContent className="bg-discuss text-whity">
-                    <p>Chat with owner</p>
+                    <p> Chat with {tag === 'product' ? 'Seller' : 'Owner'} </p>
                   </TooltipContent>
                 </Tooltip>
               </TooltipProvider>
               <Button
                 onClick={() => redirect('/message/userid')}
                 variant="discuss"
-                className="sm:hidden flex shadow-none font-normal w-10 h-9 p-0"
+                className="sm:hidden flex shadow-none font-normal min-w-9 h-9 p-0"
               >
                 <MessageText1 color="#FF8A65" style={{ width: '1.25rem', height: '1.25rem' }} />
               </Button>
