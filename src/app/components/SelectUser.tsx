@@ -24,12 +24,12 @@ function SelectUser({ children: ButtonTrigger, onSelectUser: onClick }: { childr
                         </h3>
                     </DialogTitle>
                 </DialogHeader>
-                <div>
+                <div className="h-[60%]">
                     <div className="relative">
                         <UserSearch className="absolute left-3 top-1/2 transform -translate-y-1/2 h-4 w-4 " color="gray" />
                         <Input className="pl-9" placeholder="Search conversations..." />
                     </div>
-                    <ScrollArea className="h-72 pt-4 overflow-x-auto">
+                    <ScrollArea className="h-64 pt-4 overflow-x-auto">
                         {CONTACTS.map(contact => <button
                             key={contact.name}
                             onClick={() => onClick("messageRoomId")}
@@ -84,48 +84,6 @@ const CONTACTS = [
         name: "Alex Turner",
         avatar: "/placeholder.svg?height=32&width=32",
         messageRoomId: "Alex-Turner-Message-Room-Id",
-        unread: false,
-    },
-    {
-        name: "Jessica Lee",
-        avatar: "/placeholder.svg?height=32&width=32",
-        messageRoomId: "Jessica-Lee-Message-Room-Id",
-        unread: false,
-    },
-    {
-        name: "Jessica Lee",
-        avatar: "/placeholder.svg?height=32&width=32",
-        messageRoomId: "Jessica-Lee-Message-Room-Id",
-        unread: false,
-    },
-    {
-        name: "Jessica Lee",
-        avatar: "/placeholder.svg?height=32&width=32",
-        messageRoomId: "Jessica-Lee-Message-Room-Id",
-        unread: false,
-    },
-    {
-        name: "Jessica Lee",
-        avatar: "/placeholder.svg?height=32&width=32",
-        messageRoomId: "Jessica-Lee-Message-Room-Id",
-        unread: false,
-    },
-    {
-        name: "Jessica Lee",
-        avatar: "/placeholder.svg?height=32&width=32",
-        messageRoomId: "Jessica-Lee-Message-Room-Id",
-        unread: false,
-    },
-    {
-        name: "Jessica Lee",
-        avatar: "/placeholder.svg?height=32&width=32",
-        messageRoomId: "Jessica-Lee-Message-Room-Id",
-        unread: false,
-    },
-    {
-        name: "Jessica Lee",
-        avatar: "/placeholder.svg?height=32&width=32",
-        messageRoomId: "Jessica-Lee-Message-Room-Id",
         unread: false,
     },
     {
