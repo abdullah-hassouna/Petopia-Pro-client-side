@@ -8,6 +8,8 @@ import { RootState } from "@/lib/reduxStore/store"
 import NavbarLink from "../../NavbarLink"
 import ProfileAvatar from "../../ProfileAvatar"
 import CreatePostButton from "../../CreatePostButton"
+import UIToggle from "./UserInfoSidebarToggle"
+import { cn } from "@/lib/utils"
 
 
 export default function UserInfoSidebar() {
@@ -16,25 +18,26 @@ export default function UserInfoSidebar() {
 
     return (
         <div
-            className={clsx("max-w-[320px] bg-foreground overflow-hidden h-screen hidden md:flex flex-col border-r border-borderColor duration-500", { "translate-x-0 w-[15rem] sm:w-[20rem]": isOpen, " -translate-x-full w-0": !isOpen })}>
+            className={cn("max-w-[320px] bg-foreground overflow-hidden h-screen hidden md:flex flex-col border-r border-borderColor duration-500", { "w-[15rem] sm:w-[20rem]": isOpen, "w-[5rem] ": !isOpen })}>
 
             <div className="p-4">
-                <div>
+                <div className="flex justify-between">
                     <img src="/logo.svg" height={45} width={45} />
+                    <UIToggle />
                 </div>
                 <ProfileAvatar />
-                <div className="flex text-sm w-full justify-between">
+                <div className={cn("text-sm w-full justify-between", { "hidden": !isOpen, "flex": isOpen })}>
                     <div className="px-2 text-center">
                         <div className="font-semibold">386</div>
-                        <div className="text-gray-600 font-thin text-sm">Following</div>
+                        <div className="text-whity font-thin text-sm">Following</div>
                     </div>
                     <div className="px-2 text-center">
                         <div className="font-semibold">15.4k</div>
-                        <div className="text-gray-600 font-thin text-sm">Followers</div>
+                        <div className="text-whity font-thin text-sm">Followers</div>
                     </div>
                     <div className="px-2">
                         <div className="font-semibold text-center">468</div>
-                        <div className="text-gray-600 font-thin text-sm">Posts</div>
+                        <div className="text-whity font-thin text-sm">Posts</div>
                     </div>
                 </div>
             </div>
@@ -55,7 +58,7 @@ export default function UserInfoSidebar() {
                         <ThemeToggle />
                     </li>
                 </ul>
-                <CreatePostButton className={"mt-10"} title={"Create Post"} options={[{ title: "Adopte", value: "3" }]} />
+                <CreatePostButton className={cn("mt-10", { "block": isOpen, "hidden": !isOpen })} title={"Create Post"} options={[{ title: "Adopte", value: "3" }]} />
             </nav>
         </div>
     )

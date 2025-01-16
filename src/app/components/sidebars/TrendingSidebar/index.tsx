@@ -106,7 +106,7 @@ export default function TrindingSidebar() {
     ]
 
     return (
-        <div className="hidden lg:block px-4 py-6 max-w-[320px] lg:w-[20rem] bg-foreground min-h-screen">
+        <div id="trending-bar" className="hidden lg:block px-4 py-6 max-w-[320px] lg:w-[20rem] bg-foreground min-h-screen">
             <IconsBar className="flex justify-between" items={ICONS_BAR_DATA} />
             <div className="mt-4">
                 {/* <h2 className="text-xl font-semibold mb-4">Trending Products</h2> */}
