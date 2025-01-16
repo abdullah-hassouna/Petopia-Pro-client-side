@@ -6,9 +6,8 @@ import {
     NavigationMenuList,
     NavigationMenuTrigger,
 } from "@/components/ui/navigation-menu"
-import clsx from "clsx";
+import { cn } from "@/lib/utils";
 import { Icon } from "iconsax-react";
-import { ReactNode } from "react";
 
 export interface IiconBar {
     items: {
@@ -28,7 +27,7 @@ export interface IiconBar {
 
 function IconsBar({ items, className }: IiconBar) {
     return (
-        <NavigationMenu id="Hello" className={clsx(className)}>
+        <NavigationMenu id="Hello" className={cn(className)}>
             <NavigationMenuList className="flex justify-between w-full">
                 {items.map(({ contents, icon: Icon, title }, ind) =>
                     <NavigationMenuItem key={"item" + ind}>
@@ -37,7 +36,7 @@ function IconsBar({ items, className }: IiconBar) {
                         <NavigationMenuContent key={"content" + ind} >
                             {contents.map((content, ind2) =>
                                 <NavigationMenuLink href={content.link} key={'menu' + ind2}>
-                                    <div className="flex h-10 mt-2 justify-between gap-2 my-1 px-2 hover:text-primary-50" >
+                                    <div className="flex w-72 h-10 mt-2 justify-between gap-2 my-1 px-2 hover:text-primary-50" >
                                         <img src={content.img} className="h-8 w-8 object-cover rounded-[50%] m-auto" alt={content.img} />
                                         <div className="flex flex-col flex-grow">
                                             <h5>{content.header}</h5>

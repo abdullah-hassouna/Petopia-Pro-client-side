@@ -18,10 +18,8 @@ function SelectUser({ children: ButtonTrigger, onSelectUser: onClick }: { childr
             <DialogTrigger>{ButtonTrigger}</DialogTrigger>
             <DialogContent className="h-[60%] p-4 bg-foreground">
                 <DialogHeader>
-                    <DialogTitle className="text-whity">
-                        <h3 className="mb-2 mt-4">
-                            Start new Chat
-                        </h3>
+                    <DialogTitle className="text-whity text-lg">
+                        Start new Chat
                     </DialogTitle>
                 </DialogHeader>
                 <div className="h-[60%]">
