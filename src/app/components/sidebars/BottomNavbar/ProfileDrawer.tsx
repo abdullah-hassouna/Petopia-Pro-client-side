@@ -1,21 +1,15 @@
 "use client"
 
 import * as React from "react"
-import { Button } from "@/components/ui/button"
 import {
     Drawer,
-    DrawerClose,
     DrawerContent,
-    DrawerDescription,
-    DrawerFooter,
-    DrawerHeader,
     DrawerTitle,
     DrawerTrigger,
 } from "@/components/ui/drawer"
-import { Bookmark, Home2, Logout, Message, NotificationBing, Profile, ProfileCircle, SearchNormal1, Setting } from "iconsax-react";
+import { Bookmark, Logout, Message, NotificationBing, Profile, ProfileCircle, Setting } from "iconsax-react";
 import NavbarLink from "../../NavbarLink";
 import ThemeToggle from "../../ThemeToggle";
-import CreatePostButton from "../../CreatePostButton";
 
 export function ProfileDrawer({
     children: ButtonTrigger,
@@ -29,9 +23,8 @@ export function ProfileDrawer({
                 {ButtonTrigger}
             </DrawerTrigger>
             <DrawerContent className="border-icon-color bg-foreground h-[68%]">
-                    <DrawerTitle></DrawerTitle>
+                <DrawerTitle></DrawerTitle>
                 <div className="mx-auto flex flex-col justify-between  w-full max-w-sm">
-
                     <nav className="flex-1 py-2 align-middle">
                         <ul className="space-y-1">
                             {[
