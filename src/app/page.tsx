@@ -1,5 +1,5 @@
 'use client'
-
+import TrindingSidebar from './components/sidebars/TrendingSidebar'
 import { AppDispatch, RootState, startLoading, stopLoading } from '@/lib/reduxStore/store'
 import { useDispatch, useSelector } from 'react-redux'
 import PostContainer from './components/Post/PostsContainer'
@@ -10,15 +10,16 @@ function Home() {
   const userName = useSelector((state: RootState) => state.user.userName)
 
   return (
-    <>
-      {/* <h1 className="text-3xl font-bold">Welcom Back, {userName}!</h1>
+    <div className=" flex justify-between">
+      <h1 className="text-3xl font-bold">Welcom Back, {userName}!</h1>
       <button onClick={() => dispatch(startLoading())}>Start Loading</button>
-      <button onClick={() => dispatch(stopLoading())}>Stop Loading</button> */}
-      {/* {isLoading ? <h2>loading...</h2> : <h2>Done Loading!</h2>} */}
+      <button onClick={() => dispatch(stopLoading())}>Stop Loading</button>
+      {isLoading ? <h2>loading...</h2> : <h2>Done Loading!</h2>}
       <PostContainer
         posts={[{ tag: 'adoption' }, { tag: 'help' }, { tag: 'discuss' }, { tag: 'product' }, { tag: 'other' }]}
       />
-    </>
+      <TrindingSidebar />
+    </div>
   )
 }
 

@@ -1,15 +1,19 @@
 'use client';
 
 import { Button } from '@/components/ui/button';
+import { RootState } from '@/lib/reduxStore/store';
+import { cn } from '@/lib/utils';
 import { CloudSunny, Sun } from 'iconsax-react';
 import { Moon, SunMoon } from 'lucide-react';
 import { useEffect, useState } from 'react';
+import { useSelector } from 'react-redux';
 
 type themesTypes = 'light' | 'dark' | 'system'
 
 export default function ThemeToggle() {
   const [theme, setTheme] = useState<themesTypes | null>(null);
   const [isMounted, setIsMounted] = useState(false);
+  const isOpen = useSelector((state: RootState) => state.userSidebar.isOpen);
 
   useEffect(() => {
     setIsMounted(true);
@@ -84,7 +88,9 @@ export default function ThemeToggle() {
             theme === "dark" ? <Moon  {...iconsProps} style={{ height: 24, width: 24 }} /> :
               <CloudSunny  {...iconsProps} style={{ height: 24, width: 24 }} />
         }
-        Change Theme
+        <p className={cn('sm:text-base text-lg', { "opacity-100": isOpen, "opacity-100 md:opacity-0": !isOpen })}>
+          Change Theme
+        </p>
       </Button>
 
     </div>

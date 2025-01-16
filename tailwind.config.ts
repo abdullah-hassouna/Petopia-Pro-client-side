@@ -18,6 +18,7 @@ export default {
 				foreground: 'var(--foreground)',
 				'header-color': 'var(--header-font-color)',
 				'sub-header-color': 'var(--sub-header-font-color)',
+				'icon-color': 'var(--icon-color)',
 				primary: {
 					'50': 'rgba(var(--prime-color-rgb), 0.5)',
 					'75': 'rgba(var(--prime-color-rgb), 0.75)',
