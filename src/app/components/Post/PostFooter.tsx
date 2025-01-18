@@ -7,6 +7,8 @@ import { useRef, useState } from 'react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import Comments from './Comments'
 import { redirect } from 'next/navigation'
+import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select'
+import { IoSettingsOutline } from 'react-icons/io5'
 
 interface PostFooterProps {
   postId: string
@@ -113,57 +115,57 @@ const PostFooter = (props: PostFooterProps) => {
   }
 
   return (
-    <div>
-      <div className="flex flex-col gap-2 w-full">
-        <div className="flex gap-2 lg:gap-3 md:gap-4 sm:gap-6 px-5 py-5 justify-between font-light text-whity w-full items-center">
-          <div className="flex gap-1 cursor-pointer">
-            <Heart
-              size="20"
-              color={liked ? 'red' : 'var(--whity)'}
-              onClick={handleLikedClick}
-              variant={liked ? 'Bold' : 'Outline'}
-            />
-            <HoverCard open={isLikeHoverCardActive} onOpenChange={setIsLikeHoverCardActive}>
-              <HoverCardTrigger onClick={handleLikeHoverCardToggle}>
-                <span>
-                  {likedCounter}
-                  <span className="hidden sm:inline ml-2">Like</span>
-                </span>
-              </HoverCardTrigger>
-              {isLikeHoverCardActive && <InteractionsHover tag={tag} users={users} />}
-            </HoverCard>
-          </div>
-          <div className="flex gap-1 cursor-pointer" onClick={handleShowComments}>
-            <MessageText size="20" color="var(--whity)" />
-            <span>
-              {comments}
-              <span className="hidden sm:inline ml-2">Comment</span>
-            </span>
-          </div>
-          <div className="flex gap-1 cursor-pointer">
-            <Share size="20" color="var(--whity)" />
-            <span>
-              {shares}
-              <span className="hidden sm:inline ml-2">Share</span>
-            </span>
-          </div>
-          <div className="flex gap-1 cursor-pointer">
-            <Archive
-              size="20"
-              color={saved ? 'var(--prime-color)' : 'var(--whity)'}
-              onClick={handleSaveClick}
-              variant={saved ? 'Bold' : 'Outline'}
-            />
-            <HoverCard open={isSaveHoverCardActive} onOpenChange={setIsSaveHoverCardActive}>
-              <HoverCardTrigger onClick={handleSaveHoverCardToggle}>
-                <span>
-                  {savedCounter}
-                  <span className="hidden sm:inline ml-2">Saved</span>
-                </span>
-              </HoverCardTrigger>
-              {isSaveHoverCardActive && <InteractionsHover tag={tag} users={users} />}
-            </HoverCard>
-          </div>
+    <div className="flex flex-col gap-2 w-full">
+      <div className="flex gap-2 lg:gap-3 md:gap-3 sm:gap-6 px-5 py-5 justify-between font-light text-whity w-full items-center">
+        <div className="flex gap-1 cursor-pointer">
+          <Heart
+            size="20"
+            color={liked ? 'red' : 'var(--whity)'}
+            onClick={handleLikedClick}
+            variant={liked ? 'Bold' : 'Outline'}
+          />
+          <HoverCard open={isLikeHoverCardActive} onOpenChange={setIsLikeHoverCardActive}>
+            <HoverCardTrigger onClick={handleLikeHoverCardToggle}>
+              <span>
+                {likedCounter}
+                <span className="hidden md:inline ml-2">Like</span>
+              </span>
+            </HoverCardTrigger>
+            {isLikeHoverCardActive && <InteractionsHover tag={tag} users={users} />}
+          </HoverCard>
+        </div>
+        <div className="flex gap-1 cursor-pointer" onClick={handleShowComments}>
+          <MessageText size="20" color="var(--whity)" />
+          <span>
+            {comments}
+            <span className="hidden md:inline ml-2">Comment</span>
+          </span>
+        </div>
+        <div className="flex gap-1 cursor-pointer">
+          <Share size="20" color="var(--whity)" />
+          <span>
+            {shares}
+            <span className="hidden md:inline ml-2">Share</span>
+          </span>
+        </div>
+        <div className="flex gap-1 cursor-pointer">
+          <Archive
+            size="20"
+            color={saved ? 'var(--prime-color)' : 'var(--whity)'}
+            onClick={handleSaveClick}
+            variant={saved ? 'Bold' : 'Outline'}
+          />
+          <HoverCard open={isSaveHoverCardActive} onOpenChange={setIsSaveHoverCardActive}>
+            <HoverCardTrigger onClick={handleSaveHoverCardToggle}>
+              <span>
+                {savedCounter}
+                <span className="hidden md:inline ml-2">Saved</span>
+              </span>
+            </HoverCardTrigger>
+            {isSaveHoverCardActive && <InteractionsHover tag={tag} users={users} />}
+          </HoverCard>
+        </div>
+        <div className="flex gap-2 mr-5">
           {['adoption', 'product'].includes(tag.toLowerCase()) ? (
             <>
               <TooltipProvider>
@@ -188,10 +190,22 @@ const PostFooter = (props: PostFooterProps) => {
               </Button>
             </>
           ) : null}
+          <Select>
+            <SelectTrigger className="flex bg-discuss justify-center items-center rounded-md hover:bg-discuss-70 shadow-none font-normal h-9 max-w-9 p-1 hidden-arrow">
+              <div className="flex items-center justify-center w-full h-full">
+                <IoSettingsOutline className="w-5 h-5" color="#FF8A65" />
+              </div>
+            </SelectTrigger>
+            <SelectContent className="absolute right-30 left-0 shadow-md rounded-md w-32">
+              <SelectItem value={'edit'}>Edit</SelectItem>
+              <SelectItem value={'flag'}>Report</SelectItem>
+              <SelectItem value={'delete'}>Delete</SelectItem>
+            </SelectContent>
+          </Select>
         </div>
-        <Comments show={showComments} comments={commentsContent} tag={tag} />
-        <PostComment postId={postId} fullName={fullName} userImage={userImage} />
       </div>
+      <Comments show={showComments} comments={commentsContent} tag={tag} />
+      <PostComment postId={postId} fullName={fullName} userImage={userImage} />
     </div>
   )
 }

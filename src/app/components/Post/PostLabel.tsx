@@ -1,7 +1,7 @@
-import clsx from 'clsx'
-
 const PostLabel = (props: { title: string }) => {
-  const bgColorClass = `bg-${props.title.toLowerCase()}`
+  let colorScheme = ['adoption', 'help', 'discuss', 'product'].includes(props.title) ? props.title : 'help'
+
+  const bgColorClass = `bg-${colorScheme.toLowerCase()}`
   return (
     <div
       className={`inline-flex self-end  items-center flex-shrink-0 absolute text-whity -translate-x-full left-[103.4%] sm:left-[101.5%] md:left-[102%] z-[5] top-6 h-8 text-sm sm:text-base`}

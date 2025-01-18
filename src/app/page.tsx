@@ -10,15 +10,17 @@ function Home() {
   const userName = useSelector((state: RootState) => state.user.userName)
 
   return (
-    <div className=" flex justify-between">
-      <h1 className="text-3xl font-bold">Welcom Back, {userName}!</h1>
-      <button onClick={() => dispatch(startLoading())}>Start Loading</button>
-      <button onClick={() => dispatch(stopLoading())}>Stop Loading</button>
-      {isLoading ? <h2>loading...</h2> : <h2>Done Loading!</h2>}
-      <PostContainer
-        posts={[{ tag: 'adoption' }, { tag: 'help' }, { tag: 'discuss' }, { tag: 'product' }, { tag: 'other' }]}
-      />
-      <TrindingSidebar />
+    <div className="w-full mb-14 md:mb-0">
+      <div className="flex justify-between items-center">
+        {/* <h1 className="text-3xl font-bold">Welcom Back, {userName}!</h1>
+        <button onClick={() => dispatch(startLoading())}>Start Loading</button>
+        <button onClick={() => dispatch(stopLoading())}>Stop Loading</button>
+        {isLoading ? <h2>loading...</h2> : <h2>Done Loading!</h2>} */}
+        <PostContainer
+          posts={[{ tag: 'adoption' }, { tag: 'help' }, { tag: 'discuss' }, { tag: 'product' }, { tag: 'other' }]}
+        />
+        <TrindingSidebar />
+      </div>
     </div>
   )
 }

@@ -1,3 +1,4 @@
+import { ScrollArea } from '@/components/ui/scroll-area'
 import PostCard from './PostCard'
 
 interface Posts {
@@ -5,11 +6,11 @@ interface Posts {
 }
 const PostContainer = ({ posts }: { posts: Posts[] }) => {
   return (
-    <div className="flex flex-col gap-5 overflow-y-auto justify-center m-3 md:mx-[10vw] sm:mx-[28vw] lg:mx-[20vw]">
+    <ScrollArea id="container" className="h-screen w-full py-5">
       {posts.map((post, index) => (
         <PostCard title={post.tag} key={index} />
       ))}
-    </div>
+    </ScrollArea>
   )
 }
 export default PostContainer

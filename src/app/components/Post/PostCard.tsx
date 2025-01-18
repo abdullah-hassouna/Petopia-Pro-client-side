@@ -7,7 +7,10 @@ import PostContent from './PostContent'
 
 const PostCard = (props: { title: 'adoption' | 'help' | 'discuss' | 'product' | 'other' }) => {
   const { title } = props
-  const viaColorClass = `via-${title.toLowerCase()}`
+  let colorScheme = ['adoption', 'help', 'discuss', 'product'].includes(title) ? title : 'help'
+
+  const viaColorClass = `via-${colorScheme.toLowerCase()}`
+
   const images = [
     'https://cdn.pixabay.com/photo/2023/08/18/15/02/cat-8198720_960_720.jpg',
     'https://cdn.pixabay.com/photo/2023/08/18/15/02/cat-8198720_960_720.jpg',
@@ -24,7 +27,7 @@ const PostCard = (props: { title: 'adoption' | 'help' | 'discuss' | 'product' | 
     adoptionStatus: 'adopted' as 'adopted' | 'available',
   }
   const product = {
-    id:'sad',
+    id: 'sad',
     userId: 'asd',
     title: 'cat nip',
     stock: 10,
@@ -47,11 +50,16 @@ const PostCard = (props: { title: 'adoption' | 'help' | 'discuss' | 'product' | 
   }
 
   return (
-    <div className="relative  w-[95%] min-h-[32.771875rem] ">
+    <div className="relative w-fit sm:w-[80%] mx-4 sm:m-auto min-h-[32.771875rem] pb-5">
       <Card
         className={`bg-gradient-to-b from-foreground ${viaColorClass} to-foreground border border-background rounded-[8px] box-border z-0`}
       >
-        <PostHeader username="username" fullName="Haitham AbuLamdiasdasdasdassadasdasd" labelTag={title} userImage={images[0]} />
+        <PostHeader
+          username="username"
+          fullName="Haitham AbuLamdiasdasdasdassadasdasd"
+          labelTag={title}
+          userImage={images[0]}
+        />
 
         <PostContent postDetails={PostDetails} />
 
@@ -63,14 +71,14 @@ const PostCard = (props: { title: 'adoption' | 'help' | 'discuss' | 'product' | 
           comments={10}
           shares={10}
           bookmarks={10}
-          tag={title}
+          tag={colorScheme}
         />
       </Card>
       <div
-        className={`w-[1.0634375rem] h-[0.681rem] flex-shrink-0 absolute top-[1.125rem] -right-[0.5625rem]  rotate-[45deg] bg-${title}-100 z-[-5]`}
+        className={`w-[1.0634375rem] h-[0.681rem] flex-shrink-0 absolute top-[1.125rem] -right-[0.5625rem]  rotate-[45deg] bg-${colorScheme}-100 z-[-5]`}
       ></div>
       <div
-        className={`w-[1.0634375rem] h-[0.681rem] flex-shrink-0 absolute top-[3.3125rem] -right-[0.5625rem] rotate-[-45deg] bg-${title}-100 z-[-5]`}
+        className={`w-[1.0634375rem] h-[0.681rem] flex-shrink-0 absolute top-[3.3125rem] -right-[0.5625rem] rotate-[-45deg] bg-${colorScheme}-100 z-[-5]`}
       ></div>
     </div>
   )

@@ -4,7 +4,9 @@ import PetDetails from './PetDetails'
 import ProductDetails from './ProductDetails'
 
 const PostContent = ({ postDetails }: { postDetails: PostDetails }) => {
-  const bgColor = `bg-${postDetails.category.toLowerCase()}`
+  let colorScheme = ['adoption', 'help', 'discuss', 'product'].includes(postDetails.category)
+    ? postDetails.category
+    : 'help'
   const images = postDetails.images
 
   if (postDetails.pet && postDetails.pet.petImage) images.push(postDetails.pet.petImage)
@@ -25,7 +27,7 @@ const PostContent = ({ postDetails }: { postDetails: PostDetails }) => {
         <ProductDetails product={postDetails.product} category={postDetails.category} />
       ) : null}
 
-      {postDetails.images ? <ImageSlider images={images} tag={postDetails.category} /> : null}
+      {postDetails.images ? <ImageSlider images={images} tag={colorScheme} /> : null}
     </>
   )
 }
