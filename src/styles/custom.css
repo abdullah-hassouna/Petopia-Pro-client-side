@@ -1,0 +1,38 @@
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.hide-scrollbar {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
+
+.custom-scrollbar::-webkit-scrollbar {
+  width: 10px;
+}
+
+.custom-scrollbar::-webkit-scrollbar-track {
+  background: transparent; /* Hide the track */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb {
+  background: var(--prime-color);
+  border-radius: 10px; /* Add border radius to the thumb */
+}
+
+.custom-scrollbar::-webkit-scrollbar-thumb:hover {
+  background: var(--prime-color);
+}
+
+.custom-scrollbar::-webkit-scrollbar-button {
+  display: none; /* Hide the scrollbar arrows */
+}
+
+.custom-scrollbar {
+  scrollbar-width: thin;
+  scrollbar-color: var(--prime-color) transparent; /* Show thumb, hide track */
+}
+
+button.hidden-arrow > svg{
+  display: none;
+}
