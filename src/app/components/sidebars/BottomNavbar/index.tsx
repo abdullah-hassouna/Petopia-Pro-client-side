@@ -2,6 +2,7 @@
 import { Home2, Message, NotificationBing, SearchNormal1 } from "iconsax-react"
 import NavItem from "./NavbarItem"
 import ProfileNavItem from "./ProfileAvatarIcon"
+import ROUTES from "@/routes"
 
 export default function BottomNavbar() {
     return (
@@ -11,8 +12,8 @@ export default function BottomNavbar() {
                     [
                         { icon: SearchNormal1, link: "SearchNormal1" },
                         { icon: NotificationBing, link: "NotificationBing" },
-                        { icon: Home2, link: "/" },
-                        { icon: Message, link: "/messages" },
+                        { icon: Home2, link: ROUTES["home-page"] },
+                        { icon: Message, link: ROUTES["messages-page"] },
                     ].map(item => <NavItem key={item.link} {...item} />)}
                 <ProfileNavItem  />
             </ul>

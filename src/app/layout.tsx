@@ -7,6 +7,7 @@ import ProviderContainer from "@/lib/reduxStore/providerContainer/container";
 import UserInfoSidebar from "./components/sidebars/UserinfoSidebar";
 import UIToggle from "./components/sidebars/UserinfoSidebar/UserInfoSidebarToggle"
 import BottomNavbar from "./components/sidebars/BottomNavbar";
+import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 
 const readexPro = Readex_Pro({
   variable: "--font-readex-pro",
@@ -36,13 +37,13 @@ export default function RootLayout({
     <ProviderContainer>
       <html lang="en">
         <body
-          className={`${readexPro.className} transition-all antialiased flex`}
+          className={`${readexPro.className} relative transition-all antialiased flex`}
         >
           <UserInfoSidebar />
           {/* <UIToggle className="block m-5" /> */}
-          <div className="flex-grow">
+          <ScrollArea className="flex-grow h-[100vh]">
             {children}
-          </div>
+          </ScrollArea>
           <BottomNavbar />
         </body>
       </html>
