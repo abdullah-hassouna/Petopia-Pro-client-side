@@ -41,7 +41,7 @@ export default function RootLayout({
         >
           <UserInfoSidebar />
           {/* <UIToggle className="block m-5" /> */}
-          <ScrollArea className="flex-grow h-[100vh]">
+          <ScrollArea className="flex-grow h-[100vh] mb-6 md:mb-0">
             {children}
           </ScrollArea>
           <BottomNavbar />

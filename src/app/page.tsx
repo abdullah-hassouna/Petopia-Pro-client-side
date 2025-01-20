@@ -6,7 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 function Home() {
   const dispatch: AppDispatch = useDispatch();
   const isLoading = useSelector((state: RootState) => state.loading.isLoading);
-  const userName = useSelector((state: RootState) => state.user.userName);
+  const userName = useSelector((state: RootState) => state.userInfo.userName);
 
 
   return (
