@@ -2,7 +2,7 @@ interface UserInfoState {
     userName: string
     userEmail: string
     userBio: string
-    userPhoneNumber: string,
+    userPhoneNumber: { phoneNumber: string, countryNumber: string },
     userProfileImage: string
     userCoverImage: string
     userToken: string
@@ -13,7 +13,7 @@ let LSData: { user: UserInfoState } = {
         userName: "",
         userEmail: "",
         userBio: "",
-        userPhoneNumber: "",
+        userPhoneNumber: { phoneNumber: "+970", countryNumber: "" },
         userProfileImage: "",
         userCoverImage: "",
         userToken: ""
@@ -27,7 +27,7 @@ const initialUserInfoState: UserInfoState = LSData?.user || {
     userName: "",
     userEmail: "",
     userBio: "",
-    userPhoneNumber: "",
+    userPhoneNumber: { phoneNumber: "+970", countryNumber: "" },
     userProfileImage: "",
     userCoverImage: "",
     userToken: ""

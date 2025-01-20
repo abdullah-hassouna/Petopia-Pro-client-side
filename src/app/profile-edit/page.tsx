@@ -10,6 +10,8 @@ import ChangeCoverImage from '@/app/components/updatProfile/changeCoverImage'
 import ChangeProfileImage from '@/app/components/updatProfile/changeProfileImage'
 import { useDispatch, useSelector } from 'react-redux'
 import { AppDispatch, RootState, startLoading, stopLoading } from '@/lib/reduxStore/store'
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
+import countriesNumPhone from '@/lib/countries'
 
 export default function ProfileEditor() {
 
@@ -18,7 +20,7 @@ export default function ProfileEditor() {
     const [filesUpload, setFilesUpload] = useState<{ profile: File, cover: File }>()
     const [urlUpload, setURLUpload] = useState<{ profile: string, cover: string }>()
 
-    
+
     const [newProfileData, setNewProfileData] = useState({
         name: userName,
         bio: userBio,
@@ -36,6 +38,20 @@ export default function ProfileEditor() {
     const handleInputChange = (e) => {
         const { name, value } = e.target
         setNewProfileData(prev => ({ ...prev, [name]: value }))
+    }
+
+    const handlePhoneNumber = ({ phoneNumber, country }: { phoneNumber?: string, country?: string }) => {
+        const newPhoneNumber = newProfileData.phoneNumber;
+
+        if (phoneNumber) {
+            newPhoneNumber.phoneNumber = phoneNumber;
+        }
+
+        if (country) {
+            newPhoneNumber.countryNumber = country;
+        }
+
+        setNewProfileData(prev => ({ ...(prev), phoneNumber: newPhoneNumber }))
     }
 
     const __uploadFile = async () => {
@@ -94,16 +110,36 @@ export default function ProfileEditor() {
                                     />
                                 </div>
 
-                                <div className='flex flex-col md:flex-row w-full gap-2 justify-between'>
+                                <div className='grid grid-cols-1 md:grid-cols-2 md:flex-row w-full gap-2 justify-between'>
 
                                     <div className="space-y-2 flex-grow">
-                                        <Label htmlFor="phoneNumber">phoneNumber</Label>
-                                        <Input
-                                            id="phoneNumber"
-                                            name="phoneNumber"
-                                            value={newProfileData.phoneNumber}
-                                            onChange={handleInputChange}
-                                        />
+                                        <Label htmlFor="phoneNumber">Phone Number</Label>
+                                        <div className='flex border rounded-md h-fit mt-2'>
+
+                                            <Select>
+                                                <SelectTrigger onSelect={(e) => console.log(e)} className="w-[50%] p-2 text-whity border-0 border-r rounded-none border-whity m-0 ring-0 outline-none focus-visible:ring-0">
+                                                    Select Country
+                                                </SelectTrigger>
+                                                <SelectContent>
+                                                    {
+                                                        countriesNumPhone.countries.map((country, index) => (
+                                                            <SelectItem key={Math.random()} value={Math.random() + ""}>
+                                                                {country.name} <small className='text-gray-600'>{country.code}</small>
+                                                            </SelectItem>
+                                                        ))
+                                                    }
+
+                                                </SelectContent>
+                                            </Select>
+
+                                            <Input
+                                                className='border-0 w-full m-0 p-2 ring-0 outline-none focus-visible:ring-0'
+                                                id="phoneNumber"
+                                                name="phoneNumber"
+                                                value={newProfileData.phoneNumber?.phoneNumber}
+                                                onChange={handleInputChange}
+                                            />
+                                        </div>
                                     </div>
 
                                     <div className="space-y-2 flex-grow">
