@@ -2,6 +2,7 @@
 import TrindingSidebar from "./components/sidebars/TrendingSidebar";
 import { AppDispatch, RootState, startLoading, stopLoading } from "@/lib/reduxStore/store";
 import { useDispatch, useSelector } from "react-redux";
+import { SelectSearch } from "./components/SelectSearch";
 
 function Home() {
   const dispatch: AppDispatch = useDispatch();
@@ -11,9 +12,7 @@ function Home() {
 
   return (
     <div className=" flex justify-between">
-      <h1 className="text-3xl font-bold">Welcom Back, {userName}!</h1>
-      <button onClick={() => dispatch(startLoading())}>Start Loading</button>
-      <button onClick={() => dispatch(stopLoading())}>Stop Loading</button>
+      {/* <SelectSearch /> */}
       {isLoading ? <h2>loading...</h2> : <h2>Done Loading!</h2>}
       <TrindingSidebar />
     </div>

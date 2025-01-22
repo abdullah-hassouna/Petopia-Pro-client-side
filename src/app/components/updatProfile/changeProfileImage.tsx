@@ -8,21 +8,18 @@ import { Camera, GalleryRemove, User } from 'iconsax-react'
 import React, { useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 
-function changeProfileImage() {
-
-    const [file, setFile] = useState<File | null>(null);
-    const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
+function changeProfileImage({setFile, setUploadedUrl}) {
+   // const [file, setFile] = useState<File | null>(null);
+    // const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
     const [imageBlob, setImageBlob] = useState(null);
-    const dispatch: AppDispatch = useDispatch();
-
+    // const dispatch: AppDispatch = useDispatch();
 
     const userProfileImage = useSelector((state: RootState) => state.userInfo.userProfileImage);
-
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];
         if (selectedFile) {
-            setFile(selectedFile);
+            setFile(selectedFile, 'profile');
 
             const reader = new FileReader();
             reader.onload = (event) => {
@@ -38,33 +35,7 @@ function changeProfileImage() {
         setImageBlob(null)
     }
 
-    const __uploadFile = async () => {
-        if (!file) return;
 
-        dispatch(startLoading())
-
-        const formData = new FormData();
-        formData.append('file', file);
-        formData.append('upload_preset', 'your_unsigned_preset'); // Replace with your preset name
-
-        try {
-            const response = await fetch('https://api.cloudinary.com/v1_1/your_cloud_name/image/upload', {
-                method: 'POST',
-                body: formData,
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                setUploadedUrl(data.secure_url);
-            } else {
-                console.error('Upload failed:', data);
-            }
-        } catch (error) {
-            console.error('Error uploading file:', error);
-        } finally {
-            dispatch(stopLoading())
-        }
-    };
 
 
     return (

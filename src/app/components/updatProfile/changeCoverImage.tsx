@@ -7,18 +7,18 @@ import { Input } from '@/components/ui/input';
 import { Button } from '@/components/ui/button';
 import { cn } from '@/lib/utils';
 
-function changeCoverImage({ setFile, setUploadedUrl}) {
+function changeCoverImage({ setFile, setUploadedUrl }) {
     // const [file, setFile] = useState<File | null>(null);
     // const [uploadedUrl, setUploadedUrl] = useState<string | null>(null);
     const [imageBlob, setImageBlob] = useState(null);
     // const dispatch: AppDispatch = useDispatch();
 
-    const coverImage = useSelector((state: RootState) => state.userInfo.userProfileImage);
+    const coverImage = useSelector((state: RootState) => state.userInfo.userCoverImage);
 
     const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         const selectedFile = event.target.files?.[0];
         if (selectedFile) {
-            setFile(selectedFile);
+            setFile(selectedFile, 'cover');
 
             const reader = new FileReader();
             reader.onload = (event) => {

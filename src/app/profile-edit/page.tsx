@@ -1,25 +1,30 @@
 "use client"
 
-import { useState } from 'react'
+import React, { useState } from 'react'
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
-import { Label } from "@/components/ui/label"
-import { Textarea } from "@/components/ui/textarea"
+import {
+    PhoneInput
+} from "@/components/ui/phoneInput";
 import ChangeCoverImage from '@/app/components/updatProfile/changeCoverImage'
 import ChangeProfileImage from '@/app/components/updatProfile/changeProfileImage'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState, startLoading, stopLoading } from '@/lib/reduxStore/store'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import countriesNumPhone from '@/lib/countries'
+import { AppDispatch, RootState } from '@/lib/reduxStore/store'
+import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { useForm } from 'react-hook-form'
+import { z, } from 'zod'
+import { zodResolver } from '@hookform/resolvers/zod'
+import { Text } from 'iconsax-react'
+import { isValidPhoneNumber } from 'react-phone-number-input'
+import { Textarea } from '@/components/ui/textarea'
+
 
 export default function ProfileEditor() {
 
     const dispatch: AppDispatch = useDispatch();
     const { userName, userBio, userCoverImage, userProfileImage, userPhoneNumber } = useSelector((state: RootState) => state.userInfo)
     const [filesUpload, setFilesUpload] = useState<{ profile: File, cover: File }>()
-    const [urlUpload, setURLUpload] = useState<{ profile: string, cover: string }>()
-
 
     const [newProfileData, setNewProfileData] = useState({
         name: userName,
@@ -28,6 +33,72 @@ export default function ProfileEditor() {
         coverImage: userCoverImage,
         phoneNumber: userPhoneNumber
     })
+
+    const formSchema = z.object({
+        display_name:
+            z.string()
+                .min(5, {
+                    message: "Username must be at least 5 characters.",
+                })
+                .max(20, {
+                    message: "Username must be at most 20 characters."
+                })
+                .optional(),
+
+        bio: z.string().superRefine((value, ctx) => {
+            // Check if the Bio are empty
+            if (!value.trim()) return
+
+            const valueArray = value.trim().split(" ").slice(0, 5);
+
+            // Check if the each word are 3 or more characters
+            if (valueArray.length === valueArray.filter(word => word.length > 3).length) {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    message: "Each word in the bio must be at least 3 characters.",
+                })
+            }
+
+            // Check if there 5 words (because it easy as first step)
+            if (valueArray.length) {
+                ctx.addIssue({
+                    code: z.ZodIssueCode.custom,
+                    message: "The bio must be at least 5 words.",
+                })
+            }
+        }).optional(),
+        address: z.string()
+            .superRefine((value, ctx) => {
+                // Check if the Bio are empty
+                if (!value.trim()) return
+
+                const valueArray = value.trim().split(" ").slice(0, 2);
+
+                // Check if the each word are 3 or more characters
+                if (valueArray.length === valueArray.filter(word => word.length > 3).length) {
+                    ctx.addIssue({
+                        code: z.ZodIssueCode.custom,
+                        message: "Country name must be at least 3 characters.",
+                    })
+                }
+
+                // Check if there 5 words (because it easy as first step)
+                if (valueArray.length) {
+                    ctx.addIssue({
+                        code: z.ZodIssueCode.custom,
+                        message: "The address must containe the Country and the state.",
+                    })
+                }
+            }).optional(),
+        phone_number: z.string()
+            .refine(isValidPhoneNumber, { message: "Invalid phone number" })
+            .optional()
+    })
+
+    const form = useForm<z.infer<typeof formSchema>>({
+        resolver: zodResolver(formSchema)
+    })
+
 
     const addNewImage = (imageFile, imageType: "profile" | "cover") => {
         setFilesUpload(prev => {
@@ -54,36 +125,52 @@ export default function ProfileEditor() {
         setNewProfileData(prev => ({ ...(prev), phoneNumber: newPhoneNumber }))
     }
 
-    const __uploadFile = async () => {
-        if (!filesUpload.cover || !filesUpload.profile) return;
+    // const uploadFile = async (file) => {
+    //     console.log("Run Upload", filesUpload)
+    //     if (!file) return;
 
-        dispatch(startLoading())
+    //     dispatch(startLoading())
 
-        const formData = new FormData();
-        formData.append('file', filesUpload.cover);
-        formData.append('upload_preset', 'your_unsigned_preset'); // Replace with your preset name
+    //     const formData = new FormData();
+    //     formData.append('file', file);
 
+    //     formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET); // Replace with your preset name
+
+    //     try {
+    //         const response = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_API_URL, {
+    //             method: 'POST',
+    //             body: formData,
+    //         });
+
+    //         const data = await response.json();
+    //         if (response.ok) {
+    //             console.log(data)
+    //             // setURLUpload({ profile: data.secure_url, cover: data.secure_url });
+    //         } else {
+    //             console.error('Upload failed:', data);
+    //         }
+    //     } catch (error) {
+    //         console.error('Error uploading file:', error);
+    //     } finally {
+    //         dispatch(stopLoading())
+    //     }
+    // };
+
+    async function handleSubmit(values: z.infer<typeof formSchema>) {
         try {
-            const response = await fetch('https://api.cloudinary.com/v1_1/your_cloud_name/image/upload', {
-                method: 'POST',
-                body: formData,
-            });
-
-            const data = await response.json();
-            if (response.ok) {
-                setURLUpload({ profile: data.secure_url, cover: data.secure_url });
-            } else {
-                console.error('Upload failed:', data);
-            }
+            // await uploadFile(filesUpload.profile)
+            // await uploadFile(filesUpload.cover)
+            console.log("first")
+            console.log(values);
+            //   toast(
+            //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+            //       <code className="text-white">{JSON.stringify(values, null, 2)}</code>
+            //     </pre>
+            //   );
         } catch (error) {
-            console.error('Error uploading file:', error);
-        } finally {
-            dispatch(stopLoading())
+            //   console.error("Form submission error", error);
+            //   toast.error("Failed to submit the form. Please try again.");
         }
-    };
-
-    function handleSubmit(event): void {
-        throw new Error('Function not implemented.')
     }
 
     return (
@@ -95,83 +182,91 @@ export default function ProfileEditor() {
                         <CardDescription className='text-whity'>Update your personal information</CardDescription>
                     </CardHeader>
                     <CardContent>
-                        <form onSubmit={handleSubmit}>
-                            <div className="space-y-2">
+                        <Form {...form}>
+                            <form className='space-y-2' onSubmit={form.handleSubmit(handleSubmit)}>
                                 <ChangeCoverImage setFile={addNewImage} setUploadedUrl={undefined} />
-                                <ChangeProfileImage />
-
-                                <div className="space-y-2 flex-grow">
-                                    <Label htmlFor="name">Name</Label>
-                                    <Input
-                                        id="name"
-                                        name="name"
-                                        value={newProfileData.name}
-                                        onChange={handleInputChange}
-                                    />
-                                </div>
-
+                                <ChangeProfileImage setFile={addNewImage} setUploadedUrl={undefined} />
+                                <br />
+                                <FormField
+                                    control={form.control}
+                                    name="display_name"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className='capitalize'>{field.name.replace("_", " ")}</FormLabel>
+                                            <FormControl>
+                                                <Input placeholder={userName} {...field} />
+                                            </FormControl>
+                                            <FormDescription>Your {field.name} must be atleast 5 characters.</FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
                                 <div className='grid grid-cols-1 md:grid-cols-2 md:flex-row w-full gap-2 justify-between'>
-
-                                    <div className="space-y-2 flex-grow">
-                                        <Label htmlFor="phoneNumber">Phone Number</Label>
-                                        <div className='flex border rounded-md h-fit mt-2'>
-
-                                            <Select>
-                                                <SelectTrigger onSelect={(e) => console.log(e)} className="w-[50%] p-2 text-whity border-0 border-r rounded-none border-whity m-0 ring-0 outline-none focus-visible:ring-0">
-                                                    Select Country
-                                                </SelectTrigger>
-                                                <SelectContent>
-                                                    {
-                                                        countriesNumPhone.countries.map((country, index) => (
-                                                            <SelectItem key={Math.random()} value={Math.random() + ""}>
-                                                                {country.name} <small className='text-gray-600'>{country.code}</small>
-                                                            </SelectItem>
-                                                        ))
-                                                    }
-
-                                                </SelectContent>
-                                            </Select>
-
-                                            <Input
-                                                className='border-0 w-full m-0 p-2 ring-0 outline-none focus-visible:ring-0'
-                                                id="phoneNumber"
-                                                name="phoneNumber"
-                                                value={newProfileData.phoneNumber?.phoneNumber}
-                                                onChange={handleInputChange}
-                                            />
-                                        </div>
-                                    </div>
-
-                                    <div className="space-y-2 flex-grow">
-                                        <Label htmlFor="address">Address</Label>
-                                        <Input
-                                            id="address"
-                                            name="address"
-                                            value={newProfileData.name}
-                                            onChange={handleInputChange}
-                                        />
-                                    </div>
-
-                                </div>
-
-                                <div className="space-y-2">
-                                    <Label htmlFor="bio">Bio</Label>
-                                    <Textarea
-                                        rows={8}
-                                        id="bio"
-                                        name="bio"
-                                        value={newProfileData.bio}
-                                        onChange={handleInputChange}
+                                    <FormField
+                                        control={form.control}
+                                        name="address"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className='capitalize'>{field.name}</FormLabel>
+                                                <FormControl>
+                                                    <Input placeholder={userName} {...field} />
+                                                </FormControl>
+                                                <FormDescription>Your {field.name} must be atleast 5 characters.</FormDescription>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
                                     />
+
+                                    <FormField
+                                        control={form.control}
+                                        name="phone_number"
+                                        render={({ field }) => (
+                                            <FormItem>
+                                                <FormLabel className='capitalize'>{field.name}</FormLabel>
+                                                <FormControl className="w-full">
+                                                    <PhoneInput placeholder="Enter a phone number" {...field} />
+                                                </FormControl>
+                                                <FormDescription>Enter your phone number.</FormDescription>
+                                                <FormMessage />
+                                            </FormItem>
+                                        )}
+                                    />
+
                                 </div>
-                            </div>
-                        </form>
+
+                                <FormField
+                                    control={form.control}
+                                    name="bio"
+                                    render={({ field }) => (
+                                        <FormItem>
+                                            <FormLabel className='capitalize'>{field.name}</FormLabel>
+                                            <FormControl >
+                                                <Textarea
+                                                    placeholder="Placeholder"
+                                                    {...field}
+                                                />
+                                            </FormControl>
+                                            <Button onClick={() => {
+                                                field.value = `Hello`;
+                                            }} className='flex cursor-pointer justify-center items-center'>
+                                                <Text className='h-5 w-5' color='var(--background)' />
+                                                Add the Previous Bio to Edit
+                                            </Button>
+                                            <FormDescription>Your {field.name} must be atleast 5 characters.</FormDescription>
+                                            <FormMessage />
+                                        </FormItem>
+                                    )}
+                                />
+                            </form>
+                        </Form>
+
+
                     </CardContent>
                     <CardFooter>
-                        <Button type="submit" onClick={handleSubmit}>Save Changes</Button>
+                        <Button type="submit" onClick={form.handleSubmit(handleSubmit)}>Save Changes</Button>
                     </CardFooter>
                 </Card>
             </div>
-        </div>
+        </div >
     )
 }
