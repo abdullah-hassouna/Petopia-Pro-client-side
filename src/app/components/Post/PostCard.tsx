@@ -50,7 +50,10 @@ const PostCard = (props: { title: 'adoption' | 'help' | 'discuss' | 'product' | 
   }
 
   return (
-    <div className="relative w-fit sm:w-[80%] mx-4 sm:m-auto min-h-[32.771875rem] pb-5">
+    // relative w-fit sm:w-[80%] mx-4 sm:m-auto min-h-[32.771875rem] pb-5
+    <div
+      className="relative min-h-[32.771875rem] w-full max-w-2xl mx-4 sm:mx-6 md:mx-8 lg:mx-auto mt-5"
+    >
       <Card
         className={`bg-gradient-to-b from-foreground ${viaColorClass} to-foreground border border-background rounded-[8px] box-border z-0`}
       >

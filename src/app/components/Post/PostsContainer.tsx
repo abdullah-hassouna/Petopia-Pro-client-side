@@ -6,11 +6,13 @@ interface Posts {
 }
 const PostContainer = ({ posts }: { posts: Posts[] }) => {
   return (
-    <ScrollArea id="container" className="h-screen w-full py-5">
-      {posts.map((post, index) => (
-        <PostCard title={post.tag} key={index} />
-      ))}
-    </ScrollArea>
+    <div className="w-full  pb-5 mx-5 h-screen">
+      <ScrollArea id="container" className="w-full h-full  overflow-auto ">
+        {posts.map((post, index) => (
+          <PostCard title={post.tag} key={index} />
+        ))}
+      </ScrollArea>
+    </div>
   )
 }
 export default PostContainer
