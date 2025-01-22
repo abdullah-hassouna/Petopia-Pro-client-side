@@ -13,7 +13,7 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
   const [formSchema, setFormSchema] = useState<ZodSchema>(
     z.object({
       postContent: z.string().nonempty(),
-      images: z.array(z.instanceof(File)).optional(),
+      images: z.array(z.instanceof(File)).max(5, "you can't upload more than 5 images.").optional(),
     })
   )
 
@@ -26,7 +26,7 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
       setFormSchema(
         z.object({
           postContent: z.string().nonempty('Post content is required'),
-          images: z.array(z.instanceof(File)).optional(),
+          images: z.array(z.instanceof(File)).max(5, "you can't upload more than 5 images.").optional(),
           petId: z.string().nonempty('Pet is required'),
         })
       )
@@ -34,7 +34,7 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
       setFormSchema(
         z.object({
           postContent: z.string().nonempty('Post content is required'),
-          images: z.array(z.instanceof(File)).optional(),
+          images: z.array(z.instanceof(File)).max(5, "you can't upload more than 5 images.").optional(),
           productId: z.string().nonempty('Product is required'),
         })
       )
@@ -90,7 +90,6 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
             <FormItem>
               <FormLabel>Images</FormLabel>
               <FormControl>
-                
                 <Input
                   className="border border-background text-whity font-light whity-input"
                   type="file"
@@ -99,7 +98,7 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
                   onChange={(e) => field.onChange(Array.from(e.target.files))}
                 />
               </FormControl>
-              <FormDescription>Upload images to your post.</FormDescription>
+              <FormDescription>Upload images to your post, up to 5 images per post.</FormDescription>
               <div className="flex flex-wrap gap-2">
                 {field.value &&
                   field.value.map((image, index) => (
