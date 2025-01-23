@@ -141,7 +141,7 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
                 <FormDescription>Choose the pet that you want to make an adoption post about.</FormDescription>
                 <p className="text-[0.8rem]">
                   You don't have a pet yet?{' '}
-                  <Link href={''} target="_blank" className="text-primary-90 hover:underline">
+                  <Link href={'/Pet/Add'} target="_blank" className="text-primary-90 hover:underline">
                     {' '}
                     Add new pet
                   </Link>

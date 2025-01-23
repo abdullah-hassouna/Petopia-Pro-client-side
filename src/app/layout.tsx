@@ -7,6 +7,7 @@ import ProviderContainer from '@/lib/reduxStore/providerContainer/container'
 import UserInfoSidebar from './components/sidebars/UserinfoSidebar'
 import UIToggle from './components/sidebars/UserinfoSidebar/UserInfoSidebarToggle'
 import BottomNavbar from './components/sidebars/BottomNavbar'
+import { Toaster } from '@/components/ui/toaster'
 
 const readexPro = Readex_Pro({
   variable: '--font-readex-pro',
@@ -36,6 +37,7 @@ export default function RootLayout({
           {/* <UIToggle className="block m-5" /> */}
           <div className="flex-grow">{children}</div>
           <BottomNavbar />
+          <Toaster  />
         </body>
       </html>
     </ProviderContainer>

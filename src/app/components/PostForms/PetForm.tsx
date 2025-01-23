@@ -5,7 +5,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Input } from '@/components/ui/input'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
-import { z } from 'zod'
+import { date, z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
@@ -13,23 +13,75 @@ import { CalendarIcon } from 'lucide-react'
 import { Calendar } from '@/components/ui/calendar'
 import { format } from 'date-fns'
 import { cn } from '@/lib/utils'
+import { Pet } from '@/app/interfaces/postInterface'
+import { useToast } from '@/hooks/use-toast'
 
-const PetForm = ({ title }: { title: string }) => {
+const PetForm = ({ title, petData }: { title: string; petData?: Pet }) => {
+  const { toast } = useToast()
   const formSchema = z.object({
     petName: z.string().nonempty('Pet name is required'),
     type: z.string().nonempty('Pet type is required'),
     petImage: z.array(z.instanceof(File)).max(1, "you can't upload more than one image.").optional(),
-    dob: z.string().nonempty('Pet date of birth is required'),
+    dob: z.date().refine((date) => date instanceof Date && !isNaN(date.getTime()), {
+      message: 'Pet date of birth is required',
+    }),
     healthStatus: z.string().nonempty('Pet health status is required'),
     adoptionStatus: z.string().nonempty('Pet adoption status is required'),
+    gender: z.number().min(1, 'Pet gender is required'),
   })
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      petName: petData?.petName || '',
+      type: petData?.type || '',
+      dob: petData?.dob ? new Date(petData.dob) : undefined,
+      petImage: [],
+      gender: petData?.gender || null,
+      healthStatus: petData?.healthStatus || '',
+      adoptionStatus: petData?.adoptionStatus || '',
+    },
   })
 
   const handleSubmit = (data) => {
-    console.log(data)
+    const initialValues = {
+      petName: petData?.petName || '',
+      type: petData?.type || '',
+      dob: petData?.dob ? new Date(petData.dob) : undefined,
+      petImage: [],
+      gender: petData?.gender || null,
+      healthStatus: petData?.healthStatus || '',
+      adoptionStatus: petData?.adoptionStatus || '',
+    }
+
+    const changedData = Object.keys(data).reduce((acc, key) => {
+      if (key === 'dob') {
+        if (data[key] && data[key].toISOString().split('T')[0] !== initialValues[key]?.toISOString().split('T')[0]) {
+          acc[key] = data[key].toISOString().split('T')[0]
+        }
+      } else if (key === 'petImage') {
+        if (data[key].length > 0) {
+          acc[key] = data[key]
+        }
+      } else if (data[key] !== initialValues[key]) {
+        acc[key] = data[key]
+      }
+      return acc
+    }, {})
+
+    if (Object.keys(changedData).length === 0) {
+      toast({
+        title: 'No changes.',
+        description: 'No changes detected, skipping submission.',
+      })
+      return
+    }
+
+    toast({
+      title: 'submitted',
+      description: 'Your pet information has been submitted successfully.',
+    })
+    console.log('Changed data:', changedData)
   }
   const petTypes = [
     { id: '1', name: 'Dog' },
@@ -81,7 +133,7 @@ const PetForm = ({ title }: { title: string }) => {
                               </FormControl>
                               <SelectContent className="bg-foreground text-whity border border-background">
                                 {petTypes.map((type) => (
-                                  <SelectItem key={type.id} value={type.id}>
+                                  <SelectItem key={type.id} value={type.name}>
                                     {type.name}
                                   </SelectItem>
                                 ))}
@@ -129,7 +181,7 @@ const PetForm = ({ title }: { title: string }) => {
                               </FormControl>
                               <SelectContent className="bg-foreground text-whity border border-background">
                                 {AdoptionStatus.map((status) => (
-                                  <SelectItem key={status.id} value={status.id}>
+                                  <SelectItem key={status.id} value={status.name}>
                                     {status.name}
                                   </SelectItem>
                                 ))}
@@ -143,8 +195,8 @@ const PetForm = ({ title }: { title: string }) => {
                     />
                   </div>
                 </div>
-                <div className="grid grid-cols-1 md:grid-cols-2 md:flex-row w-full gap-2 justify-between">
-                  <div className="flex flex-row gap-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 md:flex-row w-full gap-2 justify-between items-start">
+                  <div className="flex flex-row gap-2 mt-3">
                     <FormField
                       control={form.control}
                       name="dob"
@@ -190,26 +242,74 @@ const PetForm = ({ title }: { title: string }) => {
                   <div className="flex flex-row gap-2">
                     <FormField
                       control={form.control}
-                      name="petImage"
+                      name="gender"
                       render={({ field }) => (
-                        <FormItem className="w-full m-0 p-0 ring-0 outline-none focus-visible:ring-0 mt-auto">
-                          <FormLabel className="capitalize">Pet Image</FormLabel>
+                        <FormItem className="w-full m-0 p-0 ring-0 outline-none focus-visible:ring-0 mt-auto ">
+                          <FormLabel className="capitalize">Gender</FormLabel>
                           <FormControl>
-                            <Input
-                              className="border border-background text-whity font-light whity-input"
-                              type="file"
-                              accept="image/*"
-                              onChange={(e) => field.onChange(Array.from(e.target.files))}
-                            />
+                            <Select onValueChange={field.onChange} defaultValue={field.value?.toString()}>
+                              <FormControl>
+                                <SelectTrigger className="outline-none shadow-sm focus:outline-none focus-visible:ring-0 font-light hide-scrollbar ">
+                                  <SelectValue placeholder="Gender" />
+                                </SelectTrigger>
+                              </FormControl>
+                              <SelectContent className="bg-foreground text-whity border border-background">
+                                <SelectItem key="0" value={'0'}>
+                                  Male
+                                </SelectItem>
+                                <SelectItem key="1" value={'1'}>
+                                  Female
+                                </SelectItem>
+                              </SelectContent>
+                            </Select>
                           </FormControl>
-                          <FormDescription>Would you like to upload more than one image?</FormDescription>
+                          <FormDescription>What is your pet gender. </FormDescription>
                           <FormMessage />
                         </FormItem>
                       )}
                     />
                   </div>
                 </div>
-                <Button type="submit">{title}</Button>
+                <div className="flex flex-row gap-2">
+                  <FormField
+                    control={form.control}
+                    name="petImage"
+                    render={({ field }) => (
+                      <FormItem className="w-full m-0 p-0 ring-0 outline-none focus-visible:ring-0 mt-auto">
+                        <FormLabel className="capitalize">Pet Image</FormLabel>
+                        <FormControl>
+                          <Input
+                            className="border border-background text-whity font-light whity-input"
+                            type="file"
+                            accept="image/*"
+                            onChange={(e) => field.onChange(Array.from(e.target.files))}
+                          />
+                        </FormControl>
+                        <FormDescription>Would you like to upload more than one image?</FormDescription>
+                        <div className="flex flex-wrap gap-2">
+                          {field.value &&
+                            field.value.map((image, index) => (
+                              <div key={index} className="w-20 h-20 relative my-2">
+                                <img
+                                  src={URL.createObjectURL(image)}
+                                  alt={`Preview ${index}`}
+                                  className="w-full h-full object-cover rounded-lg"
+                                />
+                              </div>
+                            ))}
+                        </div>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                </div>
+                <div className="grid grid-cols-1 md:grid-cols-2 md:flex-row w-full gap-2 justify-center items-center">
+                  <div className="col-span-1 md:col-span-2 flex justify-center">
+                    <Button type="submit" className="w-full md:w-1/2 lg:w-1/3">
+                      {title}
+                    </Button>
+                  </div>
+                </div>
               </form>
             </Form>
           </CardContent>
