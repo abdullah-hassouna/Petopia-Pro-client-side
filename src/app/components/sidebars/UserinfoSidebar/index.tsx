@@ -1,8 +1,7 @@
-"use client"
+'use client'
 
 import { Bookmark, Home2, Message, NotificationBing, Profile, SearchNormal1, } from "iconsax-react"
 import ThemeToggle from "../../ThemeToggle"
-import clsx from "clsx"
 import { useSelector } from "react-redux"
 import { RootState } from "@/lib/reduxStore/store"
 import NavbarLink from "../../NavbarLink"
@@ -10,20 +9,18 @@ import ProfileAvatar from "../../ProfileAvatar"
 import CreatePostButton from "../../CreatePostButton"
 import UIToggle from "./UserInfoSidebarToggle"
 import { cn } from "@/lib/utils"
-import ROUTES from "@/routes"
 
 
 export default function UserInfoSidebar() {
-    const isOpen = useSelector((state: RootState) => state.userSidebar.isOpen);
-
+  const isOpen = useSelector((state: RootState) => state.userSidebar.isOpen)
 
     return (
         <div
-            className={cn("sticky left-0 top-0 max-w-[320px] bg-foreground overflow-hidden h-screen hidden md:flex flex-col border-r border-borderColor duration-500", { "w-[15rem] sm:w-[20rem]": isOpen, "w-[5rem] ": !isOpen })}>
+            className={cn("max-w-[320px] bg-foreground overflow-hidden h-screen hidden md:flex flex-col border-r border-borderColor duration-500", { "w-[15rem] sm:w-[20rem]": isOpen, "w-[5rem] ": !isOpen })}>
 
             <div className="p-4">
                 <div className="flex justify-between">
-                    <img className={cn({ "opacity-100 w-[45px]": isOpen, "opacity-0 w-0": !isOpen, })} src="/logo.svg" height={45} width={45} />
+                    <img src="/logo.svg" height={45} width={45} />
                     <UIToggle />
                 </div>
                 <ProfileAvatar />
@@ -46,12 +43,12 @@ export default function UserInfoSidebar() {
             <nav className="flex-1 p-2 align-middle">
                 <ul className="space-y-1">
                     {[
-                        { Icon: Home2, label: "Home", link: ROUTES["home-page"] },
+                        { Icon: Home2, label: "Home", link: "/" },
                         { Icon: SearchNormal1, label: "Explore", link: "/search" },
                         { Icon: NotificationBing, label: "Notifications", link: "/notifcations" },
-                        { Icon: Message, label: "Messages", link: ROUTES["messages-page"] },
+                        { Icon: Message, label: "Messages", link: "/messages" },
                         { Icon: Bookmark, label: "Bookmarks", link: "/bookmark" },
-                        { Icon: Profile, label: "Profile", link: ROUTES["profile-page"] },
+                        { Icon: Profile, label: "Profile", link: "/profile" },
                     ].map((item) => (
                         <NavbarLink key={item.label} {...item} />
                     ))}

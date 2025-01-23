@@ -1,31 +1,10 @@
-@import '../styles/custom.css';
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@layer base {
-  :root {
-    --radius: 0.5rem;
-  }
-}
-
-button.trigger-no-arrow :nth-child(2) {
-  display: none;
-}
-
-div#trending-bar > nav,
-div#trending-bar > nav > div {
-  display: flex;
-  width: 100%;
-  max-width: 100%;
-}
-
 .hide-scrollbar::-webkit-scrollbar {
   display: none;
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none; /* IE and Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -36,12 +15,8 @@ div#trending-bar > nav > div {
   background: transparent; /* Hide the track */
 }
 
-.custom-scrollbar::-webkit-scrollbar- {
-  display: none;
-}
-
 .custom-scrollbar::-webkit-scrollbar-thumb {
-  background: gray;
+  background: var(--prime-color);
   border-radius: 10px; /* Add border radius to the thumb */
 }
 
@@ -55,5 +30,9 @@ div#trending-bar > nav > div {
 
 .custom-scrollbar {
   scrollbar-width: thin;
-  scrollbar-color: gray-500 transparent; /* Show thumb, hide track */
+  scrollbar-color: var(--prime-color) transparent; /* Show thumb, hide track */
+}
+
+button.hidden-arrow > svg{
+  display: none;
 }
