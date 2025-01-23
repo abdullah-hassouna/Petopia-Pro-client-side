@@ -2,19 +2,10 @@ import type { Metadata } from 'next'
 import { Readex_Pro } from 'next/font/google'
 import './globals.css'
 import './themes.css'
-// import ThemeToggle from './components/ThemeToggle';
-<<<<<<< HEAD
 import ProviderContainer from "@/lib/reduxStore/providerContainer/container";
 import UserInfoSidebar from "./components/sidebars/UserinfoSidebar";
-import UIToggle from "./components/sidebars/UserinfoSidebar/UserInfoSidebarToggle"
 import BottomNavbar from "./components/sidebars/BottomNavbar";
-import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-=======
-import ProviderContainer from '@/lib/reduxStore/providerContainer/container'
-import UserInfoSidebar from './components/sidebars/UserinfoSidebar'
-import UIToggle from './components/sidebars/UserinfoSidebar/UserInfoSidebarToggle'
-import BottomNavbar from './components/sidebars/BottomNavbar'
->>>>>>> ad43a0e68f1ce2c7a0283b2b4aa0f4fecc2c47dd
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const readexPro = Readex_Pro({
   variable: '--font-readex-pro',
