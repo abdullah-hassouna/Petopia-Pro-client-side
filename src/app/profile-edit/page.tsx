@@ -10,7 +10,7 @@ import {
 import ChangeCoverImage from '@/app/components/updatProfile/changeCoverImage'
 import ChangeProfileImage from '@/app/components/updatProfile/changeProfileImage'
 import { useDispatch, useSelector } from 'react-redux'
-import { AppDispatch, RootState } from '@/lib/reduxStore/store'
+import { AppDispatch, RootState, startLoading, stopLoading } from '@/lib/reduxStore/store'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
 import { z, } from 'zod'
@@ -18,6 +18,7 @@ import { zodResolver } from '@hookform/resolvers/zod'
 import { Text } from 'iconsax-react'
 import { isValidPhoneNumber } from 'react-phone-number-input'
 import { Textarea } from '@/components/ui/textarea'
+import { toast } from '@/hooks/use-toast'
 
 
 export default function ProfileEditor() {
@@ -45,28 +46,8 @@ export default function ProfileEditor() {
                 })
                 .optional(),
 
-        bio: z.string().superRefine((value, ctx) => {
-            // Check if the Bio are empty
-            if (!value.trim()) return
+        bio: z.string().min(5, "Add at least 5 charcters.").optional(),
 
-            const valueArray = value.trim().split(" ").slice(0, 5);
-
-            // Check if the each word are 3 or more characters
-            if (valueArray.length === valueArray.filter(word => word.length > 3).length) {
-                ctx.addIssue({
-                    code: z.ZodIssueCode.custom,
-                    message: "Each word in the bio must be at least 3 characters.",
-                })
-            }
-
-            // Check if there 5 words (because it easy as first step)
-            if (valueArray.length) {
-                ctx.addIssue({
-                    code: z.ZodIssueCode.custom,
-                    message: "The bio must be at least 5 words.",
-                })
-            }
-        }).optional(),
         address: z.string()
             .superRefine((value, ctx) => {
                 // Check if the Bio are empty
@@ -75,7 +56,8 @@ export default function ProfileEditor() {
                 const valueArray = value.trim().split(" ").slice(0, 2);
 
                 // Check if the each word are 3 or more characters
-                if (valueArray.length === valueArray.filter(word => word.length > 3).length) {
+                if (valueArray.length !== valueArray.filter(word => word.length > 3).length) {
+                    console.log(valueArray.filter(word => word.length > 3))
                     ctx.addIssue({
                         code: z.ZodIssueCode.custom,
                         message: "Country name must be at least 3 characters.",
@@ -83,10 +65,10 @@ export default function ProfileEditor() {
                 }
 
                 // Check if there 5 words (because it easy as first step)
-                if (valueArray.length) {
+                if (valueArray.length !== 2) {
                     ctx.addIssue({
                         code: z.ZodIssueCode.custom,
-                        message: "The address must containe the Country and the state.",
+                        message: "The address must containe the Country and the state Only.",
                     })
                 }
             }).optional(),
@@ -125,48 +107,48 @@ export default function ProfileEditor() {
         setNewProfileData(prev => ({ ...(prev), phoneNumber: newPhoneNumber }))
     }
 
-    // const uploadFile = async (file) => {
-    //     console.log("Run Upload", filesUpload)
-    //     if (!file) return;
+    const uploadFile = async (file) => {
+        console.log("Run Upload", filesUpload)
+        if (!file) return;
 
-    //     dispatch(startLoading())
+        dispatch(startLoading())
 
-    //     const formData = new FormData();
-    //     formData.append('file', file);
+        const formData = new FormData();
+        formData.append('file', file);
 
-    //     formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET); // Replace with your preset name
+        formData.append('upload_preset', process.env.NEXT_PUBLIC_CLOUDINARY_UPLOAD_PRESET);
 
-    //     try {
-    //         const response = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_API_URL, {
-    //             method: 'POST',
-    //             body: formData,
-    //         });
+        try {
+            const response = await fetch(process.env.NEXT_PUBLIC_CLOUDINARY_API_URL, {
+                method: 'POST',
+                body: formData,
+            });
 
-    //         const data = await response.json();
-    //         if (response.ok) {
-    //             console.log(data)
-    //             // setURLUpload({ profile: data.secure_url, cover: data.secure_url });
-    //         } else {
-    //             console.error('Upload failed:', data);
-    //         }
-    //     } catch (error) {
-    //         console.error('Error uploading file:', error);
-    //     } finally {
-    //         dispatch(stopLoading())
-    //     }
-    // };
+            const data = await response.json();
+            if (response.ok) {
+                console.log(data)
+                // setURLUpload({ profile: data.secure_url, cover: data.secure_url });
+            } else {
+                console.error('Upload failed:', data);
+            }
+        } catch (error) {
+            console.error('Error uploading file:', error);
+        } finally {
+            dispatch(stopLoading())
+        }
+    };
 
     async function handleSubmit(values: z.infer<typeof formSchema>) {
         try {
             // await uploadFile(filesUpload.profile)
             // await uploadFile(filesUpload.cover)
             console.log("first")
-            console.log(values);
-            //   toast(
-            //     <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
-            //       <code className="text-white">{JSON.stringify(values, null, 2)}</code>
-            //     </pre>
-            //   );
+            console.log(values.phone_number);
+            toast(
+                <pre className="mt-2 w-[340px] rounded-md bg-slate-950 p-4">
+                    <code className="text-white">{JSON.stringify(values, null, 2)}</code>
+                </pre>
+            );
         } catch (error) {
             //   console.error("Form submission error", error);
             //   toast.error("Failed to submit the form. Please try again.");
@@ -224,7 +206,7 @@ export default function ProfileEditor() {
                                             <FormItem>
                                                 <FormLabel className='capitalize'>{field.name}</FormLabel>
                                                 <FormControl className="w-full">
-                                                    <PhoneInput placeholder="Enter a phone number" {...field} />
+                                                    <PhoneInput className='text-whity' placeholder={userPhoneNumber?.phoneNumber} {...field} />
                                                 </FormControl>
                                                 <FormDescription>Enter your phone number.</FormDescription>
                                                 <FormMessage />
@@ -242,14 +224,14 @@ export default function ProfileEditor() {
                                             <FormLabel className='capitalize'>{field.name}</FormLabel>
                                             <FormControl >
                                                 <Textarea
-                                                    placeholder="Placeholder"
+                                                    placeholder={userBio}
                                                     {...field}
                                                 />
                                             </FormControl>
                                             <Button onClick={() => {
-                                                field.value = `Hello`;
+                                                field.value = userBio;
                                             }} className='flex cursor-pointer justify-center items-center'>
-                                                <Text className='h-5 w-5' color='var(--background)' />
+                                                <Text className='h-5 w-5' color='var(--whity)' />
                                                 Add the Previous Bio to Edit
                                             </Button>
                                             <FormDescription>Your {field.name} must be atleast 5 characters.</FormDescription>
