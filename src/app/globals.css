@@ -8,7 +8,7 @@
   }
 }
 
-button.trigger-no-arrow :nth-child(2) {
+button.trigger-no-arrow :nth-last-child(1) {
   display: none;
 }
 
