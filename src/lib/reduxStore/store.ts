@@ -1,10 +1,10 @@
 import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
-import initialUserState, { type UserState } from './slices/userSlice';
+import initialUserInfoState, { type UserInfoState } from './slices/userInfoSlice';
 import initialLoadingState from './slices/loadingSlice';
 import initialUserSidebarOpen from './slices/userSidebarOpenSlice';
 
 export interface RootState {
-    user: UserState;
+    userInfo: UserInfoState;
     loading: typeof initialLoadingState;
     userSidebar: typeof initialUserSidebarOpen;
 }
@@ -31,16 +31,16 @@ const saveState = (state: RootState) => {
     }
 };
 
-console.log(initialUserState)
+console.log(initialUserInfoState)
 
-const userSlice = createSlice({
-    name: 'user',
-    initialState: initialUserState,
+const userInfoSlice = createSlice({
+    name: 'userInfo',
+    initialState: initialUserInfoState,
     reducers: {
-        setUser: (state, action: PayloadAction<UserState>) => {
+        setUser: (state, action: PayloadAction<UserInfoState>) => {
             return { ...state, ...action.payload };
         },
-        clearUser: () => initialUserState,
+        clearUser: () => initialUserInfoState,
     },
 });
 
@@ -68,7 +68,7 @@ const userSidebarOpenSlice = createSlice({
     },
 });
 
-export const { setUser, clearUser } = userSlice.actions;
+export const { setUser, clearUser } = userInfoSlice.actions;
 export const { startLoading, stopLoading } = loadingSlice.actions;
 export const { userInfoSidebarToggle } = userSidebarOpenSlice.actions;
 
@@ -76,7 +76,7 @@ export const makeStore = () => {
     const preloadedState = loadState(); // Load state from localStorage
     const store = configureStore({
         reducer: {
-            user: userSlice.reducer,
+            userInfo: userInfoSlice.reducer,
             loading: loadingSlice.reducer,
             userSidebar: userSidebarOpenSlice.reducer,
         },
