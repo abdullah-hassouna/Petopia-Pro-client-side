@@ -21,7 +21,7 @@ const PetForm = ({ title, petData }: { title: string; petData?: Pet }) => {
   const formSchema = z.object({
     petName: z.string().nonempty('Pet name is required'),
     type: z.string().nonempty('Pet type is required'),
-    petImage: z.array(z.instanceof(File)).max(1, "you can't upload more than one image.").optional(),
+    petImage: z.array(z.instanceof(File)).max(5, "you can't upload more than 5 image.").optional(),
     dob: z.date().refine((date) => date instanceof Date && !isNaN(date.getTime()), {
       message: 'Pet date of birth is required',
     }),
@@ -112,7 +112,7 @@ const PetForm = ({ title, petData }: { title: string; petData?: Pet }) => {
                         <FormControl className="font-light">
                           <Input placeholder={'Pet Name'} {...field} />
                         </FormControl>
-                        <FormDescription>What your lovely pet name goes here? </FormDescription>
+                        <FormDescription>What your lovely pet name? </FormDescription>
                         <FormMessage />
                       </FormItem>
                     )}
@@ -282,10 +282,11 @@ const PetForm = ({ title, petData }: { title: string; petData?: Pet }) => {
                             className="border border-background text-whity font-light whity-input"
                             type="file"
                             accept="image/*"
+                            multiple
                             onChange={(e) => field.onChange(Array.from(e.target.files))}
                           />
                         </FormControl>
-                        <FormDescription>Would you like to upload more than one image?</FormDescription>
+                        <FormDescription>Would you like to upload an images of your pet?</FormDescription>
                         <div className="flex flex-wrap gap-2">
                           {field.value &&
                             field.value.map((image, index) => (
