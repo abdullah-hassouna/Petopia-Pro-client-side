@@ -3,8 +3,8 @@
 }
 
 .hide-scrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
 
 .custom-scrollbar::-webkit-scrollbar {
@@ -33,6 +33,11 @@
   scrollbar-color: var(--prime-color) transparent; /* Show thumb, hide track */
 }
 
-button.hidden-arrow > svg{
+button.hidden-arrow > svg {
   display: none;
+}
+
+.bg-moving-badget:hover div:nth-child(1) {
+  top: -50px;
+  left: -45px;
 }
