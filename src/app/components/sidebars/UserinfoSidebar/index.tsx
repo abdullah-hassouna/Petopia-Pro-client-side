@@ -12,14 +12,14 @@ import { cn } from "@/lib/utils"
 
 
 export default function UserInfoSidebar() {
-  const isOpen = useSelector((state: RootState) => state.userSidebar.isOpen)
+    const isOpen = useSelector((state: RootState) => state.userSidebar.isOpen)
 
     return (
         <div
-            className={cn("max-w-[320px] min-w-[250px] bg-foreground overflow-hidden h-screen hidden md:flex flex-col border-r border-borderColor duration-500", { "w-[15rem] sm:w-[20rem]": isOpen, "w-[5rem] ": !isOpen })}>
+            className={cn("max-w-[320px] min-w-[250px] bg-foreground overflow-hidden h-screen hidden md:flex flex-col border-r border-borderColor duration-500", { "w-[15rem] sm:w-[20rem]": isOpen, "w-[5rem]  sm:min-w-[5rem]": !isOpen })}>
             <div className="p-4">
                 <div className="flex justify-between">
-                    <img src="/logo.svg" height={45} width={45} />
+                    <img src="/logo.svg" className={cn({ "block": isOpen, "hidden": !isOpen })} height={45} width={45} />
                     <UIToggle />
                 </div>
                 <ProfileAvatar />
