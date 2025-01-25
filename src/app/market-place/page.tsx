@@ -1,31 +1,36 @@
 "use client"
 
-import React from 'react'
-import { IoMdPricetag } from "react-icons/io";
-import { IoMdStar } from "react-icons/io";
-import { IoMdCalendar } from "react-icons/io";
+import React, { useEffect } from 'react'
 import SearchResultsSection from '@/app/components/marketPlace/SearchResults';
+import DualPriceInput from '@/app/components/marketPlace/filters/DualPriceRangeInput';
 import SearchInputSection from '../components/marketPlace/SearchInput';
+// import { Input } from '@/components/ui/input';
+import RateMultiSelect from '../components/marketPlace/filters/RateMutiSelect';
+import { Button } from '@/components/ui/button';
 
-function IntegeratedIcon({ label }: { label: string }) {
-    if (label.includes("price")) return (<IoMdPricetag className='block h-4 w-auto mr-2 z-10' color='var(--whity)' />)
-    if (label.includes("rate")) return (<IoMdStar className='block h-4 w-auto mr-2 z-10' color='var(--whity)' />)
-    if (label.includes("date")) return (<IoMdCalendar className='block h-4 w-auto mr-2 z-10' color='var(--whity)' />)
-    return null
-}
 
 function page() {
+    const [filters, setFilters] = React.useState({
+        prices: [0, 100],
+        rating:[]
+    });
 
     return (
         <main id='market-place' className='h-screen w-full lg:w-[80%] md:w-[90%] mx-auto py-0 md:py-5  '>
             <SearchInputSection />
             <div className='grid grid-cols-3 gap-x-4'>
-                <section id="filters" className='col-span-1 hidden md:block rounded-md bg-foreground'>
-                    q
+                <section id="filters" className='p-2 col-span-1 hidden md:block rounded-md bg-foreground'>
+                    <div className=''>
+                        <h4 className='text-base mb-4'>Filters</h4>
+                        <div className='space-y-3 pl-3'>
+                            <RateMultiSelect value={filters.rating} setValue={setFilters}/>
+                            <DualPriceInput value={filters.prices} setValue={setFilters} />
+                        </div>
+                    </div>
                 </section>
                 <SearchResultsSection />
             </div>
-
+            <Button onClick={()=> console.log(filters)}>Submit</Button>
         </main>
     )
 }
