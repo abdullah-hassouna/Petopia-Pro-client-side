@@ -4,7 +4,6 @@ import {
   DialogContent,
   DialogDescription,
   DialogHeader,
-  DialogOverlay,
   DialogTitle,
 } from '@/components/ui/dialog'
 import Forms from './Form'
@@ -21,7 +20,7 @@ const FormDialog = ({
   return (
     <Dialog open={open} onOpenChange={(isOpen) => (isOpen ? null : handleClose())}>
       <DialogContent
-        className="bg-foreground border border-background outline-none"
+        className="bg-foreground border border-background outline-none "
         onInteractOutside={(e) => e.preventDefault()}
       >
         <DialogHeader>
