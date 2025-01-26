@@ -5,13 +5,18 @@ import { DualRangeSlider } from '@/components/ui/dual-range-slider';
 import { Input } from '@/components/ui/input';
 
 const DualRangeSliderCustomLabel = ({ value, setValue }: { value: number[], setValue: Function }) => {
-
+    const pricesLimit = {
+        min: 20,
+        max: 100
+    }
     function onValueChange(value: number[]) {
         setValue((prev: any) => ({ ...prev, prices: value }))
     }
 
     function refChangePriceValue(e: any, index?: number | undefined) {
-        const value = Number(e.target.value) < 0 || Number(e.target.value) > 100 ? 0 : Number(e.target.value);
+        const value = Number(e.target.value);
+
+        console.log(value)
 
         if (index) {
             setValue((prev: any[]) => ({ ...prev, prices: [value, prev[1]] }))
@@ -23,13 +28,13 @@ const DualRangeSliderCustomLabel = ({ value, setValue }: { value: number[], setV
     return (
         <div className='p-2 rounded-md bg-background'>
             <span>Price</span>
-            <div className="w-full px-10 mt-8 h-6">
+            <div className="w-full px-2 mt-10 h-6">
                 <DualRangeSlider
                     label={(value) => <span>${value}</span>}
                     value={value}
                     onValueChange={onValueChange}
-                    min={0}
-                    max={100}
+                    min={pricesLimit.min}
+                    max={pricesLimit.max}
                     step={1}
                 />
             </div>
@@ -37,10 +42,10 @@ const DualRangeSliderCustomLabel = ({ value, setValue }: { value: number[], setV
 
                 <div className='w-full flex justify-between'>
 
-                    <Input onChange={e => refChangePriceValue(e, 0)} value={value[0]} className='max-w-15 w-12 h-6 p-1 ring-0 border border-icon-color-50 outline-none focus-visible:outline-none bg-background rounded-md' type="number" name='minPrice' />
+                    <Input min={pricesLimit.min} max={pricesLimit.max} onChange={e => refChangePriceValue(e, 0)} value={value[0]} className='max-w-15 w-14 h-6 p-1 ring-0 border border-icon-color-50 outline-none focus-visible:outline-none bg-background rounded-md' type="number" name='minPrice' />
 
 
-                    <Input onChange={refChangePriceValue} value={value[1]} className='max-w-15 w-12 h-6 p-1 ring-0 border border-icon-color-50 outline-none focus-visible:outline-none bg-background rounded-md' type="number" name='maxPrice' />
+                    <Input min={pricesLimit.min} max={pricesLimit.min} onChange={refChangePriceValue} value={value[1]} className='max-w-15 w-14 h-6 p-1 ring-0 border border-icon-color-50 outline-none focus-visible:outline-none bg-background rounded-md' type="number" name='maxPrice' />
 
 
                 </div>

@@ -210,15 +210,15 @@ export const MultiSelect = React.forwardRef<
           >
             {selectedValues.length > 0 ? (
               <div className="flex justify-between items-center w-full">
-                <div className="flex flex-wrap items-center">
+                <div className="flex flex-wrap items-center flex-col">
                   {selectedValues.slice(0, maxCount).map((value) => {
                     const option = options.find((o) => o.value === value);
                     const IconComponent = option?.icon;
                     return (
                       <Badge
                         key={value}
-                        className={cn(
-                          isAnimating ? "animate-bounce" : "",
+                        className={cn("flex justify-between w-[100%]",
+                          { "animate-bounce": isAnimating },
                           multiSelectVariants({ variant })
                         )}
                         style={{ animationDuration: `${animation}s` }}

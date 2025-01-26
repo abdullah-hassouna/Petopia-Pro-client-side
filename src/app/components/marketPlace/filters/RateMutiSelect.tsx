@@ -16,7 +16,7 @@ function RateMultiSelect({ value, setValue }: { value: string[], setValue: Funct
     }
 
     return (
-        <div className='p-2 rounded-md bg-background'>
+        <div className='space-y-2 p-2 rounded-md bg-background'>
             <span>Rates</span>
             <MultiSelect
                 options={RatingOptions}
@@ -24,7 +24,7 @@ function RateMultiSelect({ value, setValue }: { value: string[], setValue: Funct
                 defaultValue={value}
                 placeholder="Select Rating"
                 variant="inverted"
-                maxCount={10}
+                maxCount={3                 }
                 search={false} />
         </div>
     );
