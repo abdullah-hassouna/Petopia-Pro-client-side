@@ -1,24 +1,17 @@
+'use client'
 import { Heart, MessageText, Share, Archive, MessageText1 } from 'iconsax-react'
 import PostComment from './PostComment'
 import { Button } from '@/components/ui/button'
 import { HoverCard, HoverCardTrigger } from '@/components/ui/hover-card'
 import InteractionsHover from './InteractionsHover'
-import { useRef, useState } from 'react'
+import { useState } from 'react'
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from '@/components/ui/tooltip'
 import Comments from './Comments'
 import { redirect } from 'next/navigation'
-import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select'
 import { IoSettingsOutline } from 'react-icons/io5'
 import FormDialog from '../PostForms/FormDialog'
-
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from '@/components/ui/dropdown-menu'
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
+import { PostDetails } from '@/app/interfaces/postInterface'
 
 interface PostFooterProps {
   postId: string
@@ -29,6 +22,7 @@ interface PostFooterProps {
   fullName: string
   userImage: string
   tag: string
+  postDetails: PostDetails
 }
 const users = [
   {
@@ -95,7 +89,7 @@ const commentsContent = [
 ]
 
 const PostFooter = (props: PostFooterProps) => {
-  const { postId, likes, comments, bookmarks, shares, fullName, userImage, tag } = props
+  const { postId, likes, comments, bookmarks, shares, fullName, userImage, tag, postDetails } = props
   const [saved, setSaved] = useState(false)
   const [liked, setLiked] = useState(false)
   const [likedCounter, setLikedCounter] = useState(likes)
@@ -103,11 +97,16 @@ const PostFooter = (props: PostFooterProps) => {
   const [showComments, setShowComments] = useState(false)
   const [isLikeHoverCardActive, setIsLikeHoverCardActive] = useState(false)
   const [isSaveHoverCardActive, setIsSaveHoverCardActive] = useState(false)
-
   const [dialogOpen, setDialogOpen] = useState(false)
+  const [menuOpen, setMenuOpen] = useState(false)
+  const handleOpenDialog = () => {
+    setMenuOpen(false)
+    setDialogOpen(true)
+  }
 
-  const handleOpenDialog = () => setDialogOpen(true)
-  const handleCloseDialog = () => setDialogOpen(false)
+  const handleCloseDialog = () => {
+    setDialogOpen(false)
+  }
 
   const handleSaveClick = () => {
     setSaved(!saved)
@@ -206,7 +205,7 @@ const PostFooter = (props: PostFooterProps) => {
                 </Button>
               </>
             ) : null}
-            <DropdownMenu>
+            <DropdownMenu open={menuOpen} onOpenChange={setMenuOpen}>
               <DropdownMenuTrigger className="flex bg-discuss justify-center items-center rounded-md hover:bg-discuss-70 shadow-none font-normal h-9 max-w-9 p-1 hidden-arrow">
                 <div className="flex items-center justify-center w-full h-full">
                   <IoSettingsOutline className="w-5 h-5" color="#FF8A65" />
@@ -223,7 +222,7 @@ const PostFooter = (props: PostFooterProps) => {
         <Comments show={showComments} comments={commentsContent} tag={tag} />
         <PostComment postId={postId} fullName={fullName} userImage={userImage} />
       </div>
-      <FormDialog open={dialogOpen} handleClose={handleCloseDialog} tag={{ title: tag, id: 1 }} />
+      <FormDialog open={dialogOpen} handleClose={handleCloseDialog} tag={{ title: tag, id: 1 }} post={postDetails} />
     </>
   )
 }

@@ -1,5 +1,6 @@
+'use client'
 import { useEffect, useState } from 'react'
-import { useForm, Controller } from 'react-hook-form'
+import { useForm } from 'react-hook-form'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { z, ZodSchema } from 'zod'
 import { Button } from '@/components/ui/button'
@@ -8,45 +9,47 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import Link from 'next/link'
+import { useToast } from '@/hooks/use-toast'
+import { PostDetails } from '@/app/interfaces/postInterface'
 
-const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
+const FormComponent = ({ tag, postData }: { tag: { title: string; id: number }; postData?: PostDetails }) => {
+  const { toast } = useToast()
   const [formSchema, setFormSchema] = useState<ZodSchema>(
     z.object({
-      postContent: z.string().nonempty(),
+      postContent: z.string().nonempty("Post content can't be empty."),
       images: z.array(z.instanceof(File)).max(5, "you can't upload more than 5 images.").optional(),
     })
   )
 
-  const form = useForm({
+  const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
+    defaultValues: {
+      postContent: postData?.postContent || '',
+      images: [],
+      petId: postData?.pet?.id || '',
+      productId: postData?.product?.id || '',
+    },
   })
 
   useEffect(() => {
+    let newSchema = z.object({
+      postContent: z.string().nonempty("Post content can't be empty."),
+      images: z.array(z.instanceof(File)).max(5, "you can't upload more than 5 images.").optional(),
+    })
+
     if (tag.title.toLowerCase() === 'adoption' || tag.title.toLowerCase() === 'breeding') {
-      setFormSchema(
-        z.object({
-          postContent: z.string().nonempty('Post content is required'),
-          images: z.array(z.instanceof(File)).max(5, "you can't upload more than 5 images.").optional(),
-          petId: z.string().nonempty('Pet is required'),
-        })
-      )
+      newSchema = newSchema.extend({
+        petId: z.string().nonempty('Pet is required'),
+      })
     } else if (tag.title.toLowerCase() === 'product') {
-      setFormSchema(
-        z.object({
-          postContent: z.string().nonempty('Post content is required'),
-          images: z.array(z.instanceof(File)).max(5, "you can't upload more than 5 images.").optional(),
-          productId: z.string().nonempty('Product is required'),
-        })
-      )
-    } else {
-      setFormSchema(
-        z.object({
-          postContent: z.string().nonempty('Post content is required'),
-          images: z.array(z.instanceof(File)).optional(),
-        })
-      )
+      newSchema = newSchema.extend({
+        productId: z.string().nonempty('Product is required'),
+      })
     }
-  }, [tag])
+
+    setFormSchema(newSchema)
+    form.reset({ resolver: zodResolver(newSchema) })
+  }, [tag, form])
 
   const pets = [
     { id: '1', name: 'Pet 1' },
@@ -59,7 +62,33 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
   ]
 
   const onSubmit = (data) => {
-    console.log(data)
+    const initialValue = {
+      postContent: postData?.postContent || '',
+      images: [],
+      petId: postData?.pet?.id || '',
+      productId: postData?.product?.id || '',
+    }
+    const changedData = Object.keys(data).reduce((acc, key) => {
+      if (key === 'images') {
+        console.log(data[key].length > 0)
+        if (data[key].length > 0) {
+          acc[key] = data[key]
+        }
+      } else if (data[key] != initialValue[key]) {
+        acc[key] = data[key]
+      }
+      return acc
+    }, {})
+    Object.keys(changedData).length === 0
+      ? toast({
+          title: 'No changes.',
+          description: 'No changes detected, skipping submission.',
+        })
+      : toast({
+          title: 'Submitted',
+          description: `Your ${tag.title.toLowerCase()} post information has been submitted successfully`,
+        })
+    console.log('submit', changedData)
   }
 
   return (
@@ -123,7 +152,7 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
               <FormItem>
                 <FormLabel>Pet</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} {...field}>
                     <FormControl>
                       <SelectTrigger className="outline-none shadow-sm focus:outline-none focus-visible:ring-0 font-light hide-scrollbar ">
                         <SelectValue placeholder="Your pet" />
@@ -141,7 +170,7 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
                 <FormDescription>Choose the pet that you want to make an adoption post about.</FormDescription>
                 <p className="text-[0.8rem]">
                   You don't have a pet yet?{' '}
-                  <Link href={'/Pet/Add'} target="_blank" className="text-primary-90 hover:underline">
+                  <Link href={'/pet/add'} target="_blank" className="text-primary-90 hover:underline">
                     {' '}
                     Add new pet
                   </Link>
@@ -159,7 +188,7 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
               <FormItem>
                 <FormLabel>Product</FormLabel>
                 <FormControl>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}>
+                  <Select onValueChange={field.onChange} {...field}>
                     <FormControl>
                       <SelectTrigger className="outline-none shadow-sm focus:outline-none focus-visible:ring-0 font-light hide-scrollbar">
                         <SelectValue placeholder="Your product" />
@@ -177,7 +206,7 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
                 <FormDescription>Choose the product that you want to make a post about.</FormDescription>
                 <p className="text-[0.8rem]">
                   You don't have a product yet?{' '}
-                  <Link href={''} target="_blank" className="text-primary-90 hover:underline">
+                  <Link href={'/product/add'} target="_blank" className="text-primary-90 hover:underline">
                     {' '}
                     Add new Product
                   </Link>
@@ -188,7 +217,7 @@ const FormComponent = ({ tag }: { tag: { title: string; id: number } }) => {
           />
         )}
         <Button className="mt-4" type="submit">
-          Add
+          {postData ? 'Edit' : 'Add'}
         </Button>
       </form>
     </Form>

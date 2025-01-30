@@ -62,7 +62,7 @@ export default function UserInfoSidebar() {
         <CreatePostButton
           className={cn('mt-10', { block: isOpen, hidden: !isOpen })}
           title={'Create Post'}
-          options={[{ title: 'Adopte', value: '3' }]}
+          options={[{ title: 'Adoption', value: '1' }]}
         />
       </nav>
     </div>

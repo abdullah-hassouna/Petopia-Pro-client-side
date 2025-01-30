@@ -1,4 +1,5 @@
 interface Pet {
+    id: string
     ownerId: string
     petName: string
     type: string

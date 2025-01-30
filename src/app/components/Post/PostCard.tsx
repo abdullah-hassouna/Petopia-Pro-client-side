@@ -1,5 +1,3 @@
-'use client'
-
 import { Card } from '@/components/ui/card'
 import PostHeader from './PostHeader'
 import PostFooter from './PostFooter'
@@ -17,17 +15,18 @@ const PostCard = (props: { title: 'adoption' | 'help' | 'discuss' | 'product' | 
     'https://cdn.pixabay.com/photo/2023/08/18/15/02/cat-8198720_960_720.jpg',
   ]
   const pet = {
-    ownerId: 'me nigga',
+    id: '1',
+    ownerId: 'me, nigga',
     petName: 'nigga cat',
     type: 'cat',
-    petImage: 'https://cdn.pixabay.com/photo/2023/08/18/15/02/cat-8198720_960_720.jpg',
+    petImage: ['https://cdn.pixabay.com/photo/2023/08/18/15/02/cat-8198720_960_720.jpg'],
     dob: '12/20/2000',
     gender: 0,
     healthStatus: 'good',
     adoptionStatus: 'adopted' as 'adopted' | 'available',
   }
   const product = {
-    id: 'sad',
+    id: '1',
     userId: 'asd',
     title: 'cat nip',
     stock: 10,
@@ -37,7 +36,7 @@ const PostCard = (props: { title: 'adoption' | 'help' | 'discuss' | 'product' | 
       ' Lorem ipsum dolor sit amet consectetur adipisicing elit. Exercitationem adipisci explicabo dolorem magni obcaecati aut repellendus molestiae. Error exercitationem ducimus dicta ipsum qui incidunt assumenda quaerat. Quas at quo facilis.',
   }
   const PostDetails = {
-    id: 'asdasd',
+    id: '1',
     images,
     category: title,
     postContent:
@@ -50,10 +49,7 @@ const PostCard = (props: { title: 'adoption' | 'help' | 'discuss' | 'product' | 
   }
 
   return (
-    // relative w-fit sm:w-[80%] mx-4 sm:m-auto min-h-[32.771875rem] pb-5
-    <div
-      className="relative min-h-[32.771875rem] w-full max-w-2xl mx-4 sm:mx-6 md:mx-8 lg:mx-auto mt-5"
-    >
+    <div className="relative min-h-[32.771875rem] w-full max-w-2xl mx-4 sm:mx-6 md:mx-8 lg:mx-auto mt-5">
       <Card
         className={`bg-gradient-to-b from-foreground ${viaColorClass} to-foreground border border-background rounded-[8px] box-border z-0`}
       >
@@ -75,6 +71,7 @@ const PostCard = (props: { title: 'adoption' | 'help' | 'discuss' | 'product' | 
           shares={10}
           bookmarks={10}
           tag={colorScheme}
+          postDetails={PostDetails}
         />
       </Card>
       <div

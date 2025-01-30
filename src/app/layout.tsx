@@ -37,7 +37,7 @@ export default function RootLayout({
           {/* <UIToggle className="block m-5" /> */}
           <div className="flex-grow">{children}</div>
           <BottomNavbar />
-          <Toaster  />
+          <Toaster />
         </body>
       </html>
     </ProviderContainer>

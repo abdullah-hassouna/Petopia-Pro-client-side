@@ -1,11 +1,11 @@
 'use client'
 import React, { useState } from 'react'
 import { Button } from '@/components/ui/button'
-import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/components/ui/card'
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { useForm } from 'react-hook-form'
-import { date, z } from 'zod'
+import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover'
@@ -76,7 +76,11 @@ const PetForm = ({ title, petData }: { title: string; petData?: Pet }) => {
       })
       return
     }
-
+    Object.keys(initialValues).forEach((key) =>
+      form.resetField(
+        key as 'petName' | 'type' | 'petImage' | 'dob' | 'healthStatus' | 'adoptionStatus' | 'gender' | `petImage`
+      )
+    )
     toast({
       title: 'submitted',
       description: 'Your pet information has been submitted successfully.',

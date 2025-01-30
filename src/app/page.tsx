@@ -1,15 +1,15 @@
-'use client'
+// 'use client'
 import TrindingSidebar from './components/sidebars/TrendingSidebar'
-import { AppDispatch, RootState, startLoading, stopLoading } from '@/lib/reduxStore/store'
-import { useDispatch, useSelector } from 'react-redux'
+// import { AppDispatch, RootState, startLoading, stopLoading } from '@/lib/reduxStore/store'
+// import { useDispatch, useSelector } from 'react-redux'
 import PostContainer from './components/Post/PostsContainer'
 import PostFormCreation from './components/PostForms/CreatePostForms'
 import ContainerHeader from './components/Post/PostContainerHeader'
 
 function Home() {
-  const dispatch: AppDispatch = useDispatch()
-  const isLoading = useSelector((state: RootState) => state.loading.isLoading)
-  const userName = useSelector((state: RootState) => state.user.userName)
+  // const dispatch: AppDispatch = useDispatch()
+  // const isLoading = useSelector((state: RootState) => state.loading.isLoading)
+  // const userName = useSelector((state: RootState) => state.user.userName)
 
   return (
     <div className="w-full mb-14 md:mb-0 ">

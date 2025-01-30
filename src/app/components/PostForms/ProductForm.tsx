@@ -13,14 +13,6 @@ import { Textarea } from '@/components/ui/textarea'
 
 const ProductForm = ({ title, productData }: { title: string; productData?: Product }) => {
   const { toast } = useToast()
-  //   id: string
-  //   userId: string
-  //   title: string
-  //   stock: number
-  //   price: number
-  //   details: string
-  //   rating: number
-  //productImage?: []string
   const formSchema = z.object({
     title: z.string().nonempty('Product name is required.'),
     stock: z

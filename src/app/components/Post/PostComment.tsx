@@ -18,7 +18,7 @@ const PostComment = (props: PostCommentProps) => {
         <AvatarImage src={userImage} />
         <AvatarFallback>{initials}</AvatarFallback>
       </Avatar>
-      <PostInput value="" />
+      <PostInput  />
     </div>
   )
 }
