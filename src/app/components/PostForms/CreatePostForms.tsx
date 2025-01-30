@@ -72,7 +72,7 @@ const PostFormCreation = ({ userInfo }: { userInfo: { fullName: string; userImag
                       render={({ field }) => (
                         <FormItem>
                           <FormControl className="font-light">
-                            <div className="w-full  flex items-center justify-between border rounded-2xl p-2">
+                            <div className="w-full  flex items-center justify-between border shadow-md rounded-2xl p-2 border-background">
                               <Textarea
                                 {...field}
                                 placeholder={`What's on your mind, ${firstName}`}
