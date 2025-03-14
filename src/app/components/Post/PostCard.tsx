@@ -2,6 +2,7 @@ import { Card } from '@/components/ui/card'
 import PostHeader from './PostHeader'
 import PostFooter from './PostFooter'
 import PostContent from './PostContent'
+import { cn } from '@/lib/utils'
 
 const PostCard = (props: { title: 'adoption' | 'help' | 'discuss' | 'product' | 'other' }) => {
   const { title } = props
