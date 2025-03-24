@@ -39,24 +39,28 @@ export default function UserInfoSidebar() {
                 </div>
             </div>
 
-            <nav className="flex-1 p-2 align-middle">
-                <ul className="space-y-1">
-                    {[
-                        { Icon: Home2, label: "Home", link: "/" },
-                        { Icon: SearchNormal1, label: "Explore", link: "/search" },
-                        { Icon: NotificationBing, label: "Notifications", link: "/notifcations" },
-                        { Icon: Message, label: "Messages", link: "/messages" },
-                        { Icon: Bookmark, label: "Bookmarks", link: "/bookmark" },
-                        { Icon: Profile, label: "Profile", link: "/profile" },
-                    ].map((item) => (
-                        <NavbarLink key={item.label} {...item} />
-                    ))}
-                    <li key={"themeToggle"}>
-                        <ThemeToggle />
-                    </li>
-                </ul>
-                <CreatePostButton className={cn("mt-10", { "block": isOpen, "hidden": !isOpen })} title={"Create Post"} options={[{ title: "Adopte", value: "3" }]} />
-            </nav>
-        </div>
-    )
+      <nav className="flex-1 p-2 align-middle">
+        <ul className="space-y-1">
+          {[
+            { Icon: Home2, label: 'Home', link: '/' },
+            { Icon: SearchNormal1, label: 'Explore', link: '/search' },
+            { Icon: NotificationBing, label: 'Notifications', link: '/notifcations' },
+            { Icon: Message, label: 'Messages', link: '/messages' },
+            { Icon: Bookmark, label: 'Bookmarks', link: '/bookmark' },
+            { Icon: Profile, label: 'Profile', link: '/profile' },
+          ].map((item) => (
+            <NavbarLink key={item.label} {...item} />
+          ))}
+          <li key={'themeToggle'}>
+            <ThemeToggle />
+          </li>
+        </ul>
+        <CreatePostButton
+          className={cn('mt-10', { block: isOpen, hidden: !isOpen })}
+          title={'Create Post'}
+          options={[{ title: 'Adoption', value: '1' }]}
+        />
+      </nav>
+    </div>
+  )
 }

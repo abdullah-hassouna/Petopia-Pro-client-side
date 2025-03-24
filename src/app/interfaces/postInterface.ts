@@ -1,8 +1,9 @@
 interface Pet {
+    id: string
     ownerId: string
     petName: string
     type: string
-    petImage?: string
+    petImage?: string[]
     dob: string
     gender: number
     healthStatus: string
@@ -17,6 +18,7 @@ interface Product {
     price: number
     details: string
     rating: number
+    productImage?: string[]
 }
 
 interface PostDetails {

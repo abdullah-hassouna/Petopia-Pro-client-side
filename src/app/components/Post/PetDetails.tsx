@@ -21,11 +21,11 @@ const getPetIcon = (type: string, color: string) => {
     case 'cat':
       return <FaCat className="text-2xl mr-2" color={`var(--${color}-tag-100)`} />
     case 'dog':
-      return <FaDog className="text-xl mr-2" color={`var(--${color}-tag-100)`} />
+      return <FaDog className="text-2xl mr-2" color={`var(--${color}-tag-100)`} />
     case 'bird':
-      return <PiBirdFill className="text-xl mr-2" color={`var(--${color}-tag-100)`} />
+      return <PiBirdFill className="text-2xl mr-2" color={`var(--${color}-tag-100)`} />
     default:
-      return <FaPaw className="text-xl mr-2" color={`var(--${color}-tag-100)`} />
+      return <FaPaw className="text-2xl mr-2" color={`var(--${color}-tag-100)`} />
   }
 }
 const PetDetails = ({ pet, category }: { pet: Pet; category: string }) => {
@@ -34,10 +34,10 @@ const PetDetails = ({ pet, category }: { pet: Pet; category: string }) => {
     <Accordion type="single" collapsible>
       <AccordionItem
         value="item-1"
-        className={`flex flex-col m-5 p-1 ${bgColor} rounded-lg hover:bg-foreground text-whity shadow-md justify-center`}
+        className={`flex flex-col m-5 p-1 ${bgColor} rounded-lg hover:bg-foreground text-whity shadow-md justify-center border-none`}
       >
-        <AccordionTrigger about={category}>
-          <div className="col-span-1 flex mt-4 gap-2">
+        <AccordionTrigger about={category} className='flex items-center'>
+          <div className="col-span-1 flex gap-2 justify-center items-center">
             {getPetIcon(pet.type, category)}
             <p className="text-lg">{pet.petName}</p>
           </div>

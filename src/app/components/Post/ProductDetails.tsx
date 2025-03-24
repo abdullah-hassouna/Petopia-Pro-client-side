@@ -8,10 +8,10 @@ const ProductDetails = ({ product, category }: { product: Product; category: str
     <Accordion type="single" collapsible>
       <AccordionItem
         value="item-1"
-        className={`flex flex-col m-5 p-1 ${bgColor} rounded-lg hover:bg-foreground text-whity shadow-md justify-center`}
+        className={`flex flex-col m-5 p-1 ${bgColor} rounded-lg hover:bg-foreground text-whity shadow-md justify-center border-none`}
       >
         <AccordionTrigger about={category}>
-          <div className="col-span-1 flex mt-4 gap-2">
+          <div className="col-span-1 flex gap-2">
             <FaShoppingBag className="text-2xl mr-2" color={`var(--${category}-tag-100)`} />
             <p className="text-lg">{product.title}</p>
           </div>
