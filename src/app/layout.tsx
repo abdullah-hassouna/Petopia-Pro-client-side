@@ -8,6 +8,7 @@ import UserInfoSidebar from './components/sidebars/UserinfoSidebar'
 import UIToggle from './components/sidebars/UserinfoSidebar/UserInfoSidebarToggle'
 import BottomNavbar from './components/sidebars/BottomNavbar'
 import { Toaster } from '@/components/ui/toaster'
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 const readexPro = Readex_Pro({
   variable: '--font-readex-pro',
@@ -32,10 +33,13 @@ export default function RootLayout({
     //<Provider store={makeStore()}>
     <ProviderContainer>
       <html lang="en">
-        <body className={`${readexPro.className} transition-all antialiased flex`}>
+        <body
+          className={`${readexPro.className} relative transition-all antialiased flex`}
+        >
           <UserInfoSidebar />
-          {/* <UIToggle className="block m-5" /> */}
-          <div className="flex-grow">{children}</div>
+          <ScrollArea className="flex-grow h-[100vh] mb-6 md:mb-0">
+            {children}
+          </ScrollArea>
           <BottomNavbar />
           <Toaster />
         </body>

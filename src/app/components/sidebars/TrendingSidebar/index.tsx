@@ -1,7 +1,7 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 // import { Notification1,   Signpost, MessageSquare } from 'iconsax-react'
-import { Bookmark, Message, NotificationBing, Setting, } from "iconsax-react"
+import { AddCircle, Bookmark, Message, NotificationBing, Setting, } from "iconsax-react"
 
 import IconsBar from "./IconBar"
 
@@ -106,22 +106,22 @@ export default function TrindingSidebar() {
     ]
 
     return (
-        <div id="trending-bar" className="hidden lg:block px-4 py-6 max-w-[320px] lg:w-[20rem] bg-foreground min-h-screen">
-            <IconsBar className="flex justify-between" items={ICONS_BAR_DATA} />
+        <div id="trending-bar" className="hidden overflow-y-auto lg:block px-4 py-6 max-w-[300px] lg:w-[20rem] bg-foreground h-screen">
+            <IconsBar className="grid grid-cols-2 lg:flex justify-between" items={ICONS_BAR_DATA} />
             <div className="mt-4">
                 {/* <h2 className="text-xl font-semibold mb-4">Trending Products</h2> */}
-                <div className="grid grid-cols-1 lg:grid-cols-2 ">
+                <div className="grid grid-cols-1 xl:grid-cols-2 ">
                     {[
                         "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
                         "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
                         "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
                         "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg"
                     ].map((src, index) => (
-                        <div key={index} className="aspect-square md:w-full w-fit h-fit p-2 overflow-hidden">
+                        <div key={index} className=" w-fit h-fit p-1 overflow-hidden">
                             <img
                                 src={src}
                                 alt={`Trending product ${index + 1}`}
-                                className=" object-cover h-32 w-full md:w-32 rounded-2xl m-auto"
+                                className=" object-cover xl:h-full xl:w-full h-[40%] rounded-2xl m-auto"
                             />
                         </div>
                     ))}
@@ -132,7 +132,7 @@ export default function TrindingSidebar() {
                 <h2 className="text-xl font-semibold mb-4">Who to follow</h2>
                 <div className="space-y-4">
                     {[1, 2, 3, 4, 5].map((_, index) => (
-                        <div key={index} className="flex items-center justify-between">
+                        <div key={index} className="flex flex-col lg:flex-row items-center justify-between">
                             <div className="flex items-center gap-3">
                                 <Avatar>
                                     <AvatarImage src={`/placeholder.svg?height=40&width=40`} />
@@ -143,9 +143,7 @@ export default function TrindingSidebar() {
                                     <div className="text-sm text-gray-500">@username</div>
                                 </div>
                             </div>
-                            <Button variant="outline" size="sm" className="rounded-full px-6">
-                                Follow
-                            </Button>
+                            <AddCircle className="h-6 w-6 xl:block hidden" color="var(--prime-color)" />
                         </div>
                     ))}
                 </div>

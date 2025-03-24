@@ -10,6 +10,7 @@ import {
 import { Bookmark, Logout, Message, NotificationBing, Profile, ProfileCircle, Setting } from "iconsax-react";
 import NavbarLink from "../../NavbarLink";
 import ThemeToggle from "../../ThemeToggle";
+import ROUTES from "@/routes";
 
 export function ProfileDrawer({
     children: ButtonTrigger,
@@ -29,7 +30,7 @@ export function ProfileDrawer({
                         <ul className="space-y-1">
                             {[
                                 { Icon: NotificationBing, label: "Notifications", link: "" },
-                                { Icon: Message, label: "Messages", link: "" },
+                                { Icon: Message, label: ROUTES["messages-page"], link: "" },
                                 { Icon: Bookmark, label: "Bookmarks", link: "" },
                                 // { Icon: Profile, label: "Profile", link: "" },
                             ].map((item) => (
@@ -46,7 +47,7 @@ export function ProfileDrawer({
                             {[{
                                 Icon: ProfileCircle,
                                 label: "Your Profile",
-                                link: "link"
+                                link: ROUTES["profile-page"]
                             },
                             {
                                 Icon: Setting,
