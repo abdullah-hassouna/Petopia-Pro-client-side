@@ -66,7 +66,7 @@ const commentsContent = [
     commentId: '1',
     commentContent:
       ' Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, illum! Ut eius quia libero doloribus cumque iure, rerum asperiores odio vitae blanditiis sit corrupti atque, neque tempora dolorem aperiam? Inventore.',
-    createdAt: new Date().toLocaleString(),
+    createdAt: new Date().toISOString(),
   },
   {
     fullName: 'Haitham Akram',
@@ -75,7 +75,7 @@ const commentsContent = [
       'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
     commentId: '1',
     commentContent: 'this is a comment nigga',
-    createdAt: new Date().toLocaleString(),
+    createdAt: new Date().toISOString(),
   },
   {
     fullName: 'Haitham Akram',
@@ -84,7 +84,7 @@ const commentsContent = [
       'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
     commentId: '1',
     commentContent: 'this is a comment nigga',
-    createdAt: new Date().toLocaleString(),
+    createdAt: new Date().toISOString(),
   },
 ]
 
