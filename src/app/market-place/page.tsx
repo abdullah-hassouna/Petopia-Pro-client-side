@@ -35,7 +35,7 @@ function page() {
     }
 
     function FilterSection(props): ReactNode {
-        return (<section {...props} id="filters" className='p-2 h-fit rounded-md bg-foreground'>
+        return <section {...props} id="filters" className='p-2 h-fit rounded-md bg-foreground'>
             <div className='p-10 md:p-2 hidden lg:block'>
                 <h4 className='text-base mb-3'>Filters</h4>
                 <div className='space-y-3 pl-3'>
@@ -46,16 +46,16 @@ function page() {
             <FilterAccordian className='block lg:hidden '>
                 <RateMultiSelect value={filters.rating} setValue={setFilters} />
                 <DualPriceInput value={filters.prices} setValue={setFilters} />
+                <Button onClick={() => console.log(filters, orderWay)}>Submit</Button>
             </FilterAccordian>
-        </section>)
+        </section>
     }
 
-    return (<main id='market-place' className='h-screen w-full md:w-[90%]  mx-auto py-0 md:py-5  '>
+    return (<main id='market-place' className='h-screen w-full md:w-[90%]  mx-auto py-0 md:py-5'>
         <SearchInputSection />
         <div className='grid grid-cols-1 gap-y-4 lg:grid-cols-3 lg:gap-x-4'>
             <FilterSection id="filters" className='p-2 h-fit rounded-md bg-foreground' />
             <SearchResultsSection value={orderWay} setValue={setOrderWay} />
-            <Button onClick={() => console.log(filters, orderWay)}>Submit</Button>
         </div>
     </main>
     )

@@ -3,6 +3,8 @@ import { cn } from '@/lib/utils'
 import React, { useState } from 'react'
 import { IoMdCalendar, IoMdPricetag, IoMdRemoveCircle, IoMdStar } from 'react-icons/io'
 import { PiCaretUpDownThin } from 'react-icons/pi'
+import ProductCard from '../ProductCard' 
+import { useRouter } from 'next/navigation'
 
 function IntegeratedIcon({ label }: { label: string }) {
     if (label.includes("price")) return (<IoMdPricetag className='block h-4 w-auto mr-2 z-10' color='var(--whity)' />)
@@ -12,6 +14,7 @@ function IntegeratedIcon({ label }: { label: string }) {
 }
 
 function SearchResults({ value, setValue }: { value: { order: string, sort: string }, setValue: Function }) {
+    const router = useRouter()
 
     const [mouseOver, setMouseOver] = useState<"price" | "rate" | "date" | undefined>(null)
 
@@ -21,13 +24,18 @@ function SearchResults({ value, setValue }: { value: { order: string, sort: stri
         setValue(prev => ({ ...prev, order: v }))
     }
 
-
     function setSort() {
         setValue(prev => {
             const value = prev.sort === 'asc' ? 'dec' : 'asc';
             return ({ ...prev, sort: value })
         })
     }
+    
+function redirectProductPage (productId: string): void {
+    router.push(`/product/${productId}`)
+    console.log(productId)
+} 
+
 
     return (
         <section id="search-results" className='col-span-3 md:col-span-2 p-3 md:p-2 rounded-md bg-foreground'>
@@ -45,7 +53,6 @@ function SearchResults({ value, setValue }: { value: { order: string, sort: stri
                         </span>
                     </div>
                 </Badge>
-
                 <div onMouseLeave={() => setMouseOver(null)} className='relative flex-col xs:flex-row bg-transparent border border-gray-400 w-full xs:w-fit rounded-md overflow-hidden flex shadow-lg dark:shadow-none select-none h-fit'>
                     <div className={cn("absolute hidden xs:block min-h-10 min-w-20 h-10 w-20 top-10 -right-10 transition-all duration-300 bg-icon-color-75 rounded-full z-0", {
                         "-top-[6px] right-[67%]": (mouseOver == "price"),
@@ -69,6 +76,19 @@ function SearchResults({ value, setValue }: { value: { order: string, sort: stri
                     <span className='text-whity text-base capitalize cursor-pointer z-10'>clear</span>
                 </Badge>
             </div>
+
+            <div className='grid grid-cols-1 gap-y-4 md:grid-cols-2 xl:grid-cols-3 lg:gap-x-4 py-3'>
+                <ProductCard product={{ name: 'Product 1', image: 'https://via.placeholder.com/150', description: 'Description 1', price: 100, rate: 4 }} redirect={redirectProductPage} />
+                <ProductCard product={{ name: 'Product 1', image: 'https://via.placeholder.com/150', description: 'Description 1', price: 100, rate: 4 }}  redirect={redirectProductPage}/>
+                <ProductCard product={{ name: 'Product 1', image: 'https://via.placeholder.com/150', description: 'Description 1', price: 100, rate: 4 }} redirect={redirectProductPage} />
+                <ProductCard product={{ name: 'Product 1', image: 'https://via.placeholder.com/150', description: 'Description 1', price: 100, rate: 4 }}  redirect={redirectProductPage}/>
+                <ProductCard product={{ name: 'Product 1', image: 'https://via.placeholder.com/150', description: 'Description 1', price: 100, rate: 4 }} redirect={redirectProductPage} />
+                <ProductCard product={{ name: 'Product 1', image: 'https://via.placeholder.com/150', description: 'Description 1', price: 100, rate: 4 }}  redirect={redirectProductPage}/>
+                <ProductCard product={{ name: 'Product 1', image: 'https://via.placeholder.com/150', description: 'Description 1', price: 100, rate: 4 }} redirect={redirectProductPage} />
+                <ProductCard product={{ name: 'Product 1', image: 'https://via.placeholder.com/150', description: 'Description 1', price: 100, rate: 4 }}  redirect={redirectProductPage}/>
+            </div>
+
+
         </section>
     )
 }
