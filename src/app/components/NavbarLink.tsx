@@ -27,7 +27,7 @@ function NavbarLink({ label, Icon, link }: { label: string, Icon: IconType, link
                     style={{ width: 28, height: 28 }}
                     color={areActive ? "var(--discuss-tag)" : "var(--icon-color)"}
                     variant="Bulk" />
-                <p className={clsx('sm:text-base text-lg', { "text-white": areActive, "opacity-100": isOpen, "opacity-100 md:opacity-0": !isOpen })}>{label}</p>
+                <p className={clsx('sm:text-base text-lg', { "text-white": areActive, "opacity-100": isOpen, "opacity-100 md:opacity-0  w-52": !isOpen })}>{label}</p>
             </Button>
         </li>
     )
