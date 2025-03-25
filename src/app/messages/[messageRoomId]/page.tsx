@@ -12,9 +12,13 @@ import { useRouter } from "next/navigation"
 import UsersList from "@/app/components/messageRoom/UsersList"
 import ShowContacts from "@/app/components/messageRoom/ShowContacts"
 import { ContactsContext } from "../CustomerContext/ContactsProvider"
+import MessageSkeleton from "@/app/skeleton/MessageSkeleton"
 
 
 export default function ChatPage({ params }) {
+
+  const [dataReady, setDataReady] = React.useState<boolean>(false);
+  setTimeout(() => setDataReady(() => true), 2000);
 
   const router = useRouter();
   const { messageRoomId } = React.use<{ messageRoomId: string }>(params); // Update this line
@@ -27,6 +31,8 @@ export default function ChatPage({ params }) {
 
     router.push(`/messages/${roomId}`)
   }
+
+
 
   return (
     <>
@@ -58,7 +64,7 @@ export default function ChatPage({ params }) {
           <div className="min-w-[97%] absolute z-20 h-5 bg-gradient-to-b from-foreground to-transparent"></div>
           <div className="space-y-4 mt-6">
             {MESSAGES.map((message, index) => (
-              <div
+              dataReady ? <div
                 key={index}
                 className={cn("flex", {
                   "justify-end": message.sender === "me",
@@ -87,6 +93,7 @@ export default function ChatPage({ params }) {
                   </div>
                 </div>
               </div>
+                : <MessageSkeleton index={index} key={index} />
             ))}
           </div>
         </ScrollArea>
