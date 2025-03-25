@@ -19,13 +19,13 @@ export default {
 				foreground: 'var(--foreground)',
 				'header-color': 'var(--header-font-color)',
 				'sub-header-color': 'var(--sub-header-font-color)',
-				// 'icon-color': 'var(--icon-color)',
 				'icon-color': {
 					'50': 'rgba(var(--icon-color-rgb), 0.5)',
 					'75': 'rgba(var(--icon-color-rgb), 0.75)',
 					'90': 'rgba(var(--icon-color-rgb), 0.9)',
 					DEFAULT: 'var(--icon-color)'
 				},
+				'body-font-color': 'var(--body-font-color)',
 				primary: {
 					'50': 'rgba(var(--prime-color-rgb), 0.5)',
 					'75': 'rgba(var(--prime-color-rgb), 0.75)',

@@ -2,9 +2,12 @@ import type { Metadata } from 'next'
 import { Readex_Pro } from 'next/font/google'
 import './globals.css'
 import './themes.css'
-import ProviderContainer from "@/lib/reduxStore/providerContainer/container";
-import UserInfoSidebar from "./components/sidebars/UserinfoSidebar";
-import BottomNavbar from "./components/sidebars/BottomNavbar";
+// import ThemeToggle from './components/ThemeToggle';
+import ProviderContainer from '@/lib/reduxStore/providerContainer/container'
+import UserInfoSidebar from './components/sidebars/UserinfoSidebar'
+import UIToggle from './components/sidebars/UserinfoSidebar/UserInfoSidebarToggle'
+import BottomNavbar from './components/sidebars/BottomNavbar'
+import { Toaster } from '@/components/ui/toaster'
 import { ScrollArea } from "@/components/ui/scroll-area";
 
 const readexPro = Readex_Pro({
@@ -38,6 +41,7 @@ export default function RootLayout({
             {children}
           </ScrollArea>
           <BottomNavbar />
+          <Toaster />
         </body>
       </html>
     </ProviderContainer>
