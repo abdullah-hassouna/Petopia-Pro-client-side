@@ -9,11 +9,11 @@
   --product-tag-rgb: 248, 240, 254;
   --product-tag-100: #e0c2ff;
   --discuss-tag: #fbf2dc;
-  --discuss-tag-100:#F6E2B1;
+  --discuss-tag-100: #f6e2b1;
   --discuss-tag-rgb: 251, 242, 220;
   --sale-tag: #fbdce7;
   --sale-tag-rgb: 251, 220, 231;
-  --sale-tag-100: #f6b1c2; 
+  --sale-tag-100: #f6b1c2;
   --help-tag: #f3fbdc;
   --help-tag-rgb: 243, 251, 220;
   --help-tag-100: #e2f6b1;
@@ -25,6 +25,7 @@
   --logo-color: #ff903b;
   --whity: #0a0a0a;
   --icon-color: #ff903b;
+  --icon-color-rgb: 255, 144, 59;
 }
 
 [data-theme="dark"] {
@@ -49,6 +50,7 @@
   --background: #0a0a0a;
   --whity: #ffffff;
   --icon-color: #7851d1;
+  --icon-color-rgb: 120, 81, 209;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -71,6 +73,7 @@
     --background: #0a0a0a;
     --whity: #ffffff;
     --icon-color: #7851d1;
+    --icon-color-rgb: 120, 81, 209;
   }
 }
 

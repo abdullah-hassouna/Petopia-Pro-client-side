@@ -26,8 +26,8 @@ export default function ProductCard({ redirect, product }: { redirect: (productI
                     <Star1 key={key} color='yellow' className='h-5 w-5' />
                 )}
             </div>
-            <Button className="w-full">
-                <ExportSquare color='white' onClick={() => redirect(product.name)} className="w-4 h-4 mr-2" />
+            <Button  onClick={() => redirect(product.name)} className="w-full">
+                <ExportSquare color='white' className="w-4 h-4 mr-2" />
                 Show More
             </Button>
         </CardFooter>
