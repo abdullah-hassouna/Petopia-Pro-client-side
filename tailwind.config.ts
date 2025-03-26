@@ -123,15 +123,20 @@ export default {
 					to: {
 						height: '0'
 					}
-				}
+				},
+				"caret-blink": {
+					"0%,70%,100%": { opacity: "1" },
+					"20%,50%": { opacity: "0" },
+				},
 			},
 			animation: {
-				slideOutToLeft: 'slideOutToLeft 0.5s ease-in-out forwards',
-				slideinFromLeft: 'slideInFromLeft 0.5s ease-in-out forwards',
-				flipedArrowToLeft: 'flipedArrowToLeft 0.5s ease-in-out forwards',
-				flipedArrowToRight: 'flipedArrowToRight 0.5s ease-in-out forwards',
+				'slideOutToLeft': 'slideOutToLeft 0.5s ease-in-out forwards',
+				'slideinFromLeft': 'slideInFromLeft 0.5s ease-in-out forwards',
+				'flipedArrowToLeft': 'flipedArrowToLeft 0.5s ease-in-out forwards',
+				'flipedArrowToRight': 'flipedArrowToRight 0.5s ease-in-out forwards',
 				'accordion-down': 'accordion-down 0.2s ease-out',
-				'accordion-up': 'accordion-up 0.2s ease-out'
+				'accordion-up': 'accordion-up 0.2s ease-out',
+				"caret-blink": "caret-blink 1.25s ease-out infinite",
 			}
 		}
 	},
