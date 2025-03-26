@@ -7,7 +7,7 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 
 export default function NavigationWrapper({ children }) {
   const pathname = usePathname()
-  const isAuthPage = pathname === '/login' || pathname === '/signup'
+  const isAuthPage = pathname === '/login' || pathname === '/signup' || pathname === '/forget-password' || pathname === '/reset-password'
 
   return (
     <>
