@@ -11,16 +11,16 @@ import { redirect } from 'next/navigation'
 import { IoSettingsOutline } from 'react-icons/io5'
 import FormDialog from '../PostForms/FormDialog'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { PostDetails } from '@/app/interfaces/postInterface'
+import { CommentsProps, PostDetails } from '@/app/interfaces/postInterface'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/lib/reduxStore/store'
 
 interface PostFooterProps {
   postId: string
   likes: number
-  comments: number
+  comments: CommentsProps[]
   bookmarks: number
   shares: number
-  fullName: string
-  userImage: string
   tag: string
   postDetails: PostDetails
 }
@@ -57,39 +57,12 @@ const users = [
   },
 ]
 
-const commentsContent = [
-  {
-    fullName: 'Haitham Akram',
-    username: 'haitham-Akram',
-    userImage:
-      'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
-    commentId: '1',
-    commentContent:
-      ' Lorem ipsum dolor sit amet, consectetur adipisicing elit. Dolorem, illum! Ut eius quia libero doloribus cumque iure, rerum asperiores odio vitae blanditiis sit corrupti atque, neque tempora dolorem aperiam? Inventore.',
-    createdAt: new Date().toISOString(),
-  },
-  {
-    fullName: 'Haitham Akram',
-    username: 'haitham-Akram',
-    userImage:
-      'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
-    commentId: '1',
-    commentContent: 'this is a comment nigga',
-    createdAt: new Date().toISOString(),
-  },
-  {
-    fullName: 'Haitham Akram',
-    username: 'haitham-Akram',
-    userImage:
-      'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
-    commentId: '1',
-    commentContent: 'this is a comment nigga',
-    createdAt: new Date().toISOString(),
-  },
-]
 
 const PostFooter = (props: PostFooterProps) => {
-  const { postId, likes, comments, bookmarks, shares, fullName, userImage, tag, postDetails } = props
+  const { postId, likes, comments, bookmarks, shares, tag, postDetails } = props
+
+  const { userInfo, } = useSelector((state: RootState) => state);
+
   const [saved, setSaved] = useState(false)
   const [liked, setLiked] = useState(false)
   const [likedCounter, setLikedCounter] = useState(likes)
@@ -136,8 +109,8 @@ const PostFooter = (props: PostFooterProps) => {
             <Heart
               size="20"
               color={liked ? 'red' : 'var(--whity)'}
-              onClick={handleLikedClick}
               variant={liked ? 'Bold' : 'Outline'}
+              onClick={handleLikedClick}
             />
             <HoverCard open={isLikeHoverCardActive} onOpenChange={setIsLikeHoverCardActive}>
               <HoverCardTrigger onClick={handleLikeHoverCardToggle}>
@@ -152,7 +125,7 @@ const PostFooter = (props: PostFooterProps) => {
           <div className="flex gap-1 cursor-pointer" onClick={handleShowComments}>
             <MessageText size="20" color="var(--whity)" />
             <span>
-              {comments}
+              {comments.length}
               <span className="hidden md:inline ml-2">Comment</span>
             </span>
           </div>
@@ -219,8 +192,8 @@ const PostFooter = (props: PostFooterProps) => {
             </DropdownMenu>
           </div>
         </div>
-        <Comments show={showComments} comments={commentsContent} tag={tag} />
-        <PostComment postId={postId} fullName={fullName} userImage={userImage} />
+        <Comments show={showComments} comments={comments} tag={tag} />
+        <PostComment postId={postId} />
       </div>
       <FormDialog open={dialogOpen} handleClose={handleCloseDialog} tag={{ title: tag, id: 1 }} post={postDetails} />
     </>

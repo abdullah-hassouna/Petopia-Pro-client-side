@@ -1,4 +1,5 @@
 interface UserInfoState {
+    fullName: string
     userName: string
     userEmail: string
     userBio: string
@@ -11,6 +12,7 @@ interface UserInfoState {
 let LSData: { user: UserInfoState } = {
     user: {
         userName: "",
+        fullName: "",
         userEmail: "",
         userBio: "",
         userPhoneNumber: { phoneNumber: "+970", countryNumber: "" },
@@ -24,6 +26,7 @@ if (typeof window !== 'undefined') {
 }
 
 const initialUserInfoState: UserInfoState = LSData?.user || {
+    fullName: "",
     userName: "",
     userEmail: "",
     userBio: "",

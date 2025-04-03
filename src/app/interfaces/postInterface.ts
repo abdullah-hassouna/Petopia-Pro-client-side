@@ -1,6 +1,20 @@
+import { tCategories } from "@/lib/utils/categoryColor"
+
+interface PostDetails {
+    id: string
+    pet?: Pet
+    product?: Product
+    category: tCategories
+    postContent: string
+    likesCount: number
+    comments: CommentsProps[]
+    bookmarkCount: number
+    sharesCount: number
+    images?: string[]
+}
+
 interface Pet {
     id: string
-    ownerId: string
     petName: string
     type: string
     petImage?: string[]
@@ -12,7 +26,6 @@ interface Pet {
 
 interface Product {
     id: string
-    userId: string
     title: string
     stock: number
     price: number
@@ -21,15 +34,26 @@ interface Product {
     productImage?: string[]
 }
 
-interface PostDetails {
-    id: string
-    pet?: Pet
-    product?: Product
-    category: string
-    postContent: string
-    likesCount: number
-    commentsCount: number
-    bookmarkCount: number
-    images?: string[]
+interface PostProps {
+    user: {
+        id: string,
+        username: string,
+        fullName: string,
+        labelTag: tCategories,
+        userImage: string,
+    },
+    post: PostDetails,
+    pet: Pet,
+    product: Product
 }
-export type { Pet, Product, PostDetails }
+
+interface CommentsProps {
+    userImage: string
+    fullName: string
+    username: string
+    commentContent: string
+    commentId: string
+    createdAt: string
+}
+
+export type { Pet, Product, PostDetails, PostProps, CommentsProps }

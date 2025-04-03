@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import PostLabel from './PostLabel'
-import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select'
+
 interface PostHeaderProps {
   userImage: string
   fullName: string
@@ -27,7 +27,7 @@ const PostHeader = (props: PostHeaderProps) => {
         </div>
       </div>
       <PostLabel title={labelTag} />
-     
+
     </div>
   )
 }

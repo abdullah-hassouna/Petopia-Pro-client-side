@@ -6,15 +6,9 @@ import { ScrollArea } from '@/components/ui/scroll-area'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import PostInput from './PostInput'
 import Comment from './SingleComment'
+import { CommentsProps } from '@/app/interfaces/postInterface'
 
-interface CommentsProps {
-  userImage: string
-  fullName: string
-  username: string
-  commentContent: string
-  commentId: string
-  createdAt: string
-}
+
 
 const Comments = ({ comments, show, tag }: { comments: CommentsProps[]; show: boolean; tag: string }) => {
   return (

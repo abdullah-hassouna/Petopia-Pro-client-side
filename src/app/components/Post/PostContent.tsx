@@ -2,9 +2,10 @@ import { PostDetails } from '@/app/interfaces/postInterface'
 import ImageSlider from './ImageSlider'
 import PetDetails from './PetDetails'
 import ProductDetails from './ProductDetails'
+import viaColorClass from '@/lib/utils/categoryColor'
 
 const PostContent = ({ postDetails }: { postDetails: PostDetails }) => {
-  let colorScheme = ['adoption', 'help', 'discuss', 'product'].includes(postDetails.category)
+  const colorScheme = viaColorClass(postDetails.category).colorScheme
     ? postDetails.category
     : 'help'
   const images = postDetails.images
