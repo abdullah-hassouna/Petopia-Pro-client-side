@@ -4,20 +4,20 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useToast } from '@/hooks/use-toast'
-
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { loginService, LoginCredentials } from '@/lib/services/auth/login'
+import { useRouter } from 'next/navigation'
 
 const LoginForm = () => {
   const { toast } = useToast()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const formSchema = z.object({
     email: z.string().nonempty('Email is required').email('Invalid email').min(6),
-    password: z.string().nonempty('Password is required').min(6, { message: 'Password must be at least 6 characters' }),
+    password: z.string().nonempty('Password is required')
+    .min(6, { message: 'Password must be at least 6 characters' }),
   })
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -29,16 +29,18 @@ const LoginForm = () => {
   const handelSubmit = async (data) => {
     setLoading(true)
     try {
-      console.log(data)
-      // await login(data)
+     await loginService.login(data)
+
       toast({
         title: 'Login success',
         description: 'You have successfully logged in',
       })
+      // router.push('/')
     } catch (error) {
       toast({
-        title: 'something went wrong',
-        description: error.message,
+        variant: 'destructive',
+        title: 'Login failed.',
+        description: error.response.data.message,
       })
     }
     setLoading(false)
@@ -74,7 +76,7 @@ const LoginForm = () => {
                 </div>
               </FormLabel>
               <FormControl>
-                <Input placeholder="Password" {...field} />
+                <Input placeholder="Password" type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>
