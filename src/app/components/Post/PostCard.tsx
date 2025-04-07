@@ -7,7 +7,8 @@ import { PostProps } from '@/app/interfaces/postInterface'
 
 
 const PostCard = (props: PostProps) => {
-  const { via, colorScheme } = viaColorClass(props.post.category)
+  const { via, colorScheme } = viaColorClass('help')
+  const { user, } = props
 
   return (
     <div className="relative min-h-[32.771875rem] w-full max-w-2xl mx-4 sm:mx-6 md:mx-8 lg:mx-auto mt-5">
@@ -15,21 +16,21 @@ const PostCard = (props: PostProps) => {
         className={`bg-gradient-to-b from-foreground ${via} to-foreground border border-background rounded-[8px] box-border z-0`}
       >
         <PostHeader
-          labelTag={props.post.category}
-          userImage={props.user.userImage}
-          fullName={props.user.fullName}
-          username={props.user.username} />
+          labelTag={'help'}
+          userImage={user.userImage}
+          fullName={user.fullName}
+          username={user.username} />
 
-        <PostContent postDetails={props.post} />
+        <PostContent postDetails={props} />
 
         <PostFooter
           tag={colorScheme}
-          postId={props.post.id}
-          likes={props.post.likesCount}
-          comments={props.post.comments}
-          shares={props.post.sharesCount}
-          bookmarks={props.post.bookmarkCount}
-          postDetails={props.post}
+          postId={props.id}
+          likes={props.likesCount}
+          comments={props.comments}
+          shares={props.sharesCount}
+          bookmarks={props.bookmarkCount}
+          postDetails={props}
         />
       </Card>
       <div

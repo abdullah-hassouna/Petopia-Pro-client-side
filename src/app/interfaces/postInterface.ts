@@ -1,26 +1,31 @@
 import { tCategories } from "@/lib/utils/categoryColor"
 
 interface PostDetails {
-    id: string
-    pet?: Pet
-    product?: Product
-    category: tCategories
-    postContent: string
-    likesCount: number
-    comments: CommentsProps[]
-    bookmarkCount: number
-    sharesCount: number
-    images?: string[]
+    bookmarkCount: number;
+    category: { title: string };
+    categoryId: number;
+    commentsCount: number;
+    createdAt: string;
+    id: string;
+    likesCount: number;
+    postContent: string;
+    productId: Product;
+    updatedAt: string;
+    userId: string;
+    pet: Pet,
+    product: Product,
 }
 
+
 interface Pet {
+    dob: string;
+    gender: number;
+    healthStatus: string;
+    ownerId: string;
+    petImage: string;
+    petName: string;
+    type: string;
     id: string
-    petName: string
-    type: string
-    petImage?: string[]
-    dob: string
-    gender: number
-    healthStatus: string
     adoptionStatus: 'available' | 'adopted'
 }
 
@@ -35,25 +40,39 @@ interface Product {
 }
 
 interface PostProps {
-    user: {
-        id: string,
-        username: string,
-        fullName: string,
-        labelTag: tCategories,
-        userImage: string,
-    },
-    post: PostDetails,
+    user: UserProps,
+    bookmarkCount: number;
+    category: { title: string };
+    categoryId: number;
+    commentsCount: number;
+    comments: CommentsProps[],
+    createdAt: string;
+    id: string;
+    images: Image[];
+    likesCount: number;
+    postContent: string;
+    productId: Product;
+    updatedAt: string;
+    userId: string;
     pet: Pet,
-    product: Product
+    product: Product,
 }
 
 interface CommentsProps {
-    userImage: string
-    fullName: string
-    username: string
-    commentContent: string
-    commentId: string
+    user: UserProps,
+    commentText: string
+    id: string
     createdAt: string
+}
+
+interface UserProps {
+    fullName: string,
+    userImage: string,
+    isAdmin: boolean
+}
+
+interface Image {
+    [key: string]: any;
 }
 
 export type { Pet, Product, PostDetails, PostProps, CommentsProps }
