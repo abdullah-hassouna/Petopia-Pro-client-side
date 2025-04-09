@@ -13,10 +13,11 @@ const authApi = axios.create({
 });
 
 export interface SignupCredentials {
-  name: string;
+  fullName: string;
   email: string;
   password: string;
   confirmPassword?: string; // Optional for validation only
+  username: string;
 }
 
 export interface AuthResponse {
@@ -33,31 +34,16 @@ export interface AuthResponse {
 export const signupService = {
   async signup(userData: SignupCredentials) {
     try {
-      const response = await authApi.post('/auth/signup', userData);
-
-      // Store auth data if signup is successful
-      // console.log('token', response.data);
-
-      // if (response.data?.token) {
-      //   // localStorage.setItem('token', response.data.token);
-      //   // localStorage.setItem('user', JSON.stringify(response.data.user));
-      //   Cookies.set('token', response.data?.token, {
-      //     expires: 7, // Expires in 7 days
-      //     // secure: process.env.NODE_ENV === 'production'  , // Use secure cookies in production
-      //     sameSite: 'strict', // Prevent CSRF
-      //   })
-      //   Cookies.set('user', JSON.stringify(response.data.user), {
-      //     expires: 7, // Expires in 7 days
-      //     // secure: process.env.NODE_ENV === 'production'  , // Use secure cookies in production
-      //     sameSite: 'strict', // Prevent CSRF
-      //   })
-      // }
+      const username = `${userData.fullName.split(' ').join('').toLowerCase()}${Math.floor(1000 + Math.random() * 9000)}`;
+      const response = await authApi.post('/auth/signup', { ...userData, username });
       if (response.status !== 201) {
 
         console.log(response.status);
         throw new Error('Signup failed');
       }
-      return response.data;
+      const userInfo = response.data.user;
+      const oldState = localStorage.getItem('reduxState')
+      localStorage.setItem('reduxState', JSON.stringify({ ...JSON.parse(oldState), userInfo: userInfo }))
     } catch (error: any) {
       const errorMessage = error.message || 'Signup failed';
       throw new Error(errorMessage);
@@ -65,20 +51,6 @@ export const signupService = {
   },
 
   async googleAuth() {
-    try {
-      // If token is provided, send it to the backend
-      const response = await authApi.get('auth/google'); // Get URL for redirection
-
-      // If this returns directly with a token (one-step process)
-      // if (response.data?.token) {
-      //   localStorage.setItem('token', response.data.token);
-      //   localStorage.setItem('user', JSON.stringify(response.data.user));
-      // }
-
-      return response;
-    } catch (error: any) {
-      const errorMessage = error.response?.data?.message || 'Google authentication failed';
-      throw new Error(errorMessage);
-    }
+    window.location.href = 'http://localhost:5000/api/v1/auth/google'
   }
 };

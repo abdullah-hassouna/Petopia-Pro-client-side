@@ -20,27 +20,26 @@ export interface LoginCredentials {
 export const loginService = {
   async login(credentials: LoginCredentials) {
     const response = await authApi.post('/auth/login', credentials);
-    console.log("response login", response);
-    if (response.data?.token) {
-      Cookies.set('token', response.data?.token, {
-        expires: 1, // Expires in 7 days
-        // secure: process.env.NODE_ENV === 'production'  , // Use secure cookies in production
-        sameSite: 'strict', // Prevent CSRF
-      })
-      Cookies.set('user', JSON.stringify(response.data.user), {
-        expires: 1, // Expires in 7 days
-        // secure: process.env.NODE_ENV === 'production'  , // Use secure cookies in production
-        sameSite: 'strict', // Prevent CSRF
-      })
-    }
-
-    return response.data;
+    const userInfo = response.data.user;
+    const oldState = localStorage.getItem('reduxState')
+    localStorage.setItem('reduxState', JSON.stringify({ ...JSON.parse(oldState), userInfo: userInfo }))
   },
 
   logout() {
     Cookies.remove('token')
-    Cookies.remove('user')
-    // localStorage.removeItem('token');
-    // localStorage.removeItem('user');
+    const oldState = localStorage.getItem('reduxState')
+    localStorage.setItem('reduxState', JSON.stringify({
+      ...JSON.parse(oldState), userInfo: {
+        bio: "user bio",
+        email: "",
+        followerCount: 0,
+        followingCount: 0,
+        isAdmin: false,
+        phone: "",
+        profileImage: "",
+        userImage: "https://i.imgur.com/E0TQFoe.png",
+        userName: "user"
+      }
+    }))
   },
 };

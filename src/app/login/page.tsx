@@ -2,11 +2,11 @@
 import React from 'react'
 import LoginForm from '../components/auth/LoginForm'
 import GoogleButton from '../components/auth/GoogleButton'
-import { Card, CardContent } from '@/components/ui/card'
 import Image from 'next/image'
 import ThemeToggle from '../components/auth/ThemeToggle'
-
+import { useRouter } from 'next/navigation'
 const LoginPage = () => {
+  const router = useRouter()
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-background p-0">
       <div className="h-full w-full flex overflow-hidden bg-foreground text-whity">
@@ -38,9 +38,9 @@ const LoginPage = () => {
             <div className="flex justify-center mt-6">
               <p className="text-whity">
                 Don't have an account?{' '}
-                <a href="/signup" className="text-primary font-medium hover:underline">
-                  Sign up
-                </a>
+                <button onClick={() => router.push('/signup')} className="text-primary font-medium hover:underline">
+                  Signup here
+                </button>
               </p>
             </div>
           </div>
@@ -49,7 +49,13 @@ const LoginPage = () => {
         {/* right side - Pet Image */}
         <div className="hidden md:block w-1/2 relative">
           <div className="h-full w-full overflow-hidden rounded-l-lg">
-            <Image src="/assets/pet-login-3.jpg" alt="Cute pet" fill className="object-cover rounded-l-[36px]" priority />
+            <Image
+              src="/assets/pet-login-3.jpg"
+              alt="Cute pet"
+              fill
+              className="object-cover rounded-l-[36px]"
+              priority
+            />
           </div>
         </div>
       </div>

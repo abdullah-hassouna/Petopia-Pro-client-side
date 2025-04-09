@@ -16,8 +16,7 @@ const LoginForm = () => {
   const [loading, setLoading] = useState(false)
   const formSchema = z.object({
     email: z.string().nonempty('Email is required').email('Invalid email').min(6),
-    password: z.string().nonempty('Password is required')
-    .min(6, { message: 'Password must be at least 6 characters' }),
+    password: z.string().nonempty('Password is required').min(6, { message: 'Password must be at least 6 characters' }),
   })
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
@@ -29,13 +28,13 @@ const LoginForm = () => {
   const handelSubmit = async (data) => {
     setLoading(true)
     try {
-     await loginService.login(data)
+      await loginService.login(data)
 
       toast({
         title: 'Login success',
         description: 'You have successfully logged in',
       })
-      // router.push('/')
+      router.push('/')
     } catch (error) {
       toast({
         variant: 'destructive',
@@ -70,9 +69,12 @@ const LoginForm = () => {
               <FormLabel className="capitalize">
                 <div className="flex justify-between ">
                   Password
-                  <a href="/forget-password" className="text-primary">
+                  {/* <a href="/forget-password" className="text-primary">
                     forget password
-                  </a>
+                  </a> */}
+                  <button type="button" className="text-primary" onClick={() => router.push('/forget-password')}>
+                    Forget password
+                  </button>
                 </div>
               </FormLabel>
               <FormControl>

@@ -1,8 +1,8 @@
 'use client'
 import React from 'react'
-import ResetPasswordForm from '../components/auth/resetPasswordForm'
+import ResetPasswordForm from '@/app/components/auth/resetPasswordForm'
 import Image from 'next/image'
-import ThemeToggle from '../components/auth/ThemeToggle'
+import ThemeToggle from '@/app/components/auth/ThemeToggle'
 
 const RestPasswordPage = () => {
   return (
@@ -14,14 +14,12 @@ const RestPasswordPage = () => {
             <div className="bg-foreground/30 p-6">
               <div className="mb-10">
                 <div className="flex gap-3 items-center justify-start">
-                  <h1 className="text-4xl font-bold">Invalid or Missing Token</h1>
+                  <h1 className="text-4xl font-bold">Reset Password </h1>
                   <ThemeToggle />
                 </div>
-                <p className="text-whity mb-6">
-                The reset password link is invalid or missing. Please ensure you have the correct link or request a new one.
-              </p>
+                <p className="mt-3 text-whity">Here you can reset your password.</p>
               </div>
-              
+              <ResetPasswordForm />
             </div>
           </div>
         </div>

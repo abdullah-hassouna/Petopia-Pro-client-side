@@ -13,17 +13,12 @@ const GoogleButton = () => {
   const handleGoogleAuth = async () => {
     setLoading(true)
     try {
-      //  await signupService.googleAuth()
-      window.location.href = 'http://localhost:5000/api/v1/auth/google'
-      // If the API returns a URL to redirect to
-      //  if (response.url) {
-      //   window.location.href = response.url;
-      //   return;
-      // }
-      // console.log(response)
+       await signupService.googleAuth()
+      // window.location.href = 'http://localhost:5000/api/v1/auth/google'
+
       toast({
-        title: 'Login successful',
-        description: 'You have successfully signed in with Google',
+        title: 'Redirecting to Google...',
+        description: 'Please wait while we redirect you to Google for authentication.',
       })
       router.push('/')
     } catch (error) {

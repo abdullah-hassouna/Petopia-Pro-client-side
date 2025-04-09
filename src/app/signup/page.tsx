@@ -2,11 +2,12 @@
 import React from 'react'
 import SignupForm from '../components/auth/signupForm'
 import GoogleButton from '../components/auth/GoogleButton'
-import { Card, CardContent } from '@/components/ui/card'
+import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import ThemeToggle from '../components/auth/ThemeToggle'
 
 const SignupPage = () => {
+  const router = useRouter()
   return (
     <div className="h-screen w-screen flex items-center justify-center bg-background p-0">
       <div className="h-full w-full flex overflow-hidden bg-foreground text-whity">
@@ -37,9 +38,9 @@ const SignupPage = () => {
             <div className="flex justify-center mt-6">
               <p className="text-whity">
                 Have an account?{' '}
-                <a href="/login" className="text-primary font-medium hover:underline">
+                <button onClick={() => router.push('/login')} className="text-primary font-medium hover:underline">
                   Login here
-                </a>
+                </button>
               </p>
             </div>
           </div>

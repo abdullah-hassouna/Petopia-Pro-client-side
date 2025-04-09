@@ -7,17 +7,29 @@ import { useToast } from '@/hooks/use-toast'
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
+import { passwords } from '@/lib/services/auth/passwordReset'
+import { useParams, useRouter } from 'next/navigation'
+
 const ResetPasswordForm = () => {
+  const router = useRouter()
+  const { token } = useParams()
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
-  const formSchema = z.object({
-    password: z.string().nonempty('Password is required').min(6, { message: 'Password must be at least 6 characters' }),
-    confirmPassword: z
-      .string()
-      .nonempty('Confirm password is required')
-      .min(6, { message: 'Password must be at least 6 characters' })
-      .refine((data) => data === formSchema.password, { message: 'Passwords do not match' }),
-  })
+  const formSchema = z
+    .object({
+      password: z
+        .string()
+        .nonempty('Password is required')
+        .min(6, { message: 'Password must be at least 6 characters' }),
+      confirmPassword: z
+        .string()
+        .nonempty('Confirm password is required')
+        .min(6, { message: 'Password must be at least 6 characters' }),
+    })
+    .refine((data) => data.password === data.confirmPassword, {
+      message: "Passwords don't match",
+      path: ['confirmPassword'], // path of error
+    })
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
@@ -29,11 +41,13 @@ const ResetPasswordForm = () => {
     setLoading(true)
     try {
       console.log(data)
-
+      const { password } = data
+      await passwords.reset({ password, token })
       toast({
         title: 'reset successfully',
-        description: 'Go to the login page',
+        description: 'Going to the login page',
       })
+      router.push('/login')
     } catch (error) {
       toast({
         title: 'something went wrong',
