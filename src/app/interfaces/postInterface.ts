@@ -1,8 +1,9 @@
 import { tCategories } from "@/lib/utils/categoryColor"
+import { RefObject } from "react";
 
 interface PostDetails {
     bookmarkCount: number;
-    category: { title: string };
+    category: tCategories;
     categoryId: number;
     commentsCount: number;
     createdAt: string;
@@ -40,16 +41,19 @@ interface Product {
 }
 
 interface PostProps {
+    // triggeredRef: RefObject<HTMLDivElement>;
     user: UserProps,
     bookmarkCount: number;
-    category: { title: string };
+    category: tCategories;
     categoryId: number;
     commentsCount: number;
+    sharesCounts: number;
     comments: CommentsProps[],
     createdAt: string;
     id: string;
     images: Image[];
     likesCount: number;
+    likes: UserProps[];
     postContent: string;
     productId: Product;
     updatedAt: string;
@@ -66,13 +70,22 @@ interface CommentsProps {
 }
 
 interface UserProps {
+    username?: string | undefined;
     fullName: string,
     userImage: string,
     isAdmin: boolean
+}
+interface LikeProps {
+    relateId: string
+    isComment: boolean
+    createdAt: string
+    updatedAt: string
+    user: UserProps
+    id: string
 }
 
 interface Image {
     [key: string]: any;
 }
 
-export type { Pet, Product, PostDetails, PostProps, CommentsProps }
+export type { Pet, Product, PostDetails, PostProps, CommentsProps, UserProps, LikeProps }

@@ -1,28 +1,32 @@
 import { ScrollArea } from '@/components/ui/scroll-area'
 import PostCard from './PostCard'
 import { PostProps } from '@/app/interfaces/postInterface'
+import PostSkeleton from '@/app/skeleton/PostSkeleton'
+import { RefObject } from 'react'
 
 // interface Posts {
 //   tag: 'adoption' | 'help' | 'discuss' | 'product' | 'other'
 // }
 
-const PostContainer = ({ loading, error, posts }: { loading: boolean, error, posts?: PostProps[] | undefined }) => {
+const PostContainer = ({ ref, isLoadingPosts, error, posts }: { ref: RefObject<HTMLDivElement>, isLoadingPosts: boolean, error: any, posts?: PostProps[] | undefined }) => {
 
   return (
     <div className="w-full px-2 sm:px-3 md:px-4 lg:px-5 pb-5 h-screen">
       {
         <ScrollArea id="container" className="w-full h-full overflow-auto">
           <div className="flex flex-col gap-4 md:gap-6">
-            {/* {loading} */}
-            {(loading && posts.length > 0) ? <>Loading...</> :
-              (posts).map((post, index) => {
-                console.log(post)
-                return <PostCard
-                key={index} {...post} pet={post.pet} product={post.product} user={post.user} />
-              }
-                
-              )
+
+            {
+              error ? <h1 className='text-red-500 font-bold'>Somthing Went Wrong</h1> :
+                (isLoadingPosts && posts.length === 0) ?
+                  ([...(new Array(5))].map((_, index) => <PostSkeleton key={index} />)) :
+                  (posts).map((post, index) => {
+                    console.log(post)
+                    return <PostCard
+                      key={index} {...post} pet={post.pet} product={post.product} user={post.user} />
+                  })
             }
+            <div><h4 ref={ref} className='text-transparent'>asda</h4></div>
           </div>
         </ScrollArea>
       }

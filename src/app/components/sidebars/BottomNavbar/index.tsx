@@ -15,7 +15,7 @@ export default function BottomNavbar() {
                         { icon: Home2, link: ROUTES["home-page"] },
                         { icon: Message, link: ROUTES["messages-page"] },
                     ].map(item => <NavItem key={item.link} {...item} />)}
-                <ProfileNavItem  />
+                <ProfileNavItem />
             </ul>
         </nav>
     )

@@ -1,20 +1,12 @@
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { Select, SelectContent, SelectItem, SelectTrigger } from '@/components/ui/select'
 import PostInput from './PostInput'
 import clsx from 'clsx'
 import { useEffect, useRef, useState } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { IoSettingsOutline } from 'react-icons/io5'
+import { CommentsProps } from '@/app/interfaces/postInterface'
 
-interface CommentsProps {
-  userImage: string
-  fullName: string
-  username: string
-  commentContent: string
-  commentId: string
-  createdAt: string
-}
+
 const timeAgo = (timestamp: string) => {
   return formatDistanceToNow(new Date(timestamp), { addSuffix: true })
 }
@@ -30,7 +22,7 @@ const Comment = ({ comment, tag }: { comment: CommentsProps; tag: string }) => {
     if (commentRef.current) {
       setIsOverflowing(commentRef.current.scrollHeight > commentRef.current.clientHeight)
     }
-  }, [comment.commentContent])
+  }, [comment.commentText])
 
   const [menuOpen, setMenuOpen] = useState(false)
 
@@ -43,17 +35,17 @@ const Comment = ({ comment, tag }: { comment: CommentsProps; tag: string }) => {
     <div className={`bg-${tag} min-h-16 rounded-md mb-2 sm:mb-4 items-center p-2 sm:p-4`}>
       <div className="flex h-10 items-center">
         <Avatar className="h-8 w-8">
-          <AvatarImage src={comment.userImage} />
+          <AvatarImage src={comment.user.userImage} />
           <AvatarFallback>
-            {comment.fullName
+            {comment.user.fullName
               .split(' ')
               .map((word) => word[0])
               .join('')}
           </AvatarFallback>
         </Avatar>
         <div className="flex flex-col justify-center ml-2 mt-1 px-0 py-auto gap-1  min-w-8 line-clamp-1">
-          <h1 className="text-header-color font-medium text-xs"> {comment.fullName} </h1>
-          <h2 className="text-sub-header-color font-light text-xs">{comment.username}</h2>
+          <h1 className="text-header-color font-medium text-xs"> {comment.user.fullName} </h1>
+          <h2 className="text-sub-header-color font-light text-xs">{comment.user.username}</h2>
         </div>
         <div className="ml-auto h-full flex flex-col-reverse items-end">
           <small className="ml-3 text-[10px] text-gray-500">
@@ -80,7 +72,7 @@ const Comment = ({ comment, tag }: { comment: CommentsProps; tag: string }) => {
       </div>
       {showEditInput ? (
         <div className="pt-3">
-          <PostInput value={comment.commentContent} setShow = {setShowEditInput} />
+          <PostInput value={comment.commentText} setShow={setShowEditInput} />
         </div>
       ) : (
         <div className="ml-3">
@@ -91,7 +83,7 @@ const Comment = ({ comment, tag }: { comment: CommentsProps; tag: string }) => {
               'line-clamp-none': showRestContent,
             })}
           >
-            {comment.commentContent}
+            {comment.commentText}
           </p>
           {isOverflowing && (
             <p

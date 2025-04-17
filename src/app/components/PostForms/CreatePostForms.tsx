@@ -14,8 +14,13 @@ import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/lib/reduxStore/store'
 
-const PostFormCreation = ({ userInfo }: { userInfo: { fullName: string; userImage: string } }) => {
+const PostFormCreation = () => {
+  const userInfo = useSelector((state: RootState) => state.userInfo)
+
+
   const [selectedTag, setSelectedTag] = useState<{ title: string; id: number }>({ title: '', id: 0 })
   const [dialogOpen, setDialogOpen] = useState(false)
   const tags = [
@@ -49,7 +54,7 @@ const PostFormCreation = ({ userInfo }: { userInfo: { fullName: string; userImag
       description: 'your post has been submitted successfully!',
     })
     form.resetField('postContent')
-    
+
     console.log(data)
   }
   return (
@@ -59,7 +64,7 @@ const PostFormCreation = ({ userInfo }: { userInfo: { fullName: string; userImag
           <div className="flex flex-col space-y-4 mb-1">
             <div className="flex items-center space-x-3">
               <Avatar className="w-12 h-12">
-                <AvatarImage src={userInfo.userImage} alt={`${firstName}'s profile`} />
+                <AvatarImage src={userInfo.userProfileImage} alt={`${firstName}'s profile`} />
                 <AvatarFallback>{initials}</AvatarFallback>
               </Avatar>
               <div className="flex-grow">

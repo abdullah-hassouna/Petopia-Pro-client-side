@@ -1,16 +1,12 @@
-import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import clsx from 'clsx'
-import { useState } from 'react'
-import { formatDistanceToNow } from 'date-fns'
 import { ScrollArea } from '@/components/ui/scroll-area'
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import PostInput from './PostInput'
 import Comment from './SingleComment'
 import { CommentsProps } from '@/app/interfaces/postInterface'
+import { CommentSkeleton } from '@/app/skeleton/CommentSkeleton'
 
 
 
-const Comments = ({ comments, show, tag }: { comments: CommentsProps[]; show: boolean; tag: string }) => {
+const Comments = ({ isLoading, comments, show, tag }: { isLoading: boolean, comments: CommentsProps[]; show: boolean; tag: string }) => {
   return (
     <ScrollArea
       className={clsx('bg-foreground px-2 sm:px-5 box-border rounded-md mx-5 gap-4 transition-all duration-500 ', {
@@ -18,9 +14,11 @@ const Comments = ({ comments, show, tag }: { comments: CommentsProps[]; show: bo
         'h-0 overflow-hidden': !show,
       })}
     >
-      {comments.map((comment, index) => (
-        <Comment comment={comment} tag={tag} key={index} />
-      ))}
+      {isLoading ?
+        (typeof comments === "undefined" && ([...(new Array(5))]).map((_, index) => <CommentSkeleton className='mb-3' key={index} />))
+        : (typeof comments !== "undefined" && comments.map((comment, index) => (
+          <Comment comment={comment} tag={tag} key={index} />
+        )))}
     </ScrollArea>
   )
 }

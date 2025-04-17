@@ -15,7 +15,7 @@ let LSData: { user: UserInfoState } = {
         fullName: "",
         userEmail: "",
         userBio: "",
-        userPhoneNumber: { phoneNumber: "+970", countryNumber: "" },
+        userPhoneNumber: { phoneNumber: "", countryNumber: "+970" },
         userProfileImage: "",
         userCoverImage: "",
         userToken: ""
@@ -30,7 +30,7 @@ const initialUserInfoState: UserInfoState = LSData?.user || {
     userName: "",
     userEmail: "",
     userBio: "",
-    userPhoneNumber: { phoneNumber: "+970", countryNumber: "" },
+    userPhoneNumber: { phoneNumber: "", countryNumber: "+970" },
     userProfileImage: "",
     userCoverImage: "",
     userToken: ""

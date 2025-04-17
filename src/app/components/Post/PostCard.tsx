@@ -7,7 +7,7 @@ import { PostProps } from '@/app/interfaces/postInterface'
 
 
 const PostCard = (props: PostProps) => {
-  const { via, colorScheme } = viaColorClass('help')
+  const { via, colorScheme } = viaColorClass(props.category)
   const { user, } = props
 
   return (
@@ -19,16 +19,16 @@ const PostCard = (props: PostProps) => {
           labelTag={'help'}
           userImage={user.userImage}
           fullName={user.fullName}
-          username={user.username} />
+          username={user?.username} />
 
         <PostContent postDetails={props} />
 
         <PostFooter
           tag={colorScheme}
           postId={props.id}
-          likes={props.likesCount}
-          comments={props.comments}
-          shares={props.sharesCount}
+          likesCount={props.likesCount}
+          commentsCount={props.commentsCount}
+          shares={props.sharesCounts}
           bookmarks={props.bookmarkCount}
           postDetails={props}
         />

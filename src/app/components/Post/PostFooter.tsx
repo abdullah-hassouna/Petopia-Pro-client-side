@@ -11,62 +11,40 @@ import { redirect } from 'next/navigation'
 import { IoSettingsOutline } from 'react-icons/io5'
 import FormDialog from '../PostForms/FormDialog'
 import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuTrigger } from '@/components/ui/dropdown-menu'
-import { CommentsProps, PostDetails } from '@/app/interfaces/postInterface'
-import { useSelector } from 'react-redux'
-import { RootState } from '@/lib/reduxStore/store'
+import { CommentsProps, LikeProps, PostDetails } from '@/app/interfaces/postInterface'
+import callPostComments from '@/apiFetchs/unauth/call-post-comments'
+import callPostLikes from '@/apiFetchs/unauth/call-post-likes'
 
 interface PostFooterProps {
   postId: string
-  likes: number
-  comments: CommentsProps[]
+  likesCount: number
+  commentsCount: number
   bookmarks: number
   shares: number
   tag: string
   postDetails: PostDetails
 }
-const users = [
-  {
-    fullName: 'Haitham Akram',
-    username: 'haitham-Akram',
-    userImage:
-      'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
-  },
-  {
-    fullName: 'Haitham Akram',
-    username: 'haitham-Akram',
-    userImage:
-      'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
-  },
-  {
-    fullName: 'Haitham Akram',
-    username: 'haitham-Akram',
-    userImage:
-      'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
-  },
-  {
-    fullName: 'Haitham Akram',
-    username: 'haitham-Akram',
-    userImage:
-      'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
-  },
-  {
-    fullName: 'Haitham Akram abu lamdi',
-    username: 'haitham-Akram',
-    userImage:
-      'https://lh3.googleusercontent.com/a/ACg8ocKJi4lgnRYwkKuQS6P0-TN_TPPGfkWbKgTjPJS8mV29c5-pXHEaYQ=s96-c-rg-br100',
-  },
-]
 
 
-const PostFooter = (props: PostFooterProps) => {
-  const { postId, likes, comments, bookmarks, shares, tag, postDetails } = props
 
-  const { userInfo, } = useSelector((state: RootState) => state);
+const PostFooter = ({
+  postId,
+  likesCount,
+  commentsCount,
+  bookmarks,
+  shares,
+  tag,
+  postDetails,
+}: PostFooterProps) => {
 
-  const [saved, setSaved] = useState(false)
-  const [liked, setLiked] = useState(false)
-  const [likedCounter, setLikedCounter] = useState(likes)
-  const [savedCounter, setSavedCounter] = useState(bookmarks)
+  const [saved, setSaved] = useState<boolean>(false)
+  const [liked, setLiked] = useState<boolean>(false)
+  const [likedCounter, setLikedCounter] = useState<number>(likesCount)
+  const [savedCounter, setSavedCounter] = useState<number>(bookmarks)
+  const [commentsData, setCommentsData] = useState<CommentsProps[] | undefined>(undefined)
+  const [isCommentsDataLoading, setIsCommentsDataLoading] = useState<boolean>(false)
+  const [likesData, setLikesData] = useState<LikeProps[] | undefined>(undefined)
+  const [isLikesDataLoading, setIsLikesDataLoading] = useState<boolean>(false)
   const [showComments, setShowComments] = useState(false)
   const [isLikeHoverCardActive, setIsLikeHoverCardActive] = useState(false)
   const [isSaveHoverCardActive, setIsSaveHoverCardActive] = useState(false)
@@ -89,12 +67,36 @@ const PostFooter = (props: PostFooterProps) => {
     setLiked(!liked)
     setLikedCounter((prev) => (liked ? prev - 1 : prev + 1))
   }
-  const handleShowComments = () => {
-    setShowComments((prev) => !prev)
+
+  const handleShowComments = async () => {
+    if (commentsData) {
+      setShowComments((prev) => !prev)
+    } else {
+      setIsCommentsDataLoading(prev => !prev)
+      const { comments, error } = await callPostComments(postId)
+      if (!error && comments) {
+        setShowComments((prev) => !prev)
+
+        setTimeout(() => {
+          setIsCommentsDataLoading(prev => !prev)
+          if (typeof commentsData === "undefined")
+            setCommentsData(() => comments)
+        }, 1000)
+      }
+    }
   }
 
-  const handleLikeHoverCardToggle = () => {
-    setIsLikeHoverCardActive(!isLikeHoverCardActive)
+  const handleLikeHoverCardToggle = async () => {
+    if (typeof likesData === "undefined" || likedCounter === 0) {
+      setIsLikesDataLoading(prev => !prev)
+      const { likes, error } = await callPostLikes(postId)
+      if (!error && likes) {
+        setTimeout(() => {
+          setIsLikesDataLoading(prev => !prev)
+          setLikesData(() => likes)
+        }, 1000)
+      }
+    }
   }
 
   const handleSaveHoverCardToggle = () => {
@@ -112,20 +114,22 @@ const PostFooter = (props: PostFooterProps) => {
               variant={liked ? 'Bold' : 'Outline'}
               onClick={handleLikedClick}
             />
+
+            {/* The Likes Conatiner */}
             <HoverCard open={isLikeHoverCardActive} onOpenChange={setIsLikeHoverCardActive}>
-              <HoverCardTrigger onClick={handleLikeHoverCardToggle}>
+              <HoverCardTrigger onMouseOver={handleLikeHoverCardToggle}>
                 <span>
                   {likedCounter}
                   <span className="hidden md:inline ml-2">Like</span>
                 </span>
               </HoverCardTrigger>
-              {isLikeHoverCardActive && <InteractionsHover tag={tag} users={users} />}
+              {isLikeHoverCardActive && <InteractionsHover ex={true} tag={tag} isLoading={isLikesDataLoading} likes={likesData} />}
             </HoverCard>
           </div>
-          <div className="flex gap-1 cursor-pointer" onClick={handleShowComments}>
+          <div className="flex select-none gap-1 cursor-pointer" onClick={handleShowComments}>
             <MessageText size="20" color="var(--whity)" />
             <span>
-              {comments.length}
+              {commentsCount}
               <span className="hidden md:inline ml-2">Comment</span>
             </span>
           </div>
@@ -150,7 +154,7 @@ const PostFooter = (props: PostFooterProps) => {
                   <span className="hidden md:inline ml-2">Saved</span>
                 </span>
               </HoverCardTrigger>
-              {isSaveHoverCardActive && <InteractionsHover tag={tag} users={users} />}
+              {/* {isSaveHoverCardActive && <InteractionsHover tag={tag} users={likesData} />} */}
             </HoverCard>
           </div>
           <div className="flex gap-2 mr-5">
@@ -192,7 +196,8 @@ const PostFooter = (props: PostFooterProps) => {
             </DropdownMenu>
           </div>
         </div>
-        <Comments show={showComments} comments={comments} tag={tag} />
+        <Comments show={showComments} comments={commentsData} tag={tag} isLoading={isCommentsDataLoading} />
+
         <PostComment postId={postId} />
       </div>
       <FormDialog open={dialogOpen} handleClose={handleCloseDialog} tag={{ title: tag, id: 1 }} post={postDetails} />
