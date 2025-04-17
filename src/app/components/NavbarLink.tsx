@@ -11,15 +11,21 @@ type IconType = React.ComponentType<{
     style?: React.CSSProperties;
 }>;
 
-function NavbarLink({ label, Icon, link }: { label: string, Icon: IconType, link: string }) {
+function NavbarLink({ label, Icon, link, onClick }: { label: string, Icon: IconType, link?: string, onClick?: () => void }) {
     const areActive = link == (usePathname())
     const isOpen = useSelector((state: RootState) => state.userSidebar.isOpen);
-
-    // console.log(areActive)
+    const handleAction = (link?: string, onClick?: () => void) => {
+        if (link) {
+          redirect(link); // Redirect if a link is provided
+        }
+        if (onClick) {
+          onClick(); // Execute the onClick handler if provided
+        }
+      };
     return (
-        <li key={label} >
+        <li key={label}  >
             <Button
-                onClick={() => redirect(link)}
+                onClick={() => handleAction(link, onClick)}
                 variant="ghost"
                 className={clsx("w-full justify-start gap-3 font-normal", { "hover:bg-none bg-icon-color": areActive, "justify-start": isOpen, "justify-evenly my-2": !isOpen })}
             >

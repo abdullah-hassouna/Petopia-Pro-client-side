@@ -4,16 +4,16 @@ import { useState } from 'react'
 import { useForm } from 'react-hook-form'
 import { z } from 'zod'
 import { useToast } from '@/hooks/use-toast'
-
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
-
+import { loginService, LoginCredentials } from '@/lib/services/auth/login'
+import { useRouter } from 'next/navigation'
+import { useDispatch } from 'react-redux'
 const LoginForm = () => {
+  const dispatch = useDispatch()
   const { toast } = useToast()
-  const [email, setEmail] = useState('')
-  const [password, setPassword] = useState('')
-  const [error, setError] = useState('')
+  const router = useRouter()
   const [loading, setLoading] = useState(false)
   const formSchema = z.object({
     email: z.string().nonempty('Email is required').email('Invalid email').min(6),
@@ -29,16 +29,24 @@ const LoginForm = () => {
   const handelSubmit = async (data) => {
     setLoading(true)
     try {
-      console.log(data)
-      // await login(data)
+      await loginService.login(data, dispatch)
+
       toast({
         title: 'Login success',
         description: 'You have successfully logged in',
       })
+      router.push('/')
     } catch (error) {
+      let errorMessage = error.response.data.message || 'something went wrong, please try again'
+
+      if (error.response.data.data?.message === 'data and hash arguments required') {
+        errorMessage =
+          'you seems that logged in before with google, try asking for new password, or login with google instead.'
+      }
       toast({
-        title: 'something went wrong',
-        description: error.message,
+        variant: 'destructive',
+        title: 'Login failed.',
+        description: errorMessage,
       })
     }
     setLoading(false)
@@ -68,13 +76,16 @@ const LoginForm = () => {
               <FormLabel className="capitalize">
                 <div className="flex justify-between ">
                   Password
-                  <a href="/forget-password" className="text-primary">
+                  {/* <a href="/forget-password" className="text-primary">
                     forget password
-                  </a>
+                  </a> */}
+                  <button type="button" className="text-primary" onClick={() => router.push('/forget-password')}>
+                    Forget password
+                  </button>
                 </div>
               </FormLabel>
               <FormControl>
-                <Input placeholder="Password" {...field} />
+                <Input placeholder="Password" type="password" {...field} />
               </FormControl>
               <FormMessage />
             </FormItem>

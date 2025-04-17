@@ -19,7 +19,8 @@ export interface IiconBar {
             img?: string,
             header: string,
             paragraph?: string,
-            link: string,
+            link?: string,
+            onClick?: () => void
         }[]
     }[];
     className?: string;
@@ -37,7 +38,7 @@ function IconsBar({ items, className }: IiconBar) {
                         </NavigationMenuTrigger>
                         <NavigationMenuContent key={"content" + ind} >
                             {contents.map((content, ind2) =>
-                                <NavigationMenuLink href={content.link} key={'menu' + ind2}>
+                                <NavigationMenuLink href={content.link} key={'menu' + ind2} onClick={content.onClick} className={cn("flex items-center justify-start gap-2", content.type === 'danger' ? "text-red-500" : "")}>
                                     <div className="flex w-72 h-10 mt-2 justify-between gap-2 my-1 px-2 hover:text-primary-50" >
                                         <img src={content.img} className="h-8 w-8 object-cover rounded-[50%] m-auto" alt={content.img} />
                                         <div className="flex flex-col flex-grow">

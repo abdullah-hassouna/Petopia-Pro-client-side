@@ -17,7 +17,7 @@ const SignupPage = () => {
                   <h1 className="text-4xl font-bold">Forgot your password ?</h1>
                   <ThemeToggle />
                 </div>
-                <p className="mt-3 text-whity">Enter your email to get your OTP</p>
+                <p className="mt-3 text-whity">Enter your email to get reset password link</p>
               </div>
               <ForgetPasswordForm />
             </div>

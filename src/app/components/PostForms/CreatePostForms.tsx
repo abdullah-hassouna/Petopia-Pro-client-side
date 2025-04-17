@@ -13,11 +13,16 @@ import { useToast } from '@/hooks/use-toast'
 import { z } from 'zod'
 import { zodResolver } from '@hookform/resolvers/zod'
 import { useForm } from 'react-hook-form'
-import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form'
+import { Form, FormControl, FormField, FormItem, FormMessage } from '@/components/ui/form'
+import { useSelector } from 'react-redux'
+import { RootState } from '@/lib/reduxStore/store'
 
 const PostFormCreation = ({ userInfo }: { userInfo: { fullName: string; userImage: string } }) => {
   const [selectedTag, setSelectedTag] = useState<{ title: string; id: number }>({ title: '', id: 0 })
   const [dialogOpen, setDialogOpen] = useState(false)
+  // const { userInfo: info } = useSelector((state: RootState) => state)
+    const info = useSelector((state: RootState) => state.userInfo);
+  
   const tags = [
     { title: 'Adoption', id: 0 },
     { title: 'Product', id: 2 },
@@ -26,14 +31,17 @@ const PostFormCreation = ({ userInfo }: { userInfo: { fullName: string; userImag
     { title: 'Help', id: 5 },
     { title: 'Other', id: 6 },
   ]
-  const initials = userInfo.fullName
+  // console.log(info.fullName);
+  const name = info.fullName || 'user'
+  const initials = name
     .split(' ')
     .map((word) => word[0])
     .join('')
-  const firstName = userInfo.fullName.split(' ')[0]
+  const firstName = name.split(' ')[0]
   const handleOpenDialog = () => setDialogOpen(true)
   const handleCloseDialog = () => setDialogOpen(false)
   const { toast } = useToast()
+
   const formSchema = z.object({
     postContent: z.string().nonempty('Content is required.'),
   })
@@ -49,7 +57,7 @@ const PostFormCreation = ({ userInfo }: { userInfo: { fullName: string; userImag
       description: 'your post has been submitted successfully!',
     })
     form.resetField('postContent')
-    
+
     console.log(data)
   }
   return (
@@ -59,7 +67,7 @@ const PostFormCreation = ({ userInfo }: { userInfo: { fullName: string; userImag
           <div className="flex flex-col space-y-4 mb-1">
             <div className="flex items-center space-x-3">
               <Avatar className="w-12 h-12">
-                <AvatarImage src={userInfo.userImage} alt={`${firstName}'s profile`} />
+                <AvatarImage src={info.userProfileImage} alt={`${info.fullName}'s profile`} />
                 <AvatarFallback>{initials}</AvatarFallback>
               </Avatar>
               <div className="flex-grow">

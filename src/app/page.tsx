@@ -5,6 +5,7 @@ import TrindingSidebar from './components/sidebars/TrendingSidebar'
 import PostContainer from './components/Post/PostsContainer'
 import PostFormCreation from './components/PostForms/CreatePostForms'
 import ContainerHeader from './components/Post/PostContainerHeader'
+import withAuth from './components/protected-routes'
 
 function Home() {
   // const dispatch: AppDispatch = useDispatch()
