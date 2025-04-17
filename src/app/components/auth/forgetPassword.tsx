@@ -26,7 +26,6 @@ const ForgetPasswordForm = () => {
   const handelSubmit = async (data) => {
     setLoading(true)
     try {
-      console.log(data)
       await passwords.forget(data)
       toast({
         title: 'submitted successfully',

@@ -1,3 +1,4 @@
+import { AppDispatch, setUser } from '@/lib/reduxStore/store';
 import axios from 'axios';
 import Cookies from 'js-cookie'
 // import { useRouter } from 'next/navigation'
@@ -32,18 +33,28 @@ export interface AuthResponse {
 }
 
 export const signupService = {
-  async signup(userData: SignupCredentials) {
+  async signup(userData: SignupCredentials, dispatch: AppDispatch) {
     try {
-      const username = `${userData.fullName.split(' ').join('').toLowerCase()}${Math.floor(1000 + Math.random() * 9000)}`;
-      const response = await authApi.post('/auth/signup', { ...userData, username });
-      if (response.status !== 201) {
 
-        console.log(response.status);
+      const response = await authApi.post('/auth/signup', { ...userData });
+      if (response.status !== 201) {
         throw new Error('Signup failed');
       }
-      const userInfo = response.data.user;
-      const oldState = localStorage.getItem('reduxState')
-      localStorage.setItem('reduxState', JSON.stringify({ ...JSON.parse(oldState), userInfo: userInfo }))
+      console.log('response', response);
+      const userInfo = response.data.data;
+      const data = {
+        fullName: userInfo.fullName,
+        userName: userInfo.userName ,
+        userEmail: userInfo.email,
+        userBio: userInfo.bio,
+        userPhoneNumber: { phoneNumber: userInfo.phone, countryNumber: "+970" },
+        userProfileImage: userInfo.userImage,
+        userCoverImage: userInfo.profileImage,
+        followingCount: userInfo.followingCount,
+        followerCount: userInfo.followerCount,
+      }
+      dispatch(setUser(data));
+
     } catch (error: any) {
       const errorMessage = error.message || 'Signup failed';
       throw new Error(errorMessage);

@@ -1,14 +1,24 @@
-
 interface UserSidebarOpen {
     isOpen: boolean;
 }
 
-let LSData;
-if (typeof window!.localStorage !== 'undefined') {
-    LSData = Object(localStorage.getItem('reduxState'));
-}
+// Default value for SSR
+const defaultState: UserSidebarOpen = { isOpen: true };
 
-const initialUserSidebarOpen: UserSidebarOpen = LSData.userSidebar || {
-    isOpen: true,
-}
-export default initialUserSidebarOpen
+// Function to load state from localStorage (client-side only)
+const loadStateFromLocalStorage = (): UserSidebarOpen => {
+    if (typeof window !== 'undefined' && window.localStorage) {
+        const savedState = localStorage.getItem('reduxState');
+        if (savedState) {
+            const parsedState = JSON.parse(savedState);
+            return parsedState.userSidebar || defaultState;
+        }
+    }
+    return defaultState;
+};
+
+// Use default state for SSR and load from localStorage on the client
+const initialUserSidebarOpen: UserSidebarOpen =
+    typeof window === 'undefined' ? defaultState : loadStateFromLocalStorage();
+
+export default initialUserSidebarOpen;

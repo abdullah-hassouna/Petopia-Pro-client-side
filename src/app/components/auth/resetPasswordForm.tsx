@@ -12,7 +12,7 @@ import { useParams, useRouter } from 'next/navigation'
 
 const ResetPasswordForm = () => {
   const router = useRouter()
-  const { token } = useParams()
+  const { token } = useParams() 
   const { toast } = useToast()
   const [loading, setLoading] = useState(false)
   const formSchema = z
@@ -40,9 +40,12 @@ const ResetPasswordForm = () => {
   const handelSubmit = async (data) => {
     setLoading(true)
     try {
-      console.log(data)
       const { password } = data
-      await passwords.reset({ password, token })
+      if (typeof token === 'string') {
+        await passwords.reset({ password, token })
+      } else {
+        throw new Error('Invalid token format')
+      }
       toast({
         title: 'reset successfully',
         description: 'Going to the login page',

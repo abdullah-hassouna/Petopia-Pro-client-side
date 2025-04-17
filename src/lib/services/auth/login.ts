@@ -1,5 +1,8 @@
 import axios from 'axios';
 import Cookies from 'js-cookie'
+import { AppDispatch } from '@/lib/reduxStore/store';
+import { setUser, clearUser } from '@/lib/reduxStore/store';
+
 
 const API_URL = 'http://localhost:5000/api/v1/';
 // const API_URL = 'https://your-production-url.com/api/v1/';
@@ -18,28 +21,41 @@ export interface LoginCredentials {
 }
 
 export const loginService = {
-  async login(credentials: LoginCredentials) {
+  async login(credentials: LoginCredentials, dispatch: AppDispatch) {
     const response = await authApi.post('/auth/login', credentials);
     const userInfo = response.data.user;
-    const oldState = localStorage.getItem('reduxState')
-    localStorage.setItem('reduxState', JSON.stringify({ ...JSON.parse(oldState), userInfo: userInfo }))
+    // const oldState = localStorage.getItem('reduxState')
+    const data = {
+      fullName: userInfo.fullName,
+      userName: userInfo.userName || userInfo.fullName,
+      userEmail: userInfo.email,
+      userBio: userInfo.bio,
+      userPhoneNumber: { phoneNumber: userInfo.phone, countryNumber: "+970" },
+      userProfileImage: userInfo.userImage,
+      userCoverImage: userInfo.profileImage,
+      followingCount: userInfo.followingCount,
+      followerCount: userInfo.followerCount,
+    }
+    // localStorage.setItem('reduxState', JSON.stringify({ ...JSON.parse(oldState), userInfo: data }))
+    dispatch(setUser(data));
   },
 
-  logout() {
+  logout(dispatch: AppDispatch) {
     Cookies.remove('token')
-    const oldState = localStorage.getItem('reduxState')
-    localStorage.setItem('reduxState', JSON.stringify({
-      ...JSON.parse(oldState), userInfo: {
-        bio: "user bio",
-        email: "",
-        followerCount: 0,
-        followingCount: 0,
-        isAdmin: false,
-        phone: "",
-        profileImage: "",
-        userImage: "https://i.imgur.com/E0TQFoe.png",
-        userName: "user"
-      }
-    }))
+    dispatch(clearUser());
+    // const oldState = localStorage.getItem('reduxState')
+    // localStorage.setItem('reduxState', JSON.stringify({
+    //   ...JSON.parse(oldState), userInfo: {
+    //     fullName: "",
+    //     userBio: "",
+    //     userEmail: "",
+    //     followerCount: 0,
+    //     followingCount: 0,
+    //     userPhoneNumber: "",
+    //     userProfileImage: "",
+    //     userCoverImage: "",
+    //     userName: ""
+    //   }
+    // }))
   },
 };

@@ -9,8 +9,9 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { loginService, LoginCredentials } from '@/lib/services/auth/login'
 import { useRouter } from 'next/navigation'
-
+import { useDispatch } from 'react-redux'
 const LoginForm = () => {
+  const dispatch = useDispatch()
   const { toast } = useToast()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
@@ -28,7 +29,7 @@ const LoginForm = () => {
   const handelSubmit = async (data) => {
     setLoading(true)
     try {
-      await loginService.login(data)
+      await loginService.login(data, dispatch)
 
       toast({
         title: 'Login success',
@@ -36,10 +37,16 @@ const LoginForm = () => {
       })
       router.push('/')
     } catch (error) {
+      let errorMessage = error.response.data.message || 'something went wrong, please try again'
+
+      if (error.response.data.data?.message === 'data and hash arguments required') {
+        errorMessage =
+          'you seems that logged in before with google, try asking for new password, or login with google instead.'
+      }
       toast({
         variant: 'destructive',
         title: 'Login failed.',
-        description: error.response.data.message,
+        description: errorMessage,
       })
     }
     setLoading(false)

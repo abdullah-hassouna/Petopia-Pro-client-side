@@ -9,11 +9,13 @@ import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
 import { signupService, SignupCredentials } from '@/lib/services/auth/signup'
 import { useRouter } from 'next/navigation'
+import { useDispatch } from 'react-redux'
 
 const signupForm = () => {
   const { toast } = useToast()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const dispatch = useDispatch()
   const formSchema = z
     .object({
       email: z.string().nonempty('Email is required').email('Invalid email').min(6),
@@ -46,16 +48,16 @@ const signupForm = () => {
   const handelSubmit = async (data) => {
     setLoading(true)
     try {
+      const username = `${data.fullName.split(' ').join('').toLowerCase()}${Math.floor(1000 + Math.random() * 9000)}`
+      console.log(data)
       const { confirmPassword, ...signupData } = data
-
-      const response = await signupService.signup(signupData)
-      console.log('Signup response:', response)
+      await signupService.signup({ ...signupData, username }, dispatch)
 
       toast({
         title: 'Signup success',
         description: 'please check your email to verify your account',
       })
-      router.push(`/validate-user?email=${encodeURIComponent(response.data.email)}`)
+      router.push(`/validate-user?email=${encodeURIComponent(signupData.email)}`)
     } catch (error) {
       console.log('Error during signup:', error.message)
       toast({

@@ -14,8 +14,7 @@ const GoogleButton = () => {
     setLoading(true)
     try {
        await signupService.googleAuth()
-      // window.location.href = 'http://localhost:5000/api/v1/auth/google'
-
+     
       toast({
         title: 'Redirecting to Google...',
         description: 'Please wait while we redirect you to Google for authentication.',
@@ -33,6 +32,7 @@ const GoogleButton = () => {
 
   return (
     <Button
+    disabled={loading}
       onClick={handleGoogleAuth}
       variant="ghost"
       className="flex items-center justify-center w-full p-2 mt-4 text-whity font-normal rounded border border-background  hover:bg-opacity-80"
