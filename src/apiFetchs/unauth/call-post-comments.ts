@@ -1,5 +1,5 @@
 import { CommentsProps, } from '@/app/interfaces/postInterface'
-import unAuthedAxios from '@/auth/axios'
+import unAuthedAxios from '@/axios/axiosCall'
 
 async function callPostComments(postId: string) {
     let comments: CommentsProps[] = []

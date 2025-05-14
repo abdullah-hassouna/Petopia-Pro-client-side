@@ -16,7 +16,7 @@ export default function UserInfoSidebar() {
 
     return (
         <div
-            className={cn("max-w-[320px] min-w-[250px] bg-foreground overflow-hidden h-screen hidden md:flex flex-col border-r border-borderColor duration-500", { "w-[15rem] sm:w-[20rem]": isOpen, "w-[5rem]  sm:min-w-[5rem]": !isOpen })}>
+            className={cn("max-xl:fixed z-50 max-w-xs min-w-60 bg-foreground overflow-hidden h-screen hidden md:flex flex-col border-r border-borderColor duration-500", { "w-[15rem] sm:w-[20rem]": isOpen, "w-[5rem]  sm:min-w-[5rem]": !isOpen })}>
             <div className="p-4">
                 <div className="flex justify-between">
                     <img src="/logo.svg" className={cn({ "block": isOpen, "hidden": !isOpen })} height={45} width={45} />
@@ -43,7 +43,7 @@ export default function UserInfoSidebar() {
         <ul className="space-y-1">
           {[
             { Icon: Home2, label: 'Home', link: '/' },
-            { Icon: SearchNormal1, label: 'Explore', link: '/search' },
+            { Icon: SearchNormal1, label: 'For You', link: '/fyp' },
             { Icon: NotificationBing, label: 'Notifications', link: '/notifcations' },
             { Icon: Message, label: 'Messages', link: '/messages' },
             { Icon: Bookmark, label: 'Bookmarks', link: '/bookmark' },

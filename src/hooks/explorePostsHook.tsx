@@ -1,5 +1,5 @@
 import { PostProps } from '@/app/interfaces/postInterface'
-import unAuthedAxios from '@/auth/axios'
+import axiosCall from '@/axios/axiosCall'
 import { useEffect, useState } from 'react'
 
 function callExplorePosts(isInView?: boolean | null) {
@@ -9,14 +9,12 @@ function callExplorePosts(isInView?: boolean | null) {
   const [error, setError] = useState<string | null>(null)
 
   useEffect(() => {
-
-
     const fetchPosts = async (pageNumber: number) => {
       setIsLoadingPosts(true)
       setError(null)
 
       try {
-        const response = await unAuthedAxios.get("posts/explore", { params: { index: pageNumber, count: 8 } })
+        const response = await axiosCall.get("posts/explore", { params: { index: pageNumber, count: 8 } })
         console.log('API Response:', response.data.data.Posts)
 
         if (response.status === 200) {

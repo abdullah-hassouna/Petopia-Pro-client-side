@@ -1,5 +1,5 @@
 import { CommentsProps, } from '@/app/interfaces/postInterface'
-import authedAxios from '@/auth/authedAxios'
+import authedAxios from '@/axios/authedAxios'
 
 async function likePost(postId: string) {
     let comments: CommentsProps[] = []

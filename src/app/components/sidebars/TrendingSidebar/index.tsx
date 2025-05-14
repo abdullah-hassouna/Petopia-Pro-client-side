@@ -106,46 +106,47 @@ export default function TrindingSidebar() {
     ]
 
     return (
-        <div id="trending-bar" className="hidden overflow-y-auto lg:block px-4 py-6 max-w-[300px] lg:w-[20rem] bg-foreground h-screen">
-            <IconsBar className="grid grid-cols-2 lg:flex justify-between" items={ICONS_BAR_DATA} />
-            <div className="mt-4">
-                {/* <h2 className="text-xl font-semibold mb-4">Trending Products</h2> */}
-                <div className="grid grid-cols-1 xl:grid-cols-2 ">
-                    {[
-                        "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
-                        "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
-                        "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
-                        "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg"
-                    ].map((src, index) => (
-                        <div key={index} className=" w-fit h-fit p-1 overflow-hidden">
-                            <img
-                                src={src}
-                                alt={`Trending product ${index + 1}`}
-                                className=" object-cover xl:h-full xl:w-full h-[40%] rounded-2xl m-auto"
-                            />
-                        </div>
-                    ))}
-                </div>
-            </div>
-
-            <div className="mt-4">
-                <h2 className="text-xl font-semibold mb-4">Who to follow</h2>
-                <div className="space-y-4">
-                    {[1, 2, 3, 4, 5].map((_, index) => (
-                        <div key={index} className="flex flex-col lg:flex-row items-center justify-between">
-                            <div className="flex items-center gap-3">
-                                <Avatar>
-                                    <AvatarImage src={`/placeholder.svg?height=40&width=40`} />
-                                    <AvatarFallback>M</AvatarFallback>
-                                </Avatar>
-                                <div>
-                                    <div className="font-medium">Mohammad</div>
-                                    <div className="text-sm text-gray-500">@username</div>
-                                </div>
+        <div id="trending-bar" className="relative hidden overflow-y-auto lg:block min-w-60 max-w-xs lg:w-[20rem] bg-foreground min-h-full">
+            <div className="fixed px-4 py-6">
+                <IconsBar className="grid grid-cols-2 lg:flex justify-between" items={ICONS_BAR_DATA} />
+                <div className="mt-4">
+                    <div className="grid grid-cols-2">
+                        {[
+                            "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
+                            "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
+                            "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg",
+                            "https://www.shutterstock.com/image-photo/funny-dog-licking-lips-tongue-260nw-1761385949.jpg"
+                        ].map((src, index) => (
+                            <div key={index} className=" w-fit h-fit p-1 overflow-hidden">
+                                <img
+                                    src={src}
+                                    alt={`Trending product ${index + 1}`}
+                                    className=" object-cover xl:h-full xl:w-full h-[40%] rounded-2xl m-auto"
+                                />
                             </div>
-                            <AddCircle className="h-6 w-6 xl:block hidden" color="var(--prime-color)" />
-                        </div>
-                    ))}
+                        ))}
+                    </div>
+                </div>
+
+                <div className="mt-4">
+                    <h2 className="text-xl font-semibold mb-4">Who to follow</h2>
+                    <div className="space-y-4">
+                        {[1, 2, 3, 4, 5].map((_, index) => (
+                            <div key={index} className="flex flex-col lg:flex-row items-center justify-between">
+                                <div className="flex items-center gap-3">
+                                    <Avatar>
+                                        <AvatarImage src={`/placeholder.svg?height=40&width=40`} />
+                                        <AvatarFallback>M</AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <div className="font-medium">Mohammad</div>
+                                        <div className="text-sm text-gray-500">@username</div>
+                                    </div>
+                                </div>
+                                <AddCircle className="h-6 w-6 xl:block hidden" color="var(--prime-color)" />
+                            </div>
+                        ))}
+                    </div>
                 </div>
             </div>
         </div>

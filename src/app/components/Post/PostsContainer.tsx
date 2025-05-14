@@ -11,10 +11,10 @@ import { RefObject } from 'react'
 const PostContainer = ({ ref, isLoadingPosts, error, posts }: { ref: RefObject<HTMLDivElement>, isLoadingPosts: boolean, error: any, posts?: PostProps[] | undefined }) => {
 
   return (
-    <div className="w-full px-2 sm:px-3 md:px-4 lg:px-5 pb-5 h-screen">
+    <div className="w-full mx-4 px-5 max-lg:ml-4 ml-32 sm:px-3 md:px-4 lg:px-5 pb-5 h-screen">
       {
         <ScrollArea id="container" className="w-full h-full overflow-auto">
-          <div className="flex flex-col gap-4 md:gap-6">
+          <div className="mx-auto flex flex-col items-center max-w-3xl gap-4 md:gap-6">
 
             {
               error ? <h1 className='text-red-500 font-bold'>Somthing Went Wrong</h1> :

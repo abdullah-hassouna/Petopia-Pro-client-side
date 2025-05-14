@@ -11,7 +11,7 @@ const PostCard = (props: PostProps) => {
   const { user, } = props
 
   return (
-    <div className="relative min-h-[32.771875rem] w-full max-w-2xl mx-4 sm:mx-6 md:mx-8 lg:mx-auto mt-5">
+    <div className="relative min-h-80 w-full mt-5">
       <Card
         className={`bg-gradient-to-b from-foreground ${via} to-foreground border border-background rounded-[8px] box-border z-0`}
       >

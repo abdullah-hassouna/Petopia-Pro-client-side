@@ -1,4 +1,4 @@
-@import '../styles/custom.css';
+@import "../styles/custom.css";
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -12,8 +12,8 @@ button.trigger-no-arrow :nth-last-child(1) {
   display: none;
 }
 
-div#trending-bar > nav,
-div#trending-bar > nav > div {
+div#trending-bar > div > nav,
+div#trending-bar > div > nav > div {
   display: flex;
   width: 100%;
   max-width: 100%;

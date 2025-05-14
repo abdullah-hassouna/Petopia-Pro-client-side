@@ -1,5 +1,5 @@
 import { LikeProps, } from '@/app/interfaces/postInterface'
-import unAuthedAxios from '@/auth/axios'
+import unAuthedAxios from '@/axios/axiosCall'
 
 async function callPostLikes(postId: string) {
     let likes: LikeProps[] = []

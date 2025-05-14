@@ -31,7 +31,7 @@ function IconsBar({ items, className }: IiconBar) {
             <NavigationMenuList className={cn("flex flex-col xl:flex-row gap-2 xl:gap-0 justify-start xl:justify-between w-full", className)}>
                 {items.map(({ contents, icon: Icon, title }, ind) =>
                     <NavigationMenuItem key={"item" + ind}>
-                        <NavigationMenuTrigger className="trigger-no-arrow border bg-foreground border-gray-300 rounded-full p-2 h-auto w-auto" key={"trigger" + ind}>
+                        <NavigationMenuTrigger className="max-lg:w-full trigger-no-arrow border bg-foreground border-gray-300 rounded-full p-2 h-auto w-auto" key={"trigger" + ind}>
                             <Icon className="block" color="var(--icon-color)" style={{ width: "24px", height: "24px" }} />
                             <span className="inline xl:hidden pl-2">{title}</span>
                         </NavigationMenuTrigger>
